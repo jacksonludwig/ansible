@@ -2,8 +2,9 @@
   dnf:
     name: 
       - fedora-workstation-repositories
+    state: present
 
-- name: Enable flathub
+- name: Enable flathub repos
   command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 - name: Enable neovim-nightly COPR repo
@@ -13,6 +14,7 @@
 - name: Install dnf plugins core
   dnf:
     name: dnf-plugins-core
+    state: present
 
 - name: Add brave repo to config manager
   command: 
