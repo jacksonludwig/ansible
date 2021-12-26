@@ -4,3 +4,5 @@ packages:
   - prettier
   - eslint
   - vscode-langservers-extracted
+  - yaml-language-server
+  - pyright
