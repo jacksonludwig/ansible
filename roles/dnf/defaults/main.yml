@@ -1,6 +1,6 @@
 packages:
   - unzip
   - ripgrep
-  - fd
+  - fd-find
   - neovim
   - brave-browser
