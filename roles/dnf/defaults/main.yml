@@ -4,3 +4,4 @@ packages:
   - fd-find
   - neovim
   - brave-browser
+  - nodejs

@@ -15,12 +15,19 @@
     name: dnf-plugins-core
 
 - name: Add brave repo to config manager
-  command: dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
+  command: 
+    cmd: dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
+    warn: false
+  args:
+    creates: /etc/yum.repos.d/brave-browser-rpm-release.s3.brave.com_x86_64_.repo
 
 - name: Import brave repo key
-  command: rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-  
+  rpm_key:
+    state: present
+    key: https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+
 - name: Install dnf packages
   dnf:
     name: "{{ item }}"
+    state: present
   loop: "{{ packages }}"
