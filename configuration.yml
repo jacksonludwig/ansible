@@ -1,0 +1,6 @@
+- name: Set up fedora machine
+  hosts: local
+  roles:
+    - role: dnf
+      tags:
+        - dnf

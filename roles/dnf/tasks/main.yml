@@ -1,0 +1,16 @@
+- name: Enable third party repos
+  dnf:
+    name: 
+      - fedora-workstation-repositories
+
+- name: Enable flathub
+  command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+- name: Enable neovim-nightly COPR repo
+  community.general.copr:
+    name: agriffis/neovim-nightly
+
+- name: Install neovim
+  dnf:
+    name: neovim
+
