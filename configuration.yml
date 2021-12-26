@@ -4,3 +4,6 @@
     - role: dnf
       tags:
         - dnf
+    - role: npm
+      tags:
+        - npm
