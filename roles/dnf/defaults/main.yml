@@ -6,3 +6,4 @@ packages:
   - brave-browser
   - nodejs
   - pip
+  - gcc-c++

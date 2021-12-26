@@ -10,3 +10,6 @@
     - role: github_releases
       tags:
         - github_releases
+    - role: nvim
+      tags:
+        - nvim
