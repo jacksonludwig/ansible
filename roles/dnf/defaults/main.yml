@@ -5,3 +5,4 @@ packages:
   - neovim
   - brave-browser
   - nodejs
+  - pip

@@ -1,0 +1,26 @@
+- name: Install github3py dependency
+  pip:
+    name: github3.py
+
+- name: Get stylua's latest release tag
+  community.general.github_release:
+    user: JohnnyMorganz
+    repo: StyLua
+    action: latest_release
+  register: stylua_latest
+
+- name: Create local bin directory if it doesn't exist
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.local/bin"
+    state: directory
+
+- name: Get stylua binary
+  unarchive:
+        src: "https://github.com/JohnnyMorganz/StyLua/releases/download/{{ stylua_latest['tag'] }}/stylua-{{ stylua_latest['tag'] | regex_replace('^v','') }}-linux.zip"
+        dest: "{{ lookup('env', 'HOME') }}/.local/bin"
+        remote_src: true
+
+- name: Make stylua executable
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.local/bin/stylua"
+    mode: 0777

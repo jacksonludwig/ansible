@@ -7,3 +7,6 @@
     - role: npm
       tags:
         - npm
+    - role: github_releases
+      tags:
+        - github_releases
