@@ -2,3 +2,5 @@ packages:
   - unzip
   - ripgrep
   - fd
+  - neovim
+  - brave-browser
