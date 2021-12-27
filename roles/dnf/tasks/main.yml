@@ -1,64 +1,77 @@
-- name: Enable third party repos
-  become: yes
-  become_user: root
-  become_method: sudo
-  dnf:
-    name: 
-      - fedora-workstation-repositories
-    state: present
+- name: Enable general extra repos
+  block:
+  - name: Enable third party repos
+    become: yes
+    become_user: root
+    become_method: sudo
+    dnf:
+      name: fedora-workstation-repositories
+      state: present
 
-- name: "Enable flathub repos (NOTE: this always shows changed but is idempotent)"
-  command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  - name: "Enable flathub repos (NOTE: this always shows changed but is idempotent)"
+    command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-- name: Enable neovim-nightly COPR repo
-  become: yes
-  become_user: root
-  become_method: sudo
-  community.general.copr:
-    name: agriffis/neovim-nightly
-    state: enabled
+- name: Install brave browser
+  block:
+  - name: Install dnf plugins core
+    become: yes
+    become_user: root
+    become_method: sudo
+    dnf:
+      name: dnf-plugins-core
+      state: present
 
-- name: Install dnf plugins core
-  become: yes
-  become_user: root
-  become_method: sudo
-  dnf:
-    name: dnf-plugins-core
-    state: present
+  - name: Add brave repo to config manager
+    become: yes
+    become_user: root
+    become_method: sudo
+    command: 
+      cmd: dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
+      warn: false
+    args:
+      creates: /etc/yum.repos.d/brave-browser-rpm-release.s3.brave.com_x86_64_.repo
 
-- name: Add brave repo to config manager
-  become: yes
-  become_user: root
-  become_method: sudo
-  command: 
-    cmd: dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
-    warn: false
-  args:
-    creates: /etc/yum.repos.d/brave-browser-rpm-release.s3.brave.com_x86_64_.repo
+  - name: Import brave repo key
+    become: yes
+    become_user: root
+    become_method: sudo
+    rpm_key:
+      state: present
+      key: https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 
-- name: Import brave repo key
-  become: yes
-  become_user: root
-  become_method: sudo
-  rpm_key:
-    state: present
-    key: https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+  - name: Install Brave package
+    become: yes
+    become_user: root
+    become_method: sudo
+    dnf:
+      name: brave-browser
+      state: present
 
-- name: Enable lazygit COPR repo
-  become: yes
-  become_user: root
-  become_method: sudo
-  community.general.copr:
-    name: atim/lazygit
-    state: enabled
+- name: Install lazygit
+  block:
+  - name: Enable lazygit COPR repo
+    become: yes
+    become_user: root
+    become_method: sudo
+    community.general.copr:
+      name: atim/lazygit
+      state: enabled
 
-- name: Add lazygit alias to bashrc
-  lineinfile:
-    path: "{{ lookup('env', 'HOME') }}/.bashrc"
-    line: "alias lg=lazygit"
-    state: present
+  - name: Install lazygit package
+    become: yes
+    become_user: root
+    become_method: sudo
+    dnf:
+      name: lazygit
+      state: present
 
-- name: Install dnf packages
+  - name: Add lazygit alias to bashrc
+    lineinfile:
+      path: "{{ lookup('env', 'HOME') }}/.bashrc"
+      line: "alias lg=lazygit"
+      state: present
+
+- name: Install default dnf packages
   become: yes
   become_user: root
   become_method: sudo

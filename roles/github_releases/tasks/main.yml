@@ -7,45 +7,49 @@
     path: "{{ lookup('env', 'HOME') }}/.local/bin"
     state: directory
 
-- name: Get stylua's latest release tag
-  community.general.github_release:
-    user: JohnnyMorganz
-    repo: StyLua
-    action: latest_release
-  register: stylua_latest
+- name: Install stylua
+  block:
+  - name: Get stylua's latest release tag
+    community.general.github_release:
+      user: JohnnyMorganz
+      repo: StyLua
+      action: latest_release
+    register: stylua_latest
 
-- name: Get stylua binary
-  unarchive:
-    src: "https://github.com/JohnnyMorganz/StyLua/releases/download/{{ stylua_latest['tag'] }}/stylua-{{ stylua_latest['tag'] | regex_replace('^v','') }}-linux.zip"
-    dest: "{{ lookup('env', 'HOME') }}/.local/bin"
-    remote_src: true
+  - name: Get stylua binary
+    unarchive:
+      src: "https://github.com/JohnnyMorganz/StyLua/releases/download/{{ stylua_latest['tag'] }}/stylua-{{ stylua_latest['tag'] | regex_replace('^v','') }}-linux.zip"
+      dest: "{{ lookup('env', 'HOME') }}/.local/bin"
+      remote_src: true
 
-- name: Get sumneko lua's latest release tag
-  community.general.github_release:
-    user: sumneko
-    repo: lua-language-server
-    action: latest_release
-  register: lualanguageserver_latest
+- name: Install sumneko
+  block:
+  - name: Get sumneko lua's latest release tag
+    community.general.github_release:
+      user: sumneko
+      repo: lua-language-server
+      action: latest_release
+    register: lualanguageserver_latest
 
-- name: Create directory for sumneko server if it doesn't exist
-  file:
-    path: "{{ lookup('env', 'HOME') }}/.local/bin/sumneko_lua"
-    state: directory
+  - name: Create directory for sumneko server if it doesn't exist
+    file:
+      path: "{{ lookup('env', 'HOME') }}/.local/bin/sumneko_lua"
+      state: directory
 
-- name: Get lua-language-server files
-  unarchive:
-    src: "https://github.com/sumneko/lua-language-server/releases/download/{{ lualanguageserver_latest['tag'] | regex_replace('^v','') }}/lua-language-server-{{ lualanguageserver_latest['tag'] | regex_replace('^v','') }}-linux-x64.tar.gz"
-    dest: "{{ lookup('env', 'HOME') }}/.local/bin/sumneko_lua"
-    remote_src: true
+  - name: Get lua-language-server files
+    unarchive:
+      src: "https://github.com/sumneko/lua-language-server/releases/download/{{ lualanguageserver_latest['tag'] | regex_replace('^v','') }}/lua-language-server-{{ lualanguageserver_latest['tag'] | regex_replace('^v','') }}-linux-x64.tar.gz"
+      dest: "{{ lookup('env', 'HOME') }}/.local/bin/sumneko_lua"
+      remote_src: true
 
-- name: Create script to run sumneko lua server
-  copy:
-    dest: "{{ lookup('env', 'HOME') }}/.local/bin/lua-language-server"
-    content: |
-      #!/bin/bash
-      exec "{{ lookup('env', 'HOME') }}/.local/bin/sumneko_lua/bin/lua-language-server" "$@"
+  - name: Create script to run sumneko lua server
+    copy:
+      dest: "{{ lookup('env', 'HOME') }}/.local/bin/lua-language-server"
+      content: |
+        #!/bin/bash
+        exec "{{ lookup('env', 'HOME') }}/.local/bin/sumneko_lua/bin/lua-language-server" "$@"
 
-- name: Make sumneko script executable
-  file:
-    path: "{{ lookup('env', 'HOME') }}/.local/bin/lua-language-server"
-    mode: 0755
+  - name: Make sumneko script executable
+    file:
+      path: "{{ lookup('env', 'HOME') }}/.local/bin/lua-language-server"
+      mode: 0755
