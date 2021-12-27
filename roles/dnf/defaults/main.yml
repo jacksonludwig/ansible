@@ -7,3 +7,4 @@ packages:
   - nodejs
   - pip
   - gcc-c++
+  - ninja-build

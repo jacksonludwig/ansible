@@ -384,7 +384,7 @@ require("packer").startup(function(use)
       table.insert(runtime_path, "lua/?/init.lua")
 
       nvim_lsp.sumneko_lua.setup({
-        cmd = { "lua-language-server" },
+        cmd = { "/home/jackson/.local/bin/sumneko_lua/bin/lua-language-server" },
         on_attach = common_on_attach,
         capabilities = common_capabilities,
         settings = {
