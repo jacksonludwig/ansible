@@ -1,6 +1,7 @@
 - name: Install github3py dependency
   pip:
     name: github3.py
+    state: present
 
 - name: Create local bin directory if it doesn't exist
   file:
