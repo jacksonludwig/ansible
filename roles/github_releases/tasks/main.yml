@@ -23,6 +23,11 @@
       dest: "{{ lookup('env', 'HOME') }}/.local/bin"
       remote_src: true
 
+  - name: Make stylua executable
+    file:
+      path: "{{ lookup('env', 'HOME') }}/.local/bin/stylua"
+      mode: 0755
+
 - name: Install sumneko
   block:
   - name: Get sumneko lua's latest release tag
