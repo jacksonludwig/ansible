@@ -13,3 +13,6 @@
     - role: nvim
       tags:
         - nvim
+    - role: flatpaks
+      tags:
+        - flatpaks
