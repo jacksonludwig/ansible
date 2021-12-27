@@ -6,3 +6,4 @@ packages:
   - pip
   - gcc-c++
   - ninja-build
+  - toolbox

@@ -1,0 +1,5 @@
+  - name: Symlink bootstrap script
+    file:
+      src: "{{ dotfiles_home }}/bin/dot-bootstrap"
+      dest: "{{ lookup('env', 'HOME') }}/.local/bin/dot-bootstrap"
+      state: link

@@ -16,3 +16,6 @@
     - role: flatpaks
       tags:
         - flatpaks
+    - role: bin
+      tags:
+        - bin
