@@ -12,4 +12,4 @@ if ! [ -x "$(command -v ansible)" ]; then
   sudo dnf install ansible ansible-collection-community-general
 fi
 
-ansible-playbook -i "${dots}/hosts" "${dots}/configuration.yml" --tags $tags
+ansible-playbook -i "${dots}/hosts" "${dots}/configuration.yml" --ask-become-pass --tags $tags

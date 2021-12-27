@@ -6,7 +6,6 @@
   file:
     path: "{{ lookup('env', 'HOME') }}/.local/bin"
     state: directory
-    owner: "{{ lookup('env', 'USER') }}"
 
 - name: Get stylua's latest release tag
   community.general.github_release:
@@ -20,12 +19,6 @@
     src: "https://github.com/JohnnyMorganz/StyLua/releases/download/{{ stylua_latest['tag'] }}/stylua-{{ stylua_latest['tag'] | regex_replace('^v','') }}-linux.zip"
     dest: "{{ lookup('env', 'HOME') }}/.local/bin"
     remote_src: true
-
-- name: Make stylua executable and change ownership to user
-  file:
-    path: "{{ lookup('env', 'HOME') }}/.local/bin/stylua"
-    owner: "{{ lookup('env', 'USER') }}"
-    mode: 0755
 
 - name: Get sumneko lua's latest release tag
   community.general.github_release:
@@ -52,11 +45,7 @@
       #!/bin/bash
       exec "{{ lookup('env', 'HOME') }}/.local/bin/sumneko_lua/bin/lua-language-server" "$@"
 
-- name: Make sumneko executable and change ownership to user
+- name: Make sumneko script executable
   file:
     path: "{{ lookup('env', 'HOME') }}/.local/bin/lua-language-server"
-    owner: "{{ lookup('env', 'USER') }}"
     mode: 0755
-
-- name: Give user ownership of sumneko files
-  command: chown -R "{{ lookup('env', 'USER') }}" "{{ lookup('env', 'HOME') }}/.local/bin/sumneko_lua"
