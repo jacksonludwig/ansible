@@ -1,5 +1,0 @@
-- name: Symlink .bashrc
-  file:
-    src: "{{ dotfiles_home }}/roles/bash/bashrc"
-    dest: "{{ lookup('env', 'HOME') }}/.bashrc"
-    state: link

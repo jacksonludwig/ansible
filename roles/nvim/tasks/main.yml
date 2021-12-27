@@ -30,3 +30,9 @@
     src: "{{ dotfiles_home }}/roles/nvim/ftplugin/help.vim"
     dest: "{{ lookup('env', 'HOME') }}/.config/nvim/ftplugin/help.vim"
     state: link
+
+- name: Set editor to nvim
+  lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.bashrc"
+    line: export EDITOR=nvim
+    state: present

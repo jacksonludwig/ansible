@@ -52,6 +52,12 @@
     name: atim/lazygit
     state: enabled
 
+- name: Add lazygit alias to bashrc
+  lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.bashrc"
+    line: "alias lg=lazygit"
+    state: present
+
 - name: Install dnf packages
   become: yes
   become_user: root
