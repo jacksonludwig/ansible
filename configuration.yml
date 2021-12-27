@@ -13,3 +13,6 @@
     - role: nvim
       tags:
         - nvim
+    - role: bash
+      tags:
+        - bash
