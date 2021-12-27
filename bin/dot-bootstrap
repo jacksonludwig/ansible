@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -e
+
+dots=~/ansible
+tags="$1"
+
+if [ -z $tags ]; then
+  tags="all"
+fi
+
+if ! [ -x "$(command -v ansible)" ]; then
+  sudo dnf install ansible ansible-collection-community-general
+fi
+
+ansible-playbook -i "${dots}/hosts" "${dots}/configuration.yml" --tags $tags
