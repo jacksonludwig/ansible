@@ -71,6 +71,19 @@
       line: "alias lg=lazygit"
       state: present
 
+- name: Enable appindicators for gnome
+  block:
+    - name: Install the appindicator extension
+      become: yes
+      become_user: root
+      become_method: sudo
+      dnf:
+        name: gnome-shell-extension-appindicator
+        state: present
+
+    - name: Enable the appindicator extension
+      command: gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
+
 - name: Install default dnf packages
   become: yes
   become_user: root
