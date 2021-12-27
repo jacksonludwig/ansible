@@ -8,8 +8,13 @@
       name: fedora-workstation-repositories
       state: present
 
-  - name: "Enable flathub repos (NOTE: this always shows changed but is idempotent)"
+  - name: Check flatpak remotes
+    command: flatpak remotes
+    register: flatpak_remotes
+
+  - name: "Enable flathub repos"
     command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    when: "'flathub' not in flatpak_remotes.stdout"
 
 - name: Install brave browser
   block:
@@ -81,8 +86,13 @@
         name: gnome-shell-extension-appindicator
         state: present
 
+    - name: Check if appindicator enabled
+      command: gsettings get org.gnome.shell enabled-extensions
+      register: appindicators_info
+
     - name: Enable the appindicator extension
       command: gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
+      when: "'appindicatorsupport' not in appindicators_info.stdout"
 
 - name: Install default dnf packages
   become: yes
