@@ -11,6 +11,7 @@
   - name: Check flatpak remotes
     command: flatpak remotes
     register: flatpak_remotes
+    changed_when: false
 
   - name: "Enable flathub repos"
     command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -89,6 +90,7 @@
     - name: Check if appindicator enabled
       command: gsettings get org.gnome.shell enabled-extensions
       register: appindicators_info
+      changed_when: false
 
     - name: Enable the appindicator extension
       command: gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
