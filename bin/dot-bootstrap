@@ -5,7 +5,8 @@ dots=~/ansible
 tags="$1"
 
 if [ -z $tags ]; then
-  tags="all"
+  echo "at least one tag must be given, e.g. 'dnf,npm' or 'all'"
+  exit 1
 fi
 
 if ! [ -x "$(command -v ansible)" ]; then

@@ -7,7 +7,7 @@
       - fedora-workstation-repositories
     state: present
 
-- name: Enable flathub repos
+- name: "Enable flathub repos (NOTE: this always shows changed but is idempotent)"
   command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 - name: Enable neovim-nightly COPR repo
@@ -16,6 +16,7 @@
   become_method: sudo
   community.general.copr:
     name: agriffis/neovim-nightly
+    state: enabled
 
 - name: Install dnf plugins core
   become: yes
@@ -42,6 +43,14 @@
   rpm_key:
     state: present
     key: https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+
+- name: Enable lazygit COPR repo
+  become: yes
+  become_user: root
+  become_method: sudo
+  community.general.copr:
+    name: atim/lazygit
+    state: enabled
 
 - name: Install dnf packages
   become: yes

@@ -8,3 +8,4 @@ packages:
   - pip
   - gcc-c++
   - ninja-build
+  - lazygit
