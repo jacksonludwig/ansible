@@ -24,7 +24,7 @@
 - name: Make stylua executable and change ownership to user
   file:
     path: "{{ lookup('env', 'HOME') }}/.local/bin/stylua"
-    owner: jackson
+    owner: "{{ lookup('env', 'USER') }}"
     mode: 0755
 
 - name: Get sumneko lua's latest release tag
@@ -55,7 +55,7 @@
 - name: Make sumneko executable and change ownership to user
   file:
     path: "{{ lookup('env', 'HOME') }}/.local/bin/lua-language-server"
-    owner: jackson
+    owner: "{{ lookup('env', 'USER') }}"
     mode: 0755
 
 - name: Give user ownership of sumneko files
