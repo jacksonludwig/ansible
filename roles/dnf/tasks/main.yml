@@ -79,7 +79,6 @@
     - name: Check if appindicator enabled
       command: gsettings get org.gnome.shell enabled-extensions
       register: appindicators_info
-      changed_when: false
 
     - name: Enable the appindicator extension
       command: gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com

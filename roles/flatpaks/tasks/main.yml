@@ -1,7 +1,6 @@
 - name: Check flatpak remotes
   command: flatpak remotes
   register: flatpak_remotes
-  changed_when: false
 
 - name: Enable flathub repos
   command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
