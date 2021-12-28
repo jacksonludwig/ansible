@@ -1,3 +1,12 @@
+- name: Check flatpak remotes
+  command: flatpak remotes
+  register: flatpak_remotes
+  changed_when: false
+
+- name: Enable flathub repos
+  command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  when: "'flathub' not in flatpak_remotes.stdout"
+
 - name: Install flatpak packages
   community.general.flatpak:
     name: "{{ item }}"

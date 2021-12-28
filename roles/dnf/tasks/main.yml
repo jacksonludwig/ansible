@@ -1,21 +1,10 @@
-- name: Enable general extra repos
-  block:
-  - name: Enable third party repos
-    become: yes
-    become_user: root
-    become_method: sudo
-    dnf:
-      name: fedora-workstation-repositories
-      state: present
-
-  - name: Check flatpak remotes
-    command: flatpak remotes
-    register: flatpak_remotes
-    changed_when: false
-
-  - name: "Enable flathub repos"
-    command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    when: "'flathub' not in flatpak_remotes.stdout"
+- name: Enable third party repos
+  become: yes
+  become_user: root
+  become_method: sudo
+  dnf:
+    name: fedora-workstation-repositories
+    state: present
 
 - name: Install brave browser
   block:
