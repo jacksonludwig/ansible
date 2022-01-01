@@ -9,3 +9,5 @@ packages:
   - clang
   - clang-tools-extra
   - toolbox
+  - glib2-devel
+  - bear
