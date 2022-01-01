@@ -1,9 +1,9 @@
 - name: Set up fedora machine
   hosts: local
   roles:
-    - role: dnf
+    - role: ostree
       tags:
-        - dnf
+        - ostree
     - role: npm
       tags:
         - npm
