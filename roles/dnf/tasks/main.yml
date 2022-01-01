@@ -84,6 +84,24 @@
 #      command: gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
 #      when: "'appindicatorsupport' not in appindicators_info.stdout"
 
+- name: Install Iosevka fonts
+  block:
+    - name: Enable iosevka COPR repo
+      become: yes
+      become_user: root
+      become_method: sudo
+      community.general.copr:
+        name: peterwu/iosevka 
+        state: enabled
+
+    - name: Install Iosevka package
+      become: yes
+      become_user: root
+      become_method: sudo
+      dnf:
+        name: iosevka-term-ss04-fonts
+        state: present
+
 - name: Install default dnf packages
   become: yes
   become_user: root
