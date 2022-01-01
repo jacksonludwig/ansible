@@ -11,3 +11,5 @@ packages:
   - toolbox
   - glib2-devel
   - bear
+  - black
+  - python-isort
