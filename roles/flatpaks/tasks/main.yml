@@ -1,13 +1,11 @@
-- name: Check flatpak remotes
-  command: flatpak remotes
-  register: flatpak_remotes
-
-- name: Enable flathub repos
+- name: Add the flathub flatpak repository if needed
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
   become: yes
   become_user: root
   become_method: sudo
-  command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-  when: "'flathub' not in flatpak_remotes.stdout"
 
 - name: Install flatpak packages
   community.general.flatpak:
