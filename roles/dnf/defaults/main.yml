@@ -6,5 +6,5 @@ packages:
   - pip
   - gcc-c++
   - ninja-build
-  - toolbox
+  - clang
   - clang-tools-extra
