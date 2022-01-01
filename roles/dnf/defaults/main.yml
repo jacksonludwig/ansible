@@ -8,3 +8,4 @@ packages:
   - ninja-build
   - clang
   - clang-tools-extra
+  - toolbox
