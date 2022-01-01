@@ -1,0 +1,13 @@
+- name: Install kitty package
+  become: yes
+  become_user: root
+  become_method: sudo
+  dnf:
+    name: kitty
+    state: present
+
+- name: Symlink kitty config
+  file:
+    src: "{{ dotfiles_home }}/roles/kitty/kitty.conf"
+    dest: "{{ lookup('env', 'HOME') }}/.config/kitty/kitty.conf"
+    state: link

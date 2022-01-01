@@ -9,4 +9,3 @@ packages:
   - clang
   - clang-tools-extra
   - toolbox
-  - kitty

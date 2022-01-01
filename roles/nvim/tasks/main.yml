@@ -16,6 +16,14 @@
       name: neovim
       state: present
 
+  - name: Install pynvim
+    become: yes
+    become_user: root
+    become_method: sudo
+    dnf:
+      name: python-neovim
+      state: present
+
 - name: Set up nvim configuration
   block:
   - name: Create nvim config dir if needed

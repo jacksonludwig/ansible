@@ -19,3 +19,6 @@
     - role: bin
       tags:
         - bin
+    - role: kitty
+      tags:
+        - kitty
