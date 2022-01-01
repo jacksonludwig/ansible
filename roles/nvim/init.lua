@@ -2,7 +2,6 @@
 local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 local packer_bootstrap = nil
-
 if fn.empty(fn.glob(install_path)) > 0 then
   packer_bootstrap = fn.system({
     "git",
@@ -88,6 +87,7 @@ require("packer").startup(function(use)
 
   use({
     "catppuccin/nvim",
+    as = "catpuccin",
     config = function()
       require("catppuccin").setup({
         styles = {
@@ -108,14 +108,10 @@ require("packer").startup(function(use)
   })
 
   use({
-    "nvim-telescope/telescope-fzf-native.nvim",
-    run = "make",
-  })
-
-  use({
     "nvim-telescope/telescope.nvim",
     requires = {
       "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-fzf-native.nvim",
     },
     config = function()
       local telescope = require("telescope")
@@ -374,6 +370,25 @@ require("packer").startup(function(use)
 
       nvim_lsp.jsonls.setup({
         on_attach = common_on_attach,
+        capabilities = common_capabilities,
+        flags = {
+          debounce_text_changes = 200,
+        },
+      })
+
+      nvim_lsp.clangd.setup({
+        on_attach = function(client, bufnr)
+          common_on_attach(client, bufnr)
+
+          client.resolved_capabilities.document_formatting = true
+          vim.api.nvim_buf_set_keymap(
+            bufnr,
+            "n",
+            "<leader>z",
+            "<cmd>lua vim.lsp.buf.formatting()<CR>",
+            { noremap = true, silent = true }
+          )
+        end,
         capabilities = common_capabilities,
         flags = {
           debounce_text_changes = 200,

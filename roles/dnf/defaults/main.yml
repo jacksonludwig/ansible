@@ -7,3 +7,4 @@ packages:
   - gcc-c++
   - ninja-build
   - toolbox
+  - clang-tools-extra
