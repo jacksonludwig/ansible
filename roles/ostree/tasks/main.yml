@@ -44,13 +44,13 @@
 
 - name: Install lazygit
   block:
-  - name: Enable lazygit COPR repo
-    become: yes
-    become_user: root
-    become_method: sudo
-    community.general.copr:
-      name: atim/lazygit
-      state: enabled
+  # - name: Enable lazygit COPR repo
+  #   become: yes
+  #   become_user: root
+  #   become_method: sudo
+  #   community.general.copr:
+  #     name: atim/lazygit
+  #     state: enabled
 
   - name: Install lazygit package
     become: yes

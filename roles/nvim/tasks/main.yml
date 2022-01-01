@@ -1,12 +1,12 @@
 - name: Install nvim package
   block:
-  - name: Enable neovim-nightly COPR repo
-    become: yes
-    become_user: root
-    become_method: sudo
-    community.general.copr:
-      name: agriffis/neovim-nightly
-      state: enabled
+  # - name: Enable neovim-nightly COPR repo
+  #   become: yes
+  #   become_user: root
+  #   become_method: sudo
+  #   community.general.copr:
+  #     name: agriffis/neovim-nightly
+  #     state: enabled
 
   - name: Install neovim package
     become: yes
