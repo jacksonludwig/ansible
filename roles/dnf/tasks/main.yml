@@ -99,7 +99,7 @@
       become_user: root
       become_method: sudo
       dnf:
-        name: iosevka-term-ss04-fonts
+        name: iosevka-fixed-fonts
         state: present
 
 - name: Install default dnf packages
