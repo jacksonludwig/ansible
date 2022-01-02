@@ -31,6 +31,11 @@ require("packer").startup(function(use)
   })
 
   use({
+    "elixir-editors/vim-elixir",
+    ft = { "elixir" },
+  })
+
+  use({
     "chemzqm/vim-jsx-improve",
   })
 
@@ -111,7 +116,7 @@ require("packer").startup(function(use)
     "nvim-telescope/telescope.nvim",
     requires = {
       "nvim-lua/plenary.nvim",
-      { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
+      { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
     },
     config = function()
       local telescope = require("telescope")
@@ -389,6 +394,15 @@ require("packer").startup(function(use)
             { noremap = true, silent = true }
           )
         end,
+        capabilities = common_capabilities,
+        flags = {
+          debounce_text_changes = 200,
+        },
+      })
+
+      nvim_lsp.elixirls.setup({
+        cmd = { "/home/jackson/.local/bin/elixirls/language_server.sh" },
+        on_attach = common_on_attach,
         capabilities = common_capabilities,
         flags = {
           debounce_text_changes = 200,

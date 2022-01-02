@@ -13,3 +13,5 @@ packages:
   - bear
   - black
   - python-isort
+  - erlang
+  - elixir
