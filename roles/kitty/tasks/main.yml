@@ -6,6 +6,11 @@
     name: kitty
     state: present
 
+- name: Create kitty config dir if needed
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.config/kitty"
+    state: directory
+
 - name: Symlink kitty config
   file:
     src: "{{ dotfiles_home }}/roles/kitty/kitty.conf"
