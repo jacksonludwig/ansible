@@ -18,6 +18,4 @@ fi
 
 ansible-playbook -i "${dots}/hosts" "${dots}/configuration.yml" --ask-become-pass --tags $tags
 
-if [ "$first_run" = true ]; then
-  source "${HOME}/.bashrc"
-fi
+source "${HOME}/.bashrc"
