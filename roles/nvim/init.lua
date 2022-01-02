@@ -400,10 +400,17 @@ require("packer").startup(function(use)
         },
       })
 
+      local path_to_elixirls = vim.fn.expand("~/.local/bin/elixirls/language_server.sh")
       nvim_lsp.elixirls.setup({
-        cmd = { "/home/jackson/.local/bin/elixirls/language_server.sh" },
+        cmd = { path_to_elixirls },
         on_attach = common_on_attach,
         capabilities = common_capabilities,
+        settings = {
+          elixirLS = {
+            dialyzerEnabled = false,
+            fetchDeps = false,
+          }
+        },
         flags = {
           debounce_text_changes = 200,
         },
