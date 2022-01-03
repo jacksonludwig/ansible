@@ -269,6 +269,16 @@ require("packer").startup(function(use)
         vim.lsp.protocol.make_client_capabilities()
       )
 
+      local bind_lsp_format = function(bufnr)
+        vim.api.nvim_buf_set_keymap(
+          bufnr,
+          "n",
+          "<leader>z",
+          "<cmd>lua vim.lsp.buf.formatting()<CR>",
+          { noremap = true, silent = true }
+        )
+      end
+
       local null_ls = require("null-ls")
 
       null_ls.setup({
@@ -290,13 +300,7 @@ require("packer").startup(function(use)
           }),
         },
         on_attach = function(_, bufnr)
-          vim.api.nvim_buf_set_keymap(
-            bufnr,
-            "n",
-            "<leader>z",
-            "<cmd>lua vim.lsp.buf.formatting()<CR>",
-            { noremap = true, silent = true }
-          )
+          bind_lsp_format(bufnr)
         end,
       })
 
@@ -386,13 +390,7 @@ require("packer").startup(function(use)
           common_on_attach(client, bufnr)
 
           client.resolved_capabilities.document_formatting = true
-          vim.api.nvim_buf_set_keymap(
-            bufnr,
-            "n",
-            "<leader>z",
-            "<cmd>lua vim.lsp.buf.formatting()<CR>",
-            { noremap = true, silent = true }
-          )
+          bind_lsp_format(bufnr)
         end,
         capabilities = common_capabilities,
         flags = {
@@ -403,13 +401,18 @@ require("packer").startup(function(use)
       local path_to_elixirls = vim.fn.expand("~/.local/bin/elixirls/language_server.sh")
       nvim_lsp.elixirls.setup({
         cmd = { path_to_elixirls },
-        on_attach = common_on_attach,
+        on_attach = function(client, bufnr)
+          common_on_attach(client, bufnr)
+
+          client.resolved_capabilities.document_formatting = true
+          bind_lsp_format(bufnr)
+        end,
         capabilities = common_capabilities,
         settings = {
           elixirLS = {
             dialyzerEnabled = false,
             fetchDeps = false,
-          }
+          },
         },
         flags = {
           debounce_text_changes = 200,
