@@ -90,25 +90,33 @@ require("packer").startup(function(use)
     end,
   })
 
+  -- use({
+  --   "catppuccin/nvim",
+  --   as = "catpuccin",
+  --   config = function()
+  --     require("catppuccin").setup({
+  --       styles = {
+  --         comments = "italic",
+  --         functions = "NONE",
+  --         keywords = "NONE",
+  --         strings = "NONE",
+  --         variables = "NONE",
+  --       },
+  --       integrations = {
+  --         telescope = true,
+  --         markdown = true,
+  --         cmp = true,
+  --       },
+  --     })
+  --     vim.cmd("colorscheme catppuccin")
+  --   end,
+  -- })
+
   use({
-    "catppuccin/nvim",
-    as = "catpuccin",
+    "mcchrish/zenbones.nvim",
+    requires = "rktjmp/lush.nvim",
     config = function()
-      require("catppuccin").setup({
-        styles = {
-          comments = "italic",
-          functions = "NONE",
-          keywords = "NONE",
-          strings = "NONE",
-          variables = "NONE",
-        },
-        integrations = {
-          telescope = true,
-          markdown = true,
-          cmp = true,
-        },
-      })
-      vim.cmd("colorscheme catppuccin")
+      vim.cmd("colorscheme zenburned")
     end,
   })
 
