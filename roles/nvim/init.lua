@@ -91,32 +91,32 @@ require("packer").startup(function(use)
   })
 
   -- use({
-  --   "catppuccin/nvim",
-  --   as = "catpuccin",
+  --   "mcchrish/zenbones.nvim",
+  --   requires = "rktjmp/lush.nvim",
   --   config = function()
-  --     require("catppuccin").setup({
-  --       styles = {
-  --         comments = "italic",
-  --         functions = "NONE",
-  --         keywords = "NONE",
-  --         strings = "NONE",
-  --         variables = "NONE",
-  --       },
-  --       integrations = {
-  --         telescope = true,
-  --         markdown = true,
-  --         cmp = true,
-  --       },
-  --     })
-  --     vim.cmd("colorscheme catppuccin")
+  --     vim.cmd("colorscheme zenburned")
   --   end,
   -- })
 
   use({
-    "mcchrish/zenbones.nvim",
-    requires = "rktjmp/lush.nvim",
+    "marko-cerovac/material.nvim",
     config = function()
-      vim.cmd("colorscheme zenburned")
+      vim.g.material_style = "darker"
+
+      require("material").setup({
+        contrast = {
+          floating_windows = true,
+        },
+        contrast_filetypes = {
+          "packer",
+          "qf",
+        },
+        disable = {
+          eob_lines = false,
+        },
+      })
+
+      vim.cmd("colorscheme material")
     end,
   })
 
