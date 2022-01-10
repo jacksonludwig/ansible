@@ -26,11 +26,6 @@ require("packer").startup(function(use)
   })
 
   use({
-    "LnL7/vim-nix",
-    ft = { "nix" },
-  })
-
-  use({
     "elixir-editors/vim-elixir",
     ft = { "elixir" },
   })
@@ -198,7 +193,6 @@ require("packer").startup(function(use)
           "c",
           "lua",
           "python",
-          "nix",
           "yaml",
           "bash",
           "comment",
@@ -296,9 +290,6 @@ require("packer").startup(function(use)
           }),
           null_ls.builtins.formatting.stylua.with({
             filetypes = { "lua" },
-          }),
-          null_ls.builtins.formatting.nixfmt.with({
-            filetypes = { "nix" },
           }),
           null_ls.builtins.formatting.black.with({
             filetypes = { "python" },
