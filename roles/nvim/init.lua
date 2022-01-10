@@ -32,6 +32,7 @@ require("packer").startup(function(use)
 
   use({
     "chemzqm/vim-jsx-improve",
+    ft = { "javascriptreact" },
   })
 
   use({
