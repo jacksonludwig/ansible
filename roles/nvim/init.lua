@@ -86,14 +86,6 @@ require("packer").startup(function(use)
     end,
   })
 
-  -- use({
-  --   "mcchrish/zenbones.nvim",
-  --   requires = "rktjmp/lush.nvim",
-  --   config = function()
-  --     vim.cmd("colorscheme zenburned")
-  --   end,
-  -- })
-
   use({
     "marko-cerovac/material.nvim",
     config = function()
@@ -124,14 +116,15 @@ require("packer").startup(function(use)
     },
     config = function()
       local telescope = require("telescope")
+      local opts = { theme = "dropdown", disable_devicons = true }
 
       telescope.setup({
         pickers = {
-          find_files = { theme = "dropdown", disable_devicons = true },
-          buffers = { theme = "dropdown", disable_devicons = true },
-          oldfiles = { theme = "dropdown", disable_devicons = true },
-          grep_string = { theme = "dropdown", disable_devicons = true },
-          live_grep = { theme = "dropdown", disable_devicons = true },
+          find_files = opts,
+          buffers = opts,
+          oldfiles = opts,
+          grep_string = opts,
+          live_grep = opts,
         },
         extensions = {
           fzf = {
@@ -227,11 +220,24 @@ require("packer").startup(function(use)
   })
 
   use({
+    "stevearc/dressing.nvim",
+    config = function()
+      require("dressing").setup({
+        select = {
+          backend = { "telescope", "builtin" },
+          telescope = {
+            theme = "dropdown",
+          },
+        },
+      })
+    end,
+  })
+
+  use({
     "neovim/nvim-lspconfig",
     requires = {
       "jose-elias-alvarez/nvim-lsp-ts-utils",
       "jose-elias-alvarez/null-ls.nvim",
-      "stevearc/dressing.nvim",
     },
     config = function()
       local nvim_lsp = require("lspconfig")
