@@ -26,13 +26,14 @@ require("packer").startup(function(use)
   })
 
   use({
-    "elixir-editors/vim-elixir",
-    ft = { "elixir" },
-  })
-
-  use({
-    "chemzqm/vim-jsx-improve",
-    ft = { "javascriptreact" },
+    {
+      "elixir-editors/vim-elixir",
+      ft = { "elixir" },
+    },
+    {
+      "chemzqm/vim-jsx-improve",
+      ft = { "javascriptreact" },
+    },
   })
 
   use({
