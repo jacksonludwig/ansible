@@ -43,6 +43,10 @@ require("packer").startup(function(use)
     end,
   })
 
+  use ({
+    "elihunter173/dirbuf.nvim"
+  })
+
   use({
     "nvim-lualine/lualine.nvim",
     requires = { "arkav/lualine-lsp-progress" },
@@ -99,6 +103,7 @@ require("packer").startup(function(use)
         contrast_filetypes = {
           "packer",
           "qf",
+          "dirbuf",
         },
         disable = {
           eob_lines = false,
