@@ -221,20 +221,6 @@ require("packer").startup(function(use)
   })
 
   use({
-    "stevearc/dressing.nvim",
-    config = function()
-      require("dressing").setup({
-        select = {
-          backend = { "telescope", "builtin" },
-          telescope = {
-            theme = "dropdown",
-          },
-        },
-      })
-    end,
-  })
-
-  use({
     "neovim/nvim-lspconfig",
     requires = {
       "jose-elias-alvarez/nvim-lsp-ts-utils",
