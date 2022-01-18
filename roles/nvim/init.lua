@@ -369,6 +369,14 @@ require("packer").startup(function(use)
         },
       })
 
+      nvim_lsp.gopls.setup({
+        on_attach = common_on_attach,
+        capabilities = common_capabilities,
+        flags = {
+          debounce_text_changes = 200,
+        },
+      })
+
       nvim_lsp.clangd.setup({
         on_attach = function(client, bufnr)
           common_on_attach(client, bufnr)
