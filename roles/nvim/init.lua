@@ -370,7 +370,12 @@ require("packer").startup(function(use)
       })
 
       nvim_lsp.gopls.setup({
-        on_attach = common_on_attach,
+        on_attach = function(client, bufnr)
+          common_on_attach(client, bufnr)
+
+          client.resolved_capabilities.document_formatting = true
+          bind_lsp_format(bufnr)
+        end,
         capabilities = common_capabilities,
         flags = {
           debounce_text_changes = 200,
