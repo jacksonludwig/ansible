@@ -91,26 +91,12 @@ require("packer").startup(function(use)
     end,
   })
 
-  use({
-    "marko-cerovac/material.nvim",
+  use ({
+    "lifepillar/vim-gruvbox8",
     config = function()
-      vim.g.material_style = "darker"
-
-      require("material").setup({
-        contrast = {
-          floating_windows = true,
-        },
-        contrast_filetypes = {
-          "packer",
-          "qf",
-          "dirbuf",
-        },
-        disable = {
-          eob_lines = false,
-        },
-      })
-
-      vim.cmd("colorscheme material")
+      vim.g.gruvbox_italicize_strings = 0
+      vim.cmd("colorscheme gruvbox8")
+      vim.cmd("hi SignColumn guibg=bg")
     end,
   })
 
