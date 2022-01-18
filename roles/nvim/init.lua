@@ -517,6 +517,7 @@ opt.expandtab = true
 opt.number = true
 opt.relativenumber = true
 opt.mouse = "a"
+opt.completeopt = { "menu", "menuone", "noselect" }
 opt.foldenable = false
 opt.ignorecase = true
 opt.smartcase = true
