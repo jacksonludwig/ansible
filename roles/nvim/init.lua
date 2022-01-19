@@ -43,8 +43,8 @@ require("packer").startup(function(use)
     end,
   })
 
-  use ({
-    "elihunter173/dirbuf.nvim"
+  use({
+    "elihunter173/dirbuf.nvim",
   })
 
   use({
@@ -91,14 +91,23 @@ require("packer").startup(function(use)
     end,
   })
 
-  use ({
-    "lifepillar/vim-gruvbox8",
+  use({
+    "p00f/alabaster_dark.nvim",
+    requires = { "rktjmp/lush.nvim" },
     config = function()
-      vim.g.gruvbox_italicize_strings = 0
-      vim.cmd("colorscheme gruvbox8")
-      vim.cmd("hi SignColumn guibg=bg")
+      vim.cmd("colorscheme alabaster_dark")
+      vim.cmd("hi DirbufDirectory guifg=#70ADD7")
     end,
   })
+
+  -- use ({
+  --   "lifepillar/vim-gruvbox8",
+  --   config = function()
+  --     vim.g.gruvbox_italicize_strings = 0
+  --     vim.cmd("colorscheme gruvbox8")
+  --     vim.cmd("hi SignColumn guibg=bg")
+  --   end,
+  -- })
 
   use({
     "nvim-telescope/telescope.nvim",
@@ -276,6 +285,9 @@ require("packer").startup(function(use)
           null_ls.builtins.formatting.stylua.with({
             filetypes = { "lua" },
           }),
+          null_ls.builtins.formatting.gofmt.with({
+            filetypes = { "go" },
+          }),
           null_ls.builtins.formatting.black.with({
             filetypes = { "python" },
           }),
@@ -370,12 +382,7 @@ require("packer").startup(function(use)
       })
 
       nvim_lsp.gopls.setup({
-        on_attach = function(client, bufnr)
-          common_on_attach(client, bufnr)
-
-          client.resolved_capabilities.document_formatting = true
-          bind_lsp_format(bufnr)
-        end,
+        on_attach = common_on_attach,
         capabilities = common_capabilities,
         flags = {
           debounce_text_changes = 200,
@@ -529,6 +536,15 @@ augroup YankHighlight
   autocmd!
   autocmd TextYankPost * silent! lua vim.highlight.on_yank()
 augroup end
+]])
+
+vim.cmd([[
+  augroup GoIndents
+    autocmd!
+    autocmd FileType go setlocal tabstop=2
+    autocmd FileType go setlocal noexpandtab
+    autocmd FileType go setlocal shiftwidth=2
+  augroup end
 ]])
 
 -- mappings
