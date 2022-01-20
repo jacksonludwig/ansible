@@ -92,22 +92,26 @@ require("packer").startup(function(use)
   })
 
   use({
-    "p00f/alabaster_dark.nvim",
-    requires = { "rktjmp/lush.nvim" },
+    "catppuccin/nvim",
+    as = "catpuccin",
     config = function()
-      vim.cmd("colorscheme alabaster_dark")
-      vim.cmd("hi DirbufDirectory guifg=#70ADD7")
+      require("catppuccin").setup({
+        styles = {
+          comments = "italic",
+          functions = "NONE",
+          keywords = "NONE",
+          strings = "NONE",
+          variables = "NONE",
+        },
+        integrations = {
+          telescope = true,
+          markdown = true,
+          cmp = true,
+        },
+      })
+      vim.cmd("colorscheme catppuccin")
     end,
   })
-
-  -- use ({
-  --   "lifepillar/vim-gruvbox8",
-  --   config = function()
-  --     vim.g.gruvbox_italicize_strings = 0
-  --     vim.cmd("colorscheme gruvbox8")
-  --     vim.cmd("hi SignColumn guibg=bg")
-  --   end,
-  -- })
 
   use({
     "nvim-telescope/telescope.nvim",
