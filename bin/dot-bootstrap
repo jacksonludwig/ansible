@@ -9,13 +9,11 @@ if [ -z $tags ]; then
   exit 1
 fi
 
-first_run=false
 if ! [ -x "$(command -v ansible)" ]; then
-  first_run=true
   sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
   sudo dnf install ansible ansible-collection-community-general
 fi
 
 ansible-playbook -i "${dots}/hosts" "${dots}/configuration.yml" --ask-become-pass --tags $tags
 
-source "${HOME}/.bashrc"
+echo "you may want to restart your shell to apply changes to path"

@@ -197,11 +197,12 @@ require("packer").startup(function(use)
           "comment",
           "typescript",
           "javascript",
+          "tsx",
           "markdown",
         },
         highlight = {
           enable = true,
-          disable = { "javascript", "typescript" },
+          disable = { "javascript", "typescript", "tsx" },
         },
       })
     end,
