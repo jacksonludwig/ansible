@@ -508,7 +508,7 @@ require("packer").startup(function(use)
     end,
   })
 
-  if packer_bootstrap then
+  if packer_bootstrap ~= nil then
     require("packer").sync()
   end
 end)
