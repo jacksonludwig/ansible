@@ -326,9 +326,6 @@ require("packer").startup(function(use)
             },
           },
         },
-        flags = {
-          debounce_text_changes = 200,
-        },
       })
 
       nvim_lsp.tsserver.setup({
@@ -352,9 +349,6 @@ require("packer").startup(function(use)
           vim.api.nvim_buf_set_keymap(bufnr, "n", "tia", ":TSLspImportAll<CR>", { silent = true })
         end,
         capabilities = common_capabilities,
-        flags = {
-          debounce_text_changes = 200,
-        },
       })
 
       nvim_lsp.yamlls.setup({
@@ -365,33 +359,21 @@ require("packer").startup(function(use)
             customTags = { "!Ref", "!ImportValue" },
           },
         },
-        flags = {
-          debounce_text_changes = 200,
-        },
       })
 
       nvim_lsp.pyright.setup({
         on_attach = common_on_attach,
         capabilities = common_capabilities,
-        flags = {
-          debounce_text_changes = 200,
-        },
       })
 
       nvim_lsp.jsonls.setup({
         on_attach = common_on_attach,
         capabilities = common_capabilities,
-        flags = {
-          debounce_text_changes = 200,
-        },
       })
 
       nvim_lsp.gopls.setup({
         on_attach = common_on_attach,
         capabilities = common_capabilities,
-        flags = {
-          debounce_text_changes = 200,
-        },
       })
 
       nvim_lsp.clangd.setup({
@@ -402,9 +384,6 @@ require("packer").startup(function(use)
           bind_lsp_format(bufnr)
         end,
         capabilities = common_capabilities,
-        flags = {
-          debounce_text_changes = 200,
-        },
       })
 
       local path_to_elixirls = vim.fn.expand("~/.local/bin/elixirls/language_server.sh")
@@ -422,9 +401,6 @@ require("packer").startup(function(use)
             dialyzerEnabled = false,
             fetchDeps = false,
           },
-        },
-        flags = {
-          debounce_text_changes = 200,
         },
       })
 
