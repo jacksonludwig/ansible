@@ -16,3 +16,5 @@ packages:
   - elixir
   - go
   - golang-x-tools-gopls
+  - watchman
+  - python3-pywatchman

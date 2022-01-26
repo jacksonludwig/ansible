@@ -49,7 +49,6 @@ require("packer").startup(function(use)
 
   use({
     "nvim-lualine/lualine.nvim",
-    requires = { "arkav/lualine-lsp-progress" },
     config = function()
       require("lualine").setup({
         options = {
@@ -65,10 +64,6 @@ require("packer").startup(function(use)
           lualine_b = {},
           lualine_c = { "branch", { "filename", path = 1 } },
           lualine_x = {
-            {
-              "lsp_progress",
-              display_components = { "lsp_client_name", { "title", "percentage", "message" } },
-            },
             { "diagnostics", sources = { "nvim_diagnostic" }, colored = true },
             "filetype",
             "progress",
@@ -230,6 +225,12 @@ require("packer").startup(function(use)
     requires = {
       "jose-elias-alvarez/nvim-lsp-ts-utils",
       "jose-elias-alvarez/null-ls.nvim",
+      {
+        "j-hui/fidget.nvim",
+        config = function()
+          require("fidget").setup({})
+        end,
+      },
     },
     config = function()
       local nvim_lsp = require("lspconfig")
