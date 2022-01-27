@@ -532,6 +532,7 @@ vim.cmd([[
 -- mappings
 vim.g.mapleader = " "
 vim.api.nvim_set_keymap("n", "<esc>", "<cmd>noh<CR>", { noremap = false, silent = true })
+vim.api.nvim_set_keymap("t", "<esc><esc>", "<c-\\><c-n>", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>lo", "<cmd>copen<CR>", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>lc", "<cmd>cclose<CR>", { noremap = false, silent = true })
 vim.api.nvim_set_keymap("n", "<c-j>", "<cmd>cnext<CR>", { noremap = false, silent = true })
