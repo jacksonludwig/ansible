@@ -464,9 +464,9 @@ require("packer").startup(function(use)
     config = function()
       local cmp = require("cmp")
       cmp.setup({
-        completion = {
-          autocomplete = false,
-        },
+        -- completion = {
+        --   autocomplete = false,
+        -- },
         snippet = {
           expand = function(args)
             require("luasnip").lsp_expand(args.body)
@@ -512,6 +512,8 @@ opt.ignorecase = true
 opt.smartcase = true
 opt.shortmess:append("c")
 opt.guicursor = ""
+
+vim.g.c_syntax_for_h = true
 
 vim.cmd([[
 augroup YankHighlight
