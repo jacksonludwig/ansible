@@ -6,6 +6,7 @@
     become_method: sudo
     community.general.copr:
       name: agriffis/neovim-nightly
+      chroot: fedora-35-x86_64
       state: enabled
 
   - name: Install neovim package

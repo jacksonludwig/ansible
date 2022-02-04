@@ -50,6 +50,7 @@
     become_method: sudo
     community.general.copr:
       name: atim/lazygit
+      chroot: fedora-35-x86_64
       state: enabled
 
   - name: Install lazygit package
@@ -91,6 +92,7 @@
       become_user: root
       become_method: sudo
       community.general.copr:
+        chroot: fedora-35-x86_64
         name: peterwu/iosevka 
         state: enabled
 
