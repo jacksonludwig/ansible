@@ -25,6 +25,10 @@ require("packer").startup(function(use)
     "tpope/vim-surround",
   })
 
+  use ({
+    "ggandor/lightspeed.nvim",
+  })
+
   use({
     {
       "elixir-editors/vim-elixir",
