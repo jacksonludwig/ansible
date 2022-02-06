@@ -25,7 +25,7 @@ require("packer").startup(function(use)
     "tpope/vim-surround",
   })
 
-  use ({
+  use({
     "ggandor/lightspeed.nvim",
   })
 
@@ -149,12 +149,6 @@ require("packer").startup(function(use)
       )
       vim.api.nvim_set_keymap(
         "n",
-        "<leader>fh",
-        "<cmd>lua require('telescope.builtin').find_files()<cr>",
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        "n",
         "<leader>fr",
         "<cmd>lua require('telescope.builtin').oldfiles()<cr>",
         { noremap = true, silent = true }
@@ -172,6 +166,12 @@ require("packer").startup(function(use)
         { noremap = true, silent = true }
       )
       vim.api.nvim_set_keymap("n", "<leader>sw", "<cmd>Telescope diagnostics<cr>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>so",
+        "<cmd>Telescope lsp_workspace_symbols<cr>",
+        { noremap = true, silent = true }
+      )
     end,
   })
 
