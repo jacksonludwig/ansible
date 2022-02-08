@@ -94,35 +94,25 @@ require("packer").startup(function(use)
     "marko-cerovac/material.nvim",
     config = function()
       vim.cmd("autocmd ColorScheme * lua require'lightspeed'.init_highlight(true)")
+      vim.cmd("autocmd ColorScheme * hi Statusline guibg=NONE")
+      vim.cmd("autocmd ColorScheme * hi TelescopeNormal guibg=bg")
+      vim.cmd("autocmd ColorScheme * hi TelescopePreviewBorder guibg=bg")
+      vim.cmd("autocmd ColorScheme * hi TelescopePromptBorder guibg=bg")
+      vim.cmd("autocmd ColorScheme * hi TelescopeResultsBorder guibg=bg")
       vim.g.material_style = "darker"
       require("material").setup({
+        contrast = {
+          floating_windows = true,
+        },
         lualine_style = "stealth",
+        high_visibility = {
+          darker = true,
+        },
+        async_loading = false,
       })
       vim.cmd("colorscheme material")
     end,
   })
-
-  -- use({
-  --   "catppuccin/nvim",
-  --   as = "catpuccin",
-  --   config = function()
-  --     require("catppuccin").setup({
-  --       styles = {
-  --         comments = "italic",
-  --         functions = "NONE",
-  --         keywords = "NONE",
-  --         strings = "NONE",
-  --         variables = "NONE",
-  --       },
-  --       integrations = {
-  --         telescope = true,
-  --         markdown = true,
-  --         cmp = true,
-  --       },
-  --     })
-  --     vim.cmd("colorscheme catppuccin")
-  --   end,
-  -- })
 
   use({
     "nvim-telescope/telescope.nvim",
