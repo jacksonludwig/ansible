@@ -91,26 +91,38 @@ require("packer").startup(function(use)
   })
 
   use({
-    "catppuccin/nvim",
-    as = "catpuccin",
+    "marko-cerovac/material.nvim",
     config = function()
-      require("catppuccin").setup({
-        styles = {
-          comments = "italic",
-          functions = "NONE",
-          keywords = "NONE",
-          strings = "NONE",
-          variables = "NONE",
-        },
-        integrations = {
-          telescope = true,
-          markdown = true,
-          cmp = true,
-        },
+      vim.cmd("autocmd ColorScheme * lua require'lightspeed'.init_highlight(true)")
+      vim.g.material_style = "darker"
+      require("material").setup({
+        lualine_style = "stealth",
       })
-      vim.cmd("colorscheme catppuccin")
+      vim.cmd("colorscheme material")
     end,
   })
+
+  -- use({
+  --   "catppuccin/nvim",
+  --   as = "catpuccin",
+  --   config = function()
+  --     require("catppuccin").setup({
+  --       styles = {
+  --         comments = "italic",
+  --         functions = "NONE",
+  --         keywords = "NONE",
+  --         strings = "NONE",
+  --         variables = "NONE",
+  --       },
+  --       integrations = {
+  --         telescope = true,
+  --         markdown = true,
+  --         cmp = true,
+  --       },
+  --     })
+  --     vim.cmd("colorscheme catppuccin")
+  --   end,
+  -- })
 
   use({
     "nvim-telescope/telescope.nvim",
