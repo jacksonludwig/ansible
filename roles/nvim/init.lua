@@ -66,7 +66,7 @@ require("packer").startup(function(use)
         sections = {
           lualine_a = {},
           lualine_b = {},
-          lualine_c = { "branch", { "filename", path = 1 } },
+          lualine_c = { "branch", { "filename", path = 1, shorting_target = 20 } },
           lualine_x = {
             { "diagnostics", sources = { "nvim_diagnostic" }, colored = true },
             "filetype",
