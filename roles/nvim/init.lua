@@ -48,10 +48,6 @@ require("packer").startup(function(use)
   })
 
   use({
-    "elihunter173/dirbuf.nvim",
-  })
-
-  use({
     "nvim-lualine/lualine.nvim",
     config = function()
       require("lualine").setup({
