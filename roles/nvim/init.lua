@@ -28,8 +28,6 @@ require("packer").startup(function(use)
   use({
     "ggandor/lightspeed.nvim",
     config = function()
-      vim.keymap.del("n", "S")
-      vim.keymap.del("n", "s")
       vim.keymap.set("n", "s", "<Plug>Lightspeed_omni_s")
     end,
   })
