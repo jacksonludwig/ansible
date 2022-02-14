@@ -27,6 +27,9 @@ require("packer").startup(function(use)
 
   use({
     "ggandor/lightspeed.nvim",
+    config = function()
+      vim.keymap.set("n", "s", "<Plug>Lightspeed_omni_s")
+    end,
   })
 
   use({
