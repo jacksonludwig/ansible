@@ -19,3 +19,4 @@ packages:
   - watchman
   - python3-pywatchman
   - conda
+  - jetbrains-mono-fonts
