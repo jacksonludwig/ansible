@@ -61,6 +61,7 @@ require("packer").startup(function(use)
           section_separators = { left = "", right = "" },
           disabled_filetypes = {},
           always_divide_middle = true,
+          globalstatus = true,
         },
         sections = {
           lualine_a = {},
@@ -92,12 +93,6 @@ require("packer").startup(function(use)
   use({
     "marko-cerovac/material.nvim",
     config = function()
-      vim.cmd("autocmd ColorScheme * lua require'lightspeed'.init_highlight(true)")
-      vim.cmd("autocmd ColorScheme * hi Statusline guibg=NONE")
-      vim.cmd("autocmd ColorScheme * hi TelescopeNormal guibg=bg")
-      vim.cmd("autocmd ColorScheme * hi TelescopePreviewBorder guibg=bg")
-      vim.cmd("autocmd ColorScheme * hi TelescopePromptBorder guibg=bg")
-      vim.cmd("autocmd ColorScheme * hi TelescopeResultsBorder guibg=bg")
       vim.g.material_style = "darker"
       require("material").setup({
         contrast = {
@@ -124,6 +119,11 @@ require("packer").startup(function(use)
       local opts = { theme = "dropdown", disable_devicons = true }
 
       telescope.setup({
+        defaults = {
+          file_ignore_patterns = {
+            "text8",
+          },
+        },
         pickers = {
           find_files = opts,
           buffers = opts,
