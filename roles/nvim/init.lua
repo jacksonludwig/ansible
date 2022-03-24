@@ -119,11 +119,6 @@ require("packer").startup(function(use)
       local opts = { theme = "dropdown", disable_devicons = true }
 
       telescope.setup({
-        defaults = {
-          file_ignore_patterns = {
-            "text8",
-          },
-        },
         pickers = {
           find_files = opts,
           buffers = opts,
@@ -305,6 +300,12 @@ require("packer").startup(function(use)
           null_ls.builtins.formatting.isort.with({
             filetypes = { "python" },
           }),
+          null_ls.builtins.formatting.shfmt.with({
+            filetypes = { "sh" },
+          }),
+          null_ls.builtins.diagnostics.shellcheck.with({
+            filetypes = { "sh" },
+          }),
         },
         on_attach = function(_, bufnr)
           bind_lsp_format(bufnr)
@@ -373,6 +374,11 @@ require("packer").startup(function(use)
       })
 
       nvim_lsp.jsonls.setup({
+        on_attach = common_on_attach,
+        capabilities = common_capabilities,
+      })
+
+      nvim_lsp.bashls.setup({
         on_attach = common_on_attach,
         capabilities = common_capabilities,
       })

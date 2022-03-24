@@ -6,3 +6,4 @@ packages:
   - vscode-langservers-extracted
   - yaml-language-server
   - pyright
+  - bash-language-server

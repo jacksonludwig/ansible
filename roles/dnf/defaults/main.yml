@@ -20,3 +20,5 @@ packages:
   - python3-pywatchman
   - conda
   - jetbrains-mono-fonts
+  - ShellCheck
+  - shellfmt
