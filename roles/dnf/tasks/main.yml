@@ -51,6 +51,7 @@
     community.general.copr:
       name: atim/lazygit
       state: enabled
+      chroot: fedora-35-x86_64
 
   - name: Install lazygit package
     become: yes
@@ -93,6 +94,7 @@
       community.general.copr:
         name: peterwu/iosevka 
         state: enabled
+        chroot: fedora-35-x86_64
 
     - name: Install Iosevka package
       become: yes

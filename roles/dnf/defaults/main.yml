@@ -21,4 +21,4 @@ packages:
   - conda
   - jetbrains-mono-fonts
   - ShellCheck
-  - shellfmt
+  - shfmt
