@@ -302,6 +302,7 @@ require("packer").startup(function(use)
           }),
           null_ls.builtins.formatting.shfmt.with({
             filetypes = { "sh" },
+            args = { "-i", "2" },
           }),
           null_ls.builtins.diagnostics.shellcheck.with({
             filetypes = { "sh" },
