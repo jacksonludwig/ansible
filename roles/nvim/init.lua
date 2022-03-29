@@ -33,14 +33,8 @@ require("packer").startup(function(use)
   })
 
   use({
-    {
-      "elixir-editors/vim-elixir",
-      ft = { "elixir" },
-    },
-    {
-      "chemzqm/vim-jsx-improve",
-      ft = { "javascriptreact" },
-    },
+    "chemzqm/vim-jsx-improve",
+    ft = { "javascriptreact" },
   })
 
   use({
@@ -397,24 +391,6 @@ require("packer").startup(function(use)
           bind_lsp_format(bufnr)
         end,
         capabilities = common_capabilities,
-      })
-
-      local path_to_elixirls = vim.fn.expand("~/.local/bin/elixirls/language_server.sh")
-      nvim_lsp.elixirls.setup({
-        cmd = { path_to_elixirls },
-        on_attach = function(client, bufnr)
-          common_on_attach(client, bufnr)
-
-          client.resolved_capabilities.document_formatting = true
-          bind_lsp_format(bufnr)
-        end,
-        capabilities = common_capabilities,
-        settings = {
-          elixirLS = {
-            dialyzerEnabled = false,
-            fetchDeps = false,
-          },
-        },
       })
 
       local runtime_path = vim.split(package.path, ";")

@@ -60,22 +60,22 @@
       path: "{{ lookup('env', 'HOME') }}/.local/bin/lua-language-server"
       mode: 0755
 
-- name: Install elixirLS
-  block:
-  - name: Get elixirls's latest release tag
-    community.general.github_release:
-      user: elixir-lsp
-      repo: elixir-ls
-      action: latest_release
-    register: elixirls_latest
-
-  - name: Create directory for elixir server if it doesn't exist
-    file:
-      path: "{{ lookup('env', 'HOME') }}/.local/bin/elixirls"
-      state: directory
-
-  - name: Get elixirls files
-    unarchive:
-      src: "https://github.com/elixir-lsp/elixir-ls/releases/download/{{ elixirls_latest['tag'] }}/elixir-ls.zip"
-      dest: "{{ lookup('env', 'HOME') }}/.local/bin/elixirls"
-      remote_src: true
+# - name: Install elixirLS
+#   block:
+#   - name: Get elixirls's latest release tag
+#     community.general.github_release:
+#       user: elixir-lsp
+#       repo: elixir-ls
+#       action: latest_release
+#     register: elixirls_latest
+#
+#   - name: Create directory for elixir server if it doesn't exist
+#     file:
+#       path: "{{ lookup('env', 'HOME') }}/.local/bin/elixirls"
+#       state: directory
+#
+#   - name: Get elixirls files
+#     unarchive:
+#       src: "https://github.com/elixir-lsp/elixir-ls/releases/download/{{ elixirls_latest['tag'] }}/elixir-ls.zip"
+#       dest: "{{ lookup('env', 'HOME') }}/.local/bin/elixirls"
+#       remote_src: true

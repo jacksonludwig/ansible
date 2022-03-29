@@ -12,8 +12,8 @@ packages:
   - bear
   - black
   - python-isort
-  - erlang
-  - elixir
+  # - erlang
+  # - elixir
   - go
   - golang-x-tools-gopls
   - watchman
