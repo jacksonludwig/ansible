@@ -285,9 +285,6 @@ require("packer").startup(function(use)
           null_ls.builtins.formatting.stylua.with({
             filetypes = { "lua" },
           }),
-          null_ls.builtins.formatting.gofmt.with({
-            filetypes = { "go" },
-          }),
           null_ls.builtins.formatting.black.with({
             filetypes = { "python" },
           }),
