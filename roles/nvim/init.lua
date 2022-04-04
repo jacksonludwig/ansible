@@ -191,7 +191,7 @@ require("packer").startup(function(use)
         },
         highlight = {
           enable = true,
-          disable = { "javascript", "typescript", "tsx" },
+          -- disable = { "javascript", "typescript", "tsx" },
         },
       })
     end,
@@ -378,11 +378,6 @@ require("packer").startup(function(use)
         capabilities = common_capabilities,
       })
 
-      nvim_lsp.gopls.setup({
-        on_attach = common_on_attach,
-        capabilities = common_capabilities,
-      })
-
       nvim_lsp.clangd.setup({
         on_attach = function(client, bufnr)
           common_on_attach(client, bufnr)
@@ -508,15 +503,6 @@ augroup YankHighlight
   autocmd!
   autocmd TextYankPost * silent! lua vim.highlight.on_yank()
 augroup end
-]])
-
-vim.cmd([[
-  augroup GoIndents
-    autocmd!
-    autocmd FileType go setlocal tabstop=2
-    autocmd FileType go setlocal noexpandtab
-    autocmd FileType go setlocal shiftwidth=2
-  augroup end
 ]])
 
 -- mappings
