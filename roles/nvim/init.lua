@@ -97,6 +97,15 @@ require("packer").startup(function(use)
           darker = true,
         },
         async_loading = false,
+        custom_highlights = {
+          TelescopeNormal = { guibg = "bg" },
+          TelescopePrompt = { guibg = "bg" },
+          TelescopePromptBorder = { guibg = "bg" },
+          TelescopePreviewBorder = { guibg = "bg" },
+          TelescopeResultsBorder = { guibg = "bg" },
+          TelescopePromptPreview = { guibg = "bg" },
+          TelescopeBorder = { guibg = "bg" },
+        },
       })
       vim.cmd("colorscheme material")
     end,
@@ -110,7 +119,12 @@ require("packer").startup(function(use)
     },
     config = function()
       local telescope = require("telescope")
-      local opts = { theme = "dropdown", disable_devicons = true }
+      local opts = {
+        disable_devicons = true,
+        layout_config = {
+          prompt_position = "top",
+        },
+      }
 
       telescope.setup({
         pickers = {
