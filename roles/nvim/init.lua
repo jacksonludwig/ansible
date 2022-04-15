@@ -154,7 +154,7 @@ require("packer").startup(function(use)
       vim.keymap.set("n", "<leader>bb", builtins.buffers, bind_opts)
       vim.keymap.set("n", "<leader>g", builtins.live_grep, bind_opts)
       vim.keymap.set("n", "<leader>sw", builtins.diagnostics, bind_opts)
-      vim.keymap.set("n", "<leader>so", builtins.lsp_dynamic_workspace_symbols, bind_opts)
+      vim.keymap.set("n", "<leader>so", builtins.lsp_workspace_symbols, bind_opts)
     end,
   })
 
