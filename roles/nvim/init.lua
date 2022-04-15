@@ -14,6 +14,8 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- packer
+local bind_opts = { noremap = true, silent = true }
+
 require("packer").startup(function(use)
   use({
     "wbthomason/packer.nvim",
@@ -145,37 +147,14 @@ require("packer").startup(function(use)
 
       telescope.load_extension("fzf")
 
-      vim.api.nvim_set_keymap(
-        "n",
-        "<leader><leader>",
-        "<cmd>lua require('telescope.builtin').find_files()<cr>",
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        "n",
-        "<leader>fr",
-        "<cmd>lua require('telescope.builtin').oldfiles()<cr>",
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        "n",
-        "<leader>bb",
-        "<cmd>lua require('telescope.builtin').buffers()<cr>",
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        "n",
-        "<leader>g",
-        "<cmd>lua require('telescope.builtin').live_grep()<cr>",
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap("n", "<leader>sw", "<cmd>Telescope diagnostics<cr>", { noremap = true, silent = true })
-      vim.api.nvim_set_keymap(
-        "n",
-        "<leader>so",
-        "<cmd>Telescope lsp_workspace_symbols<cr>",
-        { noremap = true, silent = true }
-      )
+      local builtins = require("telescope.builtin")
+
+      vim.keymap.set("n", "<leader><leader>", builtins.find_files, bind_opts)
+      vim.keymap.set("n", "<leader>fr", builtins.oldfiles, bind_opts)
+      vim.keymap.set("n", "<leader>bb", builtins.buffers, bind_opts)
+      vim.keymap.set("n", "<leader>g", builtins.live_grep, bind_opts)
+      vim.keymap.set("n", "<leader>sw", builtins.diagnostics, bind_opts)
+      vim.keymap.set("n", "<leader>so", builtins.lsp_dynamic_workspace_symbols, bind_opts)
     end,
   })
 
@@ -244,35 +223,33 @@ require("packer").startup(function(use)
       local nvim_lsp = require("lspconfig")
 
       local common_on_attach = function(client, bufnr)
-        local function buf_set_keymap(...)
-          vim.api.nvim_buf_set_keymap(bufnr, ...)
-        end
-        local function buf_set_option(...)
-          vim.api.nvim_buf_set_option(bufnr, ...)
-        end
-
-        buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
-        local opts = { noremap = true, silent = true }
+        vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
         -- usually not using lsp to format
         client.resolved_capabilities.document_formatting = false
 
-        buf_set_keymap("i", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-        buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-        buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-        buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-        buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-        buf_set_keymap("n", "<leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-        buf_set_keymap("n", "<leader>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-        buf_set_keymap("n", "<leader>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-        buf_set_keymap("n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-        buf_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-        buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-        buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-        buf_set_keymap("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float(nil, { scope='line' })<CR>", opts)
-        buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev({ float = {} })<CR>", opts)
-        buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next({ float = {} })<CR>", opts)
+        local opts = { buffer = bufnr }
+
+        vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, opts)
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+        vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
+        vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
+        vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
+        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+        vim.keymap.set("n", "<leader>d", function()
+          vim.diagnostic.open_float(nil, { scope = "line" })
+        end, opts)
+        vim.keymap.set("n", "[d", function()
+          vim.diagnostic.goto_prev({ float = {} })
+        end, opts)
+        vim.keymap.set("n", "]d", function()
+          vim.diagnostic.goto_next({ float = {} })
+        end, opts)
       end
 
       local common_capabilities = require("cmp_nvim_lsp").update_capabilities(
@@ -280,13 +257,9 @@ require("packer").startup(function(use)
       )
 
       local bind_lsp_format = function(bufnr)
-        vim.api.nvim_buf_set_keymap(
-          bufnr,
-          "n",
-          "<leader>z",
-          "<cmd>lua vim.lsp.buf.formatting()<CR>",
-          { noremap = true, silent = true }
-        )
+        local opts = { buffer = bufnr }
+
+        vim.keymap.set("n", "<leader>z", vim.lsp.buf.formatting, opts)
       end
 
       local null_ls = require("null-ls")
@@ -466,10 +439,13 @@ require("packer").startup(function(use)
             require("luasnip").lsp_expand(args.body)
           end,
         },
-        mapping = {
+        mapping = cmp.mapping.preset.insert({
           ["<C-y>"] = cmp.mapping.confirm({ select = true }),
           ["<C-Space>"] = cmp.mapping.complete(),
-        },
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-e>"] = cmp.mapping.abort(),
+        }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
