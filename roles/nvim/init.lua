@@ -493,14 +493,17 @@ augroup end
 ]])
 
 -- mappings
+vim.keymap.set({ "n", "v" }, "<space>", "<Nop>", bind_opts)
 vim.g.mapleader = " "
-vim.api.nvim_set_keymap("n", "<esc>", "<cmd>noh<CR>", { noremap = false, silent = true })
-vim.api.nvim_set_keymap("t", "<esc><esc>", "<c-\\><c-n>", { noremap = false, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>lo", "<cmd>copen<CR>", { noremap = false, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>lc", "<cmd>cclose<CR>", { noremap = false, silent = true })
-vim.api.nvim_set_keymap("n", "<c-j>", "<cmd>cnext<CR>", { noremap = false, silent = true })
-vim.api.nvim_set_keymap("n", "<c-k>", "<cmd>cprev<CR>", { noremap = false, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>n", [[<cmd>set nu! rnu!<CR>]], { noremap = false, silent = true })
+vim.g.maplocalleader = " "
+
+vim.keymap.set("n", "<esc>", "<cmd>noh<CR>", bind_opts)
+vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", bind_opts)
+vim.keymap.set("n", "<leader>lo", "<cmd>copen<CR>", bind_opts)
+vim.keymap.set("n", "<leader>lc", "<cmd>cclose<CR>", bind_opts)
+vim.keymap.set("n", "<c-j>", "<cmd>cnext<CR>", bind_opts)
+vim.keymap.set("n", "<c-k>", "<cmd>cprev<CR>", bind_opts)
+vim.keymap.set("n", "<leader>n", [[<cmd>set nu! rnu!<CR>]], bind_opts)
 
 vim.cmd([[
 augroup Terminal
