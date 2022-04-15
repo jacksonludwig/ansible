@@ -34,10 +34,10 @@ require("packer").startup(function(use)
     end,
   })
 
-  use({
-    "chemzqm/vim-jsx-improve",
-    ft = { "javascriptreact" },
-  })
+  -- use({
+  --   "chemzqm/vim-jsx-improve",
+  --   ft = { "javascriptreact" },
+  -- })
 
   use({
     "dkarter/bullets.vim",
@@ -460,7 +460,7 @@ require("packer").startup(function(use)
   end
 end)
 
--- general settings
+-- options
 local opt = vim.opt
 
 opt.termguicolors = true
@@ -484,16 +484,9 @@ opt.shortmess:append("c")
 opt.guicursor = ""
 
 vim.g.c_syntax_for_h = true
-
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
-
-vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = "*",
-})
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0
 
 -- mappings
 vim.keymap.set({ "n", "v" }, "<space>", "<Nop>", bind_opts)
@@ -508,9 +501,23 @@ vim.keymap.set("n", "<c-j>", "<cmd>cnext<CR>", bind_opts)
 vim.keymap.set("n", "<c-k>", "<cmd>cprev<CR>", bind_opts)
 vim.keymap.set("n", "<leader>n", [[<cmd>set nu! rnu!<CR>]], bind_opts)
 
-vim.cmd([[
-augroup Terminal
-  autocmd!
-  au TermOpen * setlocal nonu nornu signcolumn=no | startinsert
-augroup end
-]])
+-- autocmds
+local term_group = vim.api.nvim_create_augroup("Terminal", { clear = true })
+
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    vim.cmd("setlocal nonu nornu signcolumn=no | startinsert")
+  end,
+  group = term_group,
+  pattern = "*",
+})
+
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = "*",
+})
