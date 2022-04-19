@@ -19,7 +19,7 @@
 
   - name: Get stylua binary
     unarchive:
-      src: "https://github.com/JohnnyMorganz/StyLua/releases/download/{{ stylua_latest['tag'] }}/stylua-{{ stylua_latest['tag'] | regex_replace('^v','') }}-linux.zip"
+      src: "https://github.com/JohnnyMorganz/StyLua/releases/download/{{ stylua_latest['tag'] }}/stylua-linux.zip"
       dest: "{{ lookup('env', 'HOME') }}/.local/bin"
       remote_src: true
 
