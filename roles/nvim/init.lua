@@ -14,7 +14,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- packer
-local bind_opts = { noremap = true, silent = true }
+local bind_opts = { silent = true }
 
 require("packer").startup(function(use)
   use({
