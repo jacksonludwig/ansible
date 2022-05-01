@@ -259,7 +259,7 @@ require("packer").startup(function(use)
       local bind_lsp_format = function(bufnr)
         local opts = { buffer = bufnr }
 
-        vim.keymap.set("n", "<leader>z", vim.lsp.buf.formatting, opts)
+        vim.keymap.set("n", "<leader>z", function() vim.lsp.buf.format({ async = true }) end, opts)
       end
 
       local null_ls = require("null-ls")
