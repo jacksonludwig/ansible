@@ -226,7 +226,7 @@ require("packer").startup(function(use)
         vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
         -- usually not using lsp to format
-        client.resolved_capabilities.document_formatting = false
+        client.server_capabilities.document_formatting = false
 
         local opts = { buffer = bufnr }
 
@@ -366,7 +366,7 @@ require("packer").startup(function(use)
         on_attach = function(client, bufnr)
           common_on_attach(client, bufnr)
 
-          client.resolved_capabilities.document_formatting = true
+          client.server_capabilities.document_formatting = true
           bind_lsp_format(bufnr)
         end,
         capabilities = common_capabilities,
