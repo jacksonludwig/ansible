@@ -7,3 +7,4 @@ packages:
   - yaml-language-server
   - pyright
   - bash-language-server
+  - aws-cdk
