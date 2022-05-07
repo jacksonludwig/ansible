@@ -92,7 +92,7 @@ require("packer").startup(function(use)
       vim.g.material_style = "darker"
       require("material").setup({
         disable = {
-          colored_cursor = true
+          colored_cursor = true,
         },
         contrast = {
           floating_windows = true,
@@ -213,8 +213,8 @@ require("packer").startup(function(use)
   use({
     "neovim/nvim-lspconfig",
     requires = {
-      "jose-elias-alvarez/nvim-lsp-ts-utils",
       "jose-elias-alvarez/null-ls.nvim",
+      "jose-elias-alvarez/typescript.nvim",
       {
         "j-hui/fidget.nvim",
         config = function()
@@ -319,27 +319,17 @@ require("packer").startup(function(use)
         },
       })
 
-      nvim_lsp.tsserver.setup({
-        on_attach = function(client, bufnr)
-          common_on_attach(client, bufnr)
+      require("typescript").setup({
+        server = {
+          on_attach = function(client, bufnr)
+            common_on_attach(client, bufnr)
 
-          local ts_utils = require("nvim-lsp-ts-utils")
-
-          ts_utils.setup({
-            enable_import_on_completion = true,
-            filter_out_diagnostics_by_code = { 80001 },
-            filter_out_diagnostics_by_severity = { "hint" },
-          })
-
-          -- required to fix code action ranges
-          ts_utils.setup_client(client)
-
-          vim.api.nvim_buf_set_keymap(bufnr, "n", "tor", ":TSLspOrganize<CR>", { silent = true })
-          vim.api.nvim_buf_set_keymap(bufnr, "n", "tqf", ":TSLspFixCurrent<CR>", { silent = true })
-          vim.api.nvim_buf_set_keymap(bufnr, "n", "trn", ":TSLspRenameFile<CR>", { silent = true })
-          vim.api.nvim_buf_set_keymap(bufnr, "n", "tia", ":TSLspImportAll<CR>", { silent = true })
-        end,
-        capabilities = common_capabilities,
+            vim.api.nvim_buf_set_keymap(bufnr, "n", "tor", ":TypescriptOrganizeImports<CR>", { silent = true })
+            vim.api.nvim_buf_set_keymap(bufnr, "n", "trn", ":TypescriptRenameFile<CR>", { silent = true })
+            vim.api.nvim_buf_set_keymap(bufnr, "n", "tia", ":TypescriptAddMissingImports<CR>", { silent = true })
+          end,
+          capabilities = common_capabilities,
+        },
       })
 
       nvim_lsp.yamlls.setup({
