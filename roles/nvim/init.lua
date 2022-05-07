@@ -91,6 +91,9 @@ require("packer").startup(function(use)
     config = function()
       vim.g.material_style = "darker"
       require("material").setup({
+        disable = {
+          colored_cursor = true
+        },
         contrast = {
           floating_windows = true,
         },
@@ -277,9 +280,9 @@ require("packer").startup(function(use)
           null_ls.builtins.formatting.black.with({
             filetypes = { "python" },
           }),
-          null_ls.builtins.formatting.isort.with({
-            filetypes = { "python" },
-          }),
+          -- null_ls.builtins.formatting.isort.with({
+          --   filetypes = { "python" },
+          -- }),
           null_ls.builtins.formatting.shfmt.with({
             filetypes = { "sh" },
             args = { "-i", "2" },
