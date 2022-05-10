@@ -290,9 +290,6 @@ require("packer").startup(function(use)
             filetypes = { "sh" },
             args = { "-i", "2" },
           }),
-          null_ls.builtins.diagnostics.shellcheck.with({
-            filetypes = { "sh" },
-          }),
         },
         on_attach = function(_, bufnr)
           bind_lsp_format(bufnr)
