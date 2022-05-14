@@ -121,7 +121,7 @@ require("packer").startup(function(use)
     requires = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-      'nvim-telescope/telescope-ui-select.nvim',
+      "nvim-telescope/telescope-ui-select.nvim",
     },
     config = function()
       local telescope = require("telescope")
@@ -310,7 +310,6 @@ require("packer").startup(function(use)
           codeAction = {
             disableRuleComment = {
               enable = false,
-              location = "separateLine",
             },
             showDocumentation = {
               enable = false,
@@ -513,3 +512,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = yank_highlight_group,
   pattern = "*",
 })
+
+vim.g.neovide_cursor_tral_length = 0.0
+vim.g.neovide_cursor_animation_length = 0.0
+vim.opt.guifont = "JetBrains Mono NL"
