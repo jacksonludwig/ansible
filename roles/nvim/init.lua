@@ -236,7 +236,7 @@ require("packer").startup(function(use)
 
         local opts = { buffer = bufnr }
 
-        vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, opts)
+        vim.keymap.set("i", "<C-i>", vim.lsp.buf.signature_help, opts)
         vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
@@ -405,7 +405,7 @@ require("packer").startup(function(use)
     "L3MON4D3/LuaSnip",
     config = function()
       vim.cmd([[
-        imap <silent><expr> <C-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-j>' 
+        inoremap <silent><expr> <C-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-j>' 
         inoremap <silent> <C-k> <cmd>lua require'luasnip'.jump(-1)<Cr>
         snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(1)<Cr>
         snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(-1)<Cr>
