@@ -371,21 +371,6 @@ require("packer").startup(function(use)
       --   },
       -- })
 
-      nvim_lsp.pyright.setup({
-        on_attach = common_on_attach,
-        capabilities = common_capabilities,
-      })
-
-      nvim_lsp.jsonls.setup({
-        on_attach = common_on_attach,
-        capabilities = common_capabilities,
-      })
-
-      nvim_lsp.bashls.setup({
-        on_attach = common_on_attach,
-        capabilities = common_capabilities,
-      })
-
       nvim_lsp.clangd.setup({
         on_attach = function(client, bufnr)
           common_on_attach(client, bufnr)
@@ -395,6 +380,14 @@ require("packer").startup(function(use)
         end,
         capabilities = common_capabilities,
       })
+
+      local basic_servers = { "pyright", "jsonls", "bashls" }
+      for _, server in ipairs(basic_servers) do
+        nvim_lsp[server].setup({
+          on_attach = common_on_attach,
+          capabilities = common_capabilities,
+        })
+      end
 
       local runtime_path = vim.split(package.path, ";")
       table.insert(runtime_path, "lua/?.lua")
