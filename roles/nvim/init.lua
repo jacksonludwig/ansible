@@ -76,9 +76,9 @@ require("packer").startup(function(use)
           lualine_c = {
             "branch",
             { "filename", path = 1, shorting_target = 20 },
-            { get_current_yaml_schema },
           },
           lualine_x = {
+            { get_current_yaml_schema },
             { "diagnostics", sources = { "nvim_diagnostic" }, colored = true },
             "filetype",
             "progress",
