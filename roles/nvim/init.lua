@@ -34,11 +34,6 @@ require("packer").startup(function(use)
     end,
   })
 
-  -- use({
-  --   "chemzqm/vim-jsx-improve",
-  --   ft = { "javascriptreact" },
-  -- })
-
   use({
     "dkarter/bullets.vim",
     config = function()
