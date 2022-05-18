@@ -310,13 +310,7 @@ require("packer").startup(function(use)
 
       nvim_lsp.eslint.setup({
         on_attach = function(_, bufnr)
-          vim.api.nvim_buf_set_keymap(
-            bufnr,
-            "n",
-            "<leader>z",
-            "<cmd>EslintFixAll<CR>",
-            { noremap = true, silent = true }
-          )
+          vim.keymap.set("n", "<leader>z", "<cmd>EslintFixAll<CR>", { buffer = bufnr, silent = true })
         end,
         settings = {
           codeAction = {
