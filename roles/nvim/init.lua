@@ -51,9 +51,9 @@ require("packer").startup(function(use)
     config = function()
       local function get_current_yaml_schema()
         local yaml_schema = require("yaml-companion").get_buf_schema(0)
-        local schema_name = yaml_schema and yaml_schema.result[1].name or nil
+        local schema_name = yaml_schema and yaml_schema.result[1].name or "none"
 
-        if not yaml_schema or schema_name == "none" then
+        if schema_name == "none" then
           return ""
         end
 
