@@ -49,6 +49,17 @@ require("packer").startup(function(use)
   use({
     "nvim-lualine/lualine.nvim",
     config = function()
+      local function get_current_yaml_schema()
+        local yaml_schema = require("yaml-companion").get_buf_schema(0)
+        local schema_name = yaml_schema and yaml_schema.result[1].name or nil
+
+        if not yaml_schema or schema_name == "none" then
+          return ""
+        end
+
+        return schema_name
+      end
+
       require("lualine").setup({
         options = {
           icons_enabled = false,
@@ -62,7 +73,11 @@ require("packer").startup(function(use)
         sections = {
           lualine_a = {},
           lualine_b = {},
-          lualine_c = { "branch", { "filename", path = 1, shorting_target = 20 } },
+          lualine_c = {
+            "branch",
+            { "filename", path = 1, shorting_target = 20 },
+            { get_current_yaml_schema },
+          },
           lualine_x = {
             { "diagnostics", sources = { "nvim_diagnostic" }, colored = true },
             "filetype",
@@ -122,6 +137,7 @@ require("packer").startup(function(use)
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
       "nvim-telescope/telescope-ui-select.nvim",
+      "someone-stole-my-name/yaml-companion.nvim",
     },
     config = function()
       local telescope = require("telescope")
@@ -152,6 +168,7 @@ require("packer").startup(function(use)
 
       telescope.load_extension("fzf")
       telescope.load_extension("ui-select")
+      telescope.load_extension("yaml_schema")
 
       local builtins = require("telescope.builtin")
 
@@ -236,7 +253,7 @@ require("packer").startup(function(use)
 
         local opts = { buffer = bufnr }
 
-        vim.keymap.set("i", "<C-i>", vim.lsp.buf.signature_help, opts)
+        vim.keymap.set("i", "<C-b>", vim.lsp.buf.signature_help, opts)
         vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
@@ -331,15 +348,33 @@ require("packer").startup(function(use)
         },
       })
 
-      nvim_lsp.yamlls.setup({
-        on_attach = common_on_attach,
-        capabilities = common_capabilities,
-        settings = {
-          yaml = {
-            customTags = { "!Ref", "!ImportValue" },
+      local yml_config = require("yaml-companion").setup({
+        lspconfig = {
+          on_attach = common_on_attach,
+          capabilities = common_capabilities,
+          settings = {
+            redhat = {
+              telemetry = {
+                enabled = false,
+              },
+            },
+            schemaDownload = {
+              enable = true,
+            },
           },
         },
       })
+      nvim_lsp.yamlls.setup(yml_config)
+
+      -- nvim_lsp.yamlls.setup({
+      --   on_attach = common_on_attach,
+      --   capabilities = common_capabilities,
+      --   settings = {
+      --     yaml = {
+      --       customTags = { "!Ref", "!ImportValue" },
+      --     },
+      --   },
+      -- })
 
       nvim_lsp.pyright.setup({
         on_attach = common_on_attach,
@@ -430,7 +465,7 @@ require("packer").startup(function(use)
         mapping = cmp.mapping.preset.insert({
           ["<C-y>"] = cmp.mapping.confirm({ select = true }),
           ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          -- ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-e>"] = cmp.mapping.abort(),
         }),
