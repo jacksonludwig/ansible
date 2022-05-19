@@ -44,8 +44,9 @@ require("packer").startup(function(use)
   use({
     "nvim-lualine/lualine.nvim",
     config = function()
+      local yaml_companion = require("yaml-companion")
       local function get_current_yaml_schema()
-        local yaml_schema = require("yaml-companion").get_buf_schema(0)
+        local yaml_schema = yaml_companion.get_buf_schema(0)
         local schema_name = yaml_schema and yaml_schema.result[1].name or "none"
 
         if schema_name == "none" then
