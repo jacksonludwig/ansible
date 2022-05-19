@@ -275,11 +275,9 @@ require("packer").startup(function(use)
       )
 
       local bind_lsp_format = function(bufnr)
-        local opts = { buffer = bufnr }
-
         vim.keymap.set("n", "<leader>z", function()
           vim.lsp.buf.format({ async = true })
-        end, opts)
+        end, { buffer = bufnr })
       end
 
       local null_ls = require("null-ls")
@@ -354,16 +352,6 @@ require("packer").startup(function(use)
         },
       })
       nvim_lsp.yamlls.setup(yml_config)
-
-      -- nvim_lsp.yamlls.setup({
-      --   on_attach = common_on_attach,
-      --   capabilities = common_capabilities,
-      --   settings = {
-      --     yaml = {
-      --       customTags = { "!Ref", "!ImportValue" },
-      --     },
-      --   },
-      -- })
 
       nvim_lsp.clangd.setup({
         on_attach = function(client, bufnr)
