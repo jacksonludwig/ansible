@@ -517,7 +517,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = yank_highlight_group,
   pattern = "*",
 })
-
-vim.g.neovide_cursor_tral_length = 0.0
-vim.g.neovide_cursor_animation_length = 0.0
-vim.opt.guifont = "JetBrains Mono NL"
