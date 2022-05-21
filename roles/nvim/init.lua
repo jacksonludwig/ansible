@@ -42,6 +42,22 @@ require("packer").startup(function(use)
   })
 
   use({
+    "jghauser/kitty-runner.nvim",
+    config = function()
+      require("kitty-runner").setup({
+        use_keymaps = false,
+      })
+      vim.keymap.set("n", "<leader>kor", "<cmd>KittyOpenRunner<CR>", bind_opts)
+      vim.keymap.set("n", "<leader>krc", "<cmd>KittyRunCommand<CR>", bind_opts)
+      vim.keymap.set("n", "<leader>krr", "<cmd>KittyReRunCommand<CR>", bind_opts)
+      vim.keymap.set("n", "<leader>kcr", "<cmd>KittyClearRunner<CR>", bind_opts)
+      vim.keymap.set("n", "<leader>ksl", "<cmd>KittySendLines<CR>", bind_opts)
+      vim.keymap.set("v", "<leader>ksl", "<cmd>KittySendLines<CR>", bind_opts)
+      vim.keymap.set("n", "<leader>kkr", "<cmd>KittyKillRunner<CR>", bind_opts)
+    end,
+  })
+
+  use({
     "nvim-lualine/lualine.nvim",
     config = function()
       local yaml_companion = require("yaml-companion")
