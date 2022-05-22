@@ -341,9 +341,9 @@ require("packer").startup(function(use)
           on_attach = function(client, bufnr)
             common_on_attach(client, bufnr)
 
-            vim.api.nvim_buf_set_keymap(bufnr, "n", "tor", ":TypescriptOrganizeImports<CR>", { silent = true })
-            vim.api.nvim_buf_set_keymap(bufnr, "n", "trn", ":TypescriptRenameFile<CR>", { silent = true })
-            vim.api.nvim_buf_set_keymap(bufnr, "n", "tia", ":TypescriptAddMissingImports<CR>", { silent = true })
+            vim.api.nvim_buf_set_keymap(bufnr, "n", "tor", ":TypescriptOrganizeImports<CR>", bind_opts)
+            vim.api.nvim_buf_set_keymap(bufnr, "n", "trn", ":TypescriptRenameFile<CR>", bind_opts)
+            vim.api.nvim_buf_set_keymap(bufnr, "n", "tia", ":TypescriptAddMissingImports<CR>", bind_opts)
           end,
           capabilities = common_capabilities,
         },
