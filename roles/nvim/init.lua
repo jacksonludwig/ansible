@@ -255,7 +255,7 @@ require("packer").startup(function(use)
       },
     },
     config = function()
-      local nvim_lsp = require("lspconfig")
+      local lsp_conf = require("lspconfig")
 
       local common_on_attach = function(client, bufnr)
         vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -297,23 +297,20 @@ require("packer").startup(function(use)
         end, { buffer = bufnr })
       end
 
-      local null_ls = require("null-ls")
+      local null_ls_conf = require("null-ls")
 
-      null_ls.setup({
+      null_ls_conf.setup({
         sources = {
-          null_ls.builtins.formatting.prettier.with({
+          null_ls_conf.builtins.formatting.prettier.with({
             filetypes = { "yaml", "json", "html", "css" },
           }),
-          null_ls.builtins.formatting.stylua.with({
+          null_ls_conf.builtins.formatting.stylua.with({
             filetypes = { "lua" },
           }),
-          null_ls.builtins.formatting.black.with({
+          null_ls_conf.builtins.formatting.black.with({
             filetypes = { "python" },
           }),
-          -- null_ls.builtins.formatting.isort.with({
-          --   filetypes = { "python" },
-          -- }),
-          null_ls.builtins.formatting.shfmt.with({
+          null_ls_conf.builtins.formatting.shfmt.with({
             filetypes = { "sh" },
             args = { "-i", "2" },
           }),
@@ -323,7 +320,7 @@ require("packer").startup(function(use)
         end,
       })
 
-      nvim_lsp.eslint.setup({
+      lsp_conf.eslint.setup({
         on_attach = function(_, bufnr)
           vim.keymap.set("n", "<leader>z", "<cmd>EslintFixAll<CR>", { buffer = bufnr, silent = true })
         end,
@@ -352,7 +349,7 @@ require("packer").startup(function(use)
         },
       })
 
-      local yml_config = require("yaml-companion").setup({
+      lsp_conf.yamlls.setup(require("yaml-companion").setup({
         lspconfig = {
           on_attach = common_on_attach,
           capabilities = common_capabilities,
@@ -367,10 +364,9 @@ require("packer").startup(function(use)
             },
           },
         },
-      })
-      nvim_lsp.yamlls.setup(yml_config)
+      }))
 
-      nvim_lsp.clangd.setup({
+      lsp_conf.clangd.setup({
         on_attach = function(client, bufnr)
           common_on_attach(client, bufnr)
 
@@ -382,7 +378,7 @@ require("packer").startup(function(use)
 
       local basic_servers = { "pyright", "jsonls", "bashls" }
       for _, server in ipairs(basic_servers) do
-        nvim_lsp[server].setup({
+        lsp_conf[server].setup({
           on_attach = common_on_attach,
           capabilities = common_capabilities,
         })
@@ -392,7 +388,7 @@ require("packer").startup(function(use)
       table.insert(runtime_path, "lua/?.lua")
       table.insert(runtime_path, "lua/?/init.lua")
 
-      nvim_lsp.sumneko_lua.setup({
+      lsp_conf.sumneko_lua.setup({
         cmd = { "lua-language-server" },
         on_attach = common_on_attach,
         capabilities = common_capabilities,
