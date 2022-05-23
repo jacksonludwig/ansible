@@ -180,7 +180,6 @@ require("packer").startup(function(use)
 
       telescope.load_extension("fzf")
       telescope.load_extension("ui-select")
-      telescope.load_extension("yaml_schema")
 
       local builtins = require("telescope.builtin")
 
@@ -351,7 +350,11 @@ require("packer").startup(function(use)
 
       lsp_conf.yamlls.setup(require("yaml-companion").setup({
         lspconfig = {
-          on_attach = common_on_attach,
+          on_attach = function(client, bufnr)
+            common_on_attach(client, bufnr)
+
+            vim.api.nvim_create_user_command("YamlSchema", require("yaml-companion").open_ui_select, { nargs = 0 })
+          end,
           capabilities = common_capabilities,
           settings = {
             redhat = {
