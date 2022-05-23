@@ -249,7 +249,12 @@ require("packer").startup(function(use)
       {
         "j-hui/fidget.nvim",
         config = function()
-          require("fidget").setup({})
+          require("fidget").setup({
+            window = {
+              relative = "editor",
+              blend = 0,
+            },
+          })
         end,
       },
     },
@@ -340,9 +345,10 @@ require("packer").startup(function(use)
           on_attach = function(client, bufnr)
             common_on_attach(client, bufnr)
 
-            vim.api.nvim_buf_set_keymap(bufnr, "n", "tor", ":TypescriptOrganizeImports<CR>", bind_opts)
-            vim.api.nvim_buf_set_keymap(bufnr, "n", "trn", ":TypescriptRenameFile<CR>", bind_opts)
-            vim.api.nvim_buf_set_keymap(bufnr, "n", "tia", ":TypescriptAddMissingImports<CR>", bind_opts)
+            local opts = { buffer = bufnr, silent = true }
+            vim.keymap.set("n", "tor", ":TypescriptOrganizeImports<CR>", opts)
+            vim.keymap.set("n", "trn", ":TypescriptRenameFile<CR>", opts)
+            vim.keymap.set("n", "tia", ":TypescriptAddMissingImports<CR>", opts)
           end,
           capabilities = common_capabilities,
         },
@@ -483,7 +489,7 @@ require("packer").startup(function(use)
 {}function {}({{{}}}: {}Props) {{
   {}
 }}
-]]             ,
+]],
               {
                 i(1, "export "),
 
@@ -503,8 +509,8 @@ require("packer").startup(function(use)
                   local tstree = parser:parse()
 
                   local node = tstree[1]
-                      :root()
-                      :named_descendant_for_range(pos_begin[1], pos_begin[2], pos_end[1], pos_end[2])
+                    :root()
+                    :named_descendant_for_range(pos_begin[1], pos_begin[2], pos_end[1], pos_end[2])
 
                   while node ~= nil and node:type() ~= "interface_declaration" do
                     node = node:parent()
