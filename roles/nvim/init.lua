@@ -149,7 +149,6 @@ require("packer").startup(function(use)
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
       "nvim-telescope/telescope-ui-select.nvim",
-      "someone-stole-my-name/yaml-companion.nvim",
     },
     config = function()
       local telescope = require("telescope")
@@ -246,6 +245,7 @@ require("packer").startup(function(use)
     requires = {
       "jose-elias-alvarez/null-ls.nvim",
       "jose-elias-alvarez/typescript.nvim",
+      "someone-stole-my-name/yaml-companion.nvim",
       {
         "j-hui/fidget.nvim",
         config = function()
