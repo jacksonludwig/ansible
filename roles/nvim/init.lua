@@ -14,8 +14,6 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- packer
-local bind_opts = { silent = true }
-
 require("packer").startup(function(use)
   use({
     "wbthomason/packer.nvim",
@@ -47,13 +45,13 @@ require("packer").startup(function(use)
       require("kitty-runner").setup({
         use_keymaps = false,
       })
-      vim.keymap.set("n", "<leader>kor", "<cmd>KittyOpenRunner<CR>", bind_opts)
-      vim.keymap.set("n", "<leader>krc", "<cmd>KittyRunCommand<CR>", bind_opts)
-      vim.keymap.set("n", "<leader>krr", "<cmd>KittyReRunCommand<CR>", bind_opts)
-      vim.keymap.set("n", "<leader>kcr", "<cmd>KittyClearRunner<CR>", bind_opts)
-      vim.keymap.set("n", "<leader>ksl", "<cmd>KittySendLines<CR>", bind_opts)
-      vim.keymap.set("v", "<leader>ksl", "<cmd>KittySendLines<CR>", bind_opts)
-      vim.keymap.set("n", "<leader>kkr", "<cmd>KittyKillRunner<CR>", bind_opts)
+      vim.keymap.set("n", "<leader>kor", "<cmd>KittyOpenRunner<CR>", {})
+      vim.keymap.set("n", "<leader>krc", "<cmd>KittyRunCommand<CR>", {})
+      vim.keymap.set("n", "<leader>krr", "<cmd>KittyReRunCommand<CR>", {})
+      vim.keymap.set("n", "<leader>kcr", "<cmd>KittyClearRunner<CR>", {})
+      vim.keymap.set("n", "<leader>ksl", "<cmd>KittySendLines<CR>", {})
+      vim.keymap.set("v", "<leader>ksl", "<cmd>KittySendLines<CR>", {})
+      vim.keymap.set("n", "<leader>kkr", "<cmd>KittyKillRunner<CR>", {})
     end,
   })
 
@@ -182,12 +180,12 @@ require("packer").startup(function(use)
 
       local builtins = require("telescope.builtin")
 
-      vim.keymap.set("n", "<leader><leader>", builtins.find_files, bind_opts)
-      vim.keymap.set("n", "<leader>fr", builtins.oldfiles, bind_opts)
-      vim.keymap.set("n", "<leader>bb", builtins.buffers, bind_opts)
-      vim.keymap.set("n", "<leader>g", builtins.live_grep, bind_opts)
-      vim.keymap.set("n", "<leader>sw", builtins.diagnostics, bind_opts)
-      vim.keymap.set("n", "<leader>so", builtins.lsp_workspace_symbols, bind_opts)
+      vim.keymap.set("n", "<leader><leader>", builtins.find_files, {})
+      vim.keymap.set("n", "<leader>fr", builtins.oldfiles, {})
+      vim.keymap.set("n", "<leader>bb", builtins.buffers, {})
+      vim.keymap.set("n", "<leader>g", builtins.live_grep, {})
+      vim.keymap.set("n", "<leader>sw", builtins.diagnostics, {})
+      vim.keymap.set("n", "<leader>so", builtins.lsp_workspace_symbols, {})
     end,
   })
 
@@ -602,17 +600,17 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
 
 -- mappings
-vim.keymap.set({ "n", "v" }, "<space>", "<Nop>", bind_opts)
+vim.keymap.set({ "n", "v" }, "<space>", "<Nop>", {})
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.keymap.set("n", "<esc>", "<cmd>noh<CR>", bind_opts)
-vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", bind_opts)
-vim.keymap.set("n", "<leader>lo", "<cmd>copen<CR>", bind_opts)
-vim.keymap.set("n", "<leader>lc", "<cmd>cclose<CR>", bind_opts)
-vim.keymap.set("n", "<c-j>", "<cmd>cnext<CR>", bind_opts)
-vim.keymap.set("n", "<c-k>", "<cmd>cprev<CR>", bind_opts)
-vim.keymap.set("n", "<leader>n", [[<cmd>set nu! rnu!<CR>]], bind_opts)
+vim.keymap.set("n", "<esc>", "<cmd>noh<CR>", {})
+vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", {})
+vim.keymap.set("n", "<leader>lo", "<cmd>copen<CR>", {})
+vim.keymap.set("n", "<leader>lc", "<cmd>cclose<CR>", {})
+vim.keymap.set("n", "<c-j>", "<cmd>cnext<CR>", {})
+vim.keymap.set("n", "<c-k>", "<cmd>cprev<CR>", {})
+vim.keymap.set("n", "<leader>n", [[<cmd>set nu! rnu!<CR>]], {})
 
 -- autocmds
 local term_group = vim.api.nvim_create_augroup("Terminal", { clear = true })
