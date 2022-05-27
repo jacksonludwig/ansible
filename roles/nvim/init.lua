@@ -486,7 +486,7 @@ require("packer").startup(function(use)
 {}function {}({{{}}}: {}Props) {{
   {}
 }}
-]],
+]]             ,
               {
                 i(1, "export "),
 
@@ -506,8 +506,8 @@ require("packer").startup(function(use)
                   local tstree = parser:parse()
 
                   local node = tstree[1]
-                    :root()
-                    :named_descendant_for_range(pos_begin[1], pos_begin[2], pos_end[1], pos_end[2])
+                      :root()
+                      :named_descendant_for_range(pos_begin[1], pos_begin[2], pos_end[1], pos_end[2])
 
                   while node ~= nil and node:type() ~= "interface_declaration" do
                     node = node:parent()
@@ -612,7 +612,7 @@ vim.keymap.set("n", "<c-k>", "<cmd>cprev<CR>", {})
 vim.keymap.set("n", "<leader>n", [[<cmd>set nu! rnu!<CR>]], {})
 
 -- autocmds
-local term_group = vim.api.nvim_create_augroup("Terminal", { clear = true })
+local term_group = vim.api.nvim_create_augroup("Terminal", {})
 
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
@@ -625,7 +625,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",
 })
 
-local yank_highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+local yank_highlight_group = vim.api.nvim_create_augroup("YankHighlight", {})
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
@@ -633,4 +633,18 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
   group = yank_highlight_group,
   pattern = "*",
+})
+
+local gitcommit_group = vim.api.nvim_create_augroup("Git", {})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "COMMIT_EDITMSG",
+  callback = function()
+    vim.opt_local.spell = true
+    vim.api.nvim_win_set_cursor(0, { 1, 0 })
+    if vim.fn.getline(1) == "" then
+      vim.cmd("startinsert!")
+    end
+  end,
+  group = gitcommit_group,
 })
