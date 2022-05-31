@@ -258,11 +258,8 @@ require("packer").startup(function(use)
     config = function()
       local lsp_conf = require("lspconfig")
 
-      local common_on_attach = function(client, bufnr)
+      local common_on_attach = function(_, bufnr)
         vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-        -- usually not using lsp to format
-        client.server_capabilities.document_formatting = false
 
         local opts = { buffer = bufnr }
 
@@ -292,9 +289,11 @@ require("packer").startup(function(use)
         vim.lsp.protocol.make_client_capabilities()
       )
 
-      local bind_lsp_format = function(bufnr)
+      local lsp_util = require("vim.lsp.util")
+      local bind_lsp_format = function(client, bufnr)
         vim.keymap.set("n", "<leader>z", function()
-          vim.lsp.buf.format({ async = true })
+          local params = lsp_util.make_formatting_params({ async = true })
+          client.request("textDocument/formatting", params, nil, bufnr)
         end, { buffer = bufnr })
       end
 
@@ -316,8 +315,8 @@ require("packer").startup(function(use)
             args = { "-i", "2" },
           }),
         },
-        on_attach = function(_, bufnr)
-          bind_lsp_format(bufnr)
+        on_attach = function(client, bufnr)
+          bind_lsp_format(client, bufnr)
         end,
       })
 
@@ -355,7 +354,6 @@ require("packer").startup(function(use)
         lspconfig = {
           on_attach = function(client, bufnr)
             common_on_attach(client, bufnr)
-
             vim.api.nvim_create_user_command("YamlSchema", require("yaml-companion").open_ui_select, { nargs = 0 })
           end,
           capabilities = common_capabilities,
@@ -375,9 +373,7 @@ require("packer").startup(function(use)
       lsp_conf.clangd.setup({
         on_attach = function(client, bufnr)
           common_on_attach(client, bufnr)
-
-          client.server_capabilities.document_formatting = true
-          bind_lsp_format(bufnr)
+          bind_lsp_format(client, bufnr)
         end,
         capabilities = common_capabilities,
       })
