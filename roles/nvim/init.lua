@@ -211,6 +211,7 @@ require("packer").startup(function(use)
           "javascript",
           "tsx",
           "markdown",
+          "graphql",
         },
         highlight = {
           enable = true,
