@@ -63,17 +63,17 @@ require("packer").startup(function(use)
   use({
     "nvim-lualine/lualine.nvim",
     config = function()
-      local yaml_companion = require("yaml-companion")
-      local function get_current_yaml_schema()
-        local yaml_schema = yaml_companion.get_buf_schema(0)
-        local schema_name = yaml_schema and yaml_schema.result[1].name or "none"
-
-        if schema_name == "none" then
-          return ""
-        end
-
-        return schema_name
-      end
+      -- local yaml_companion = require("yaml-companion")
+      -- local function get_current_yaml_schema()
+      --   local yaml_schema = yaml_companion.get_buf_schema(0)
+      --   local schema_name = yaml_schema and yaml_schema.result[1].name or "none"
+      --
+      --   if schema_name == "none" then
+      --     return ""
+      --   end
+      --
+      --   return schema_name
+      -- end
 
       require("lualine").setup({
         options = {
@@ -93,7 +93,7 @@ require("packer").startup(function(use)
             { "filename", path = 1, shorting_target = 20 },
           },
           lualine_x = {
-            { get_current_yaml_schema },
+            -- { get_current_yaml_schema },
             { "diagnostics", sources = { "nvim_diagnostic" }, colored = true },
             "filetype",
             "progress",
@@ -254,7 +254,7 @@ require("packer").startup(function(use)
     requires = {
       "jose-elias-alvarez/null-ls.nvim",
       "jose-elias-alvarez/typescript.nvim",
-      "someone-stole-my-name/yaml-companion.nvim",
+      -- "someone-stole-my-name/yaml-companion.nvim",
       {
         "j-hui/fidget.nvim",
         config = function()
@@ -362,25 +362,25 @@ require("packer").startup(function(use)
         },
       })
 
-      lsp_conf.yamlls.setup(require("yaml-companion").setup({
-        lspconfig = {
-          on_attach = function(client, bufnr)
-            common_on_attach(client, bufnr)
-            vim.api.nvim_create_user_command("YamlSchema", require("yaml-companion").open_ui_select, { nargs = 0 })
-          end,
-          capabilities = common_capabilities,
-          settings = {
-            redhat = {
-              telemetry = {
-                enabled = false,
-              },
-            },
-            schemaDownload = {
-              enable = true,
-            },
-          },
-        },
-      }))
+      -- lsp_conf.yamlls.setup(require("yaml-companion").setup({
+      --   lspconfig = {
+      --     on_attach = function(client, bufnr)
+      --       common_on_attach(client, bufnr)
+      --       vim.api.nvim_create_user_command("YamlSchema", require("yaml-companion").open_ui_select, { nargs = 0 })
+      --     end,
+      --     capabilities = common_capabilities,
+      --     settings = {
+      --       redhat = {
+      --         telemetry = {
+      --           enabled = false,
+      --         },
+      --       },
+      --       schemaDownload = {
+      --         enable = true,
+      --       },
+      --     },
+      --   },
+      -- }))
 
       lsp_conf.clangd.setup({
         on_attach = function(client, bufnr)
