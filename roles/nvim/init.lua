@@ -26,6 +26,13 @@ require("packer").startup(function(use)
   })
 
   use({
+    "antoinemadec/FixCursorHold.nvim",
+    config = function()
+      vim.g.cursorhold_updatetime = 100
+    end,
+  })
+
+  use({
     "ggandor/lightspeed.nvim",
     config = function()
       vim.keymap.set("n", "s", "<Plug>Lightspeed_omni_s")
@@ -43,6 +50,7 @@ require("packer").startup(function(use)
     "kyazdani42/nvim-tree.lua",
     config = function()
       require("nvim-tree").setup({
+        hijack_netrw = false,
         renderer = {
           indent_markers = {
             enable = true,
@@ -558,3 +566,13 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
   group = gitcommit_group,
 })
+
+-- TESTING: run macro over selected range of lines
+vim.cmd([[
+  xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+  function! ExecuteMacroOverVisualRange()
+    echo "@".getcmdline()
+    execute ":'<,'>normal @".nr2char(getchar())
+  endfunction
+]])
