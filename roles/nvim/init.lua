@@ -542,3 +542,6 @@ vim.cmd([[
     execute ":'<,'>normal @".nr2char(getchar())
   endfunction
 ]])
+
+-- TEMP BIND: run prettier on current file manually
+vim.keymap.set("n", "<leader>v", "<cmd>!prettier --write %<CR>", {})
