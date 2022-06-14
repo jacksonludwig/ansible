@@ -21,7 +21,7 @@ local rep = require("luasnip.extras").rep
 -- TYPESCRIPT SNIPS --
 
 local typescript_log_snippet = s("log", fmt("console.log({})", { i(1) }))
-local typescript_import = s("i", fmt("import {} from '{}'", { i(1), i(2) }))
+local typescript_import = s("i", fmt("import {} from '{}';", { i(1), i(2) }))
 local typescript_to_have_been_called_times = s("thbc", fmt("toHaveBeenCalledTimes({})", { i(1) }))
 local typescript_expect = s("e", fmt("expect({})", { i(1) }))
 local typescript_describe = s("de", fmt([[
@@ -39,6 +39,8 @@ beforeEach(() => {{
   {}
 }});
 ]], { i(1) }))
+local typescript_const = s("c", fmt("const {} = {};", { i(1), i(2) }))
+local typescript_export_const = s("ec", fmt("export const {} = {};", { i(1), i(2) }))
 
 ls.filetype_extend("typescript", { "typescriptreact" })
 
@@ -50,4 +52,6 @@ ls.add_snippets("typescript", {
   typescript_it,
   typescript_describe,
   typescript_before_each,
+  typescript_const,
+  typescript_export_const,
 })
