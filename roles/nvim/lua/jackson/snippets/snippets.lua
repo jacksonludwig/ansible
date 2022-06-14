@@ -24,6 +24,21 @@ local typescript_log_snippet = s("log", fmt("console.log({})", { i(1) }))
 local typescript_import = s("i", fmt("import {} from '{}'", { i(1), i(2) }))
 local typescript_to_have_been_called_times = s("thbc", fmt("toHaveBeenCalledTimes({})", { i(1) }))
 local typescript_expect = s("e", fmt("expect({})", { i(1) }))
+local typescript_describe = s("de", fmt([[
+describe('{} unit tests', () => {{
+  {}
+}});
+]], { i(1), i(2) }))
+local typescript_it = s("it", fmt([[
+it('should {}', async () => {{
+  {}
+}});
+]], { i(1), i(2) }))
+local typescript_before_each = s("be", fmt([[
+beforeEach(() => {{
+  {}
+}});
+]], { i(1) }))
 
 ls.filetype_extend("typescript", { "typescriptreact" })
 
@@ -32,4 +47,7 @@ ls.add_snippets("typescript", {
   typescript_to_have_been_called_times,
   typescript_expect,
   typescript_import,
+  typescript_it,
+  typescript_describe,
+  typescript_before_each,
 })
