@@ -411,6 +411,7 @@ require("packer").startup(function(use)
   use({
     "L3MON4D3/LuaSnip",
     config = function()
+      require("jackson.snippets.snippets")
       vim.cmd([[
         inoremap <silent><expr> <C-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-j>' 
         inoremap <silent> <C-k> <cmd>lua require'luasnip'.jump(-1)<Cr>
