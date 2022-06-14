@@ -411,6 +411,7 @@ require("packer").startup(function(use)
   use({
     "L3MON4D3/LuaSnip",
     config = function()
+      local luasnip = require("luasnip")
       require("jackson.snippets.snippets")
       vim.cmd([[
         inoremap <silent><expr> <C-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-j>' 
@@ -418,6 +419,11 @@ require("packer").startup(function(use)
         snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(1)<Cr>
         snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(-1)<Cr>
       ]])
+      vim.keymap.set({ "i", "s" }, "<C-l>", function()
+        if luasnip.choice_active() then
+          luasnip.change_choice(1)
+        end
+      end)
     end,
   })
 
