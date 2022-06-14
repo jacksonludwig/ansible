@@ -42,8 +42,6 @@ beforeEach(() => {{
 local typescript_const = s("c", fmt("const {} = {};", { i(1), i(2) }))
 local typescript_export_const = s("ec", fmt("export const {} = {};", { i(1), i(2) }))
 
-ls.filetype_extend("typescript", { "typescriptreact" })
-
 ls.add_snippets("typescript", {
   typescript_log_snippet,
   typescript_to_have_been_called_times,
@@ -55,3 +53,5 @@ ls.add_snippets("typescript", {
   typescript_const,
   typescript_export_const,
 })
+
+ls.filetype_extend("typescriptreact", { "typescript" })
