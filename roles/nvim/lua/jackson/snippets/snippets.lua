@@ -11,8 +11,7 @@ local f = ls.function_node
 --- Get the current buffer's name without its extensions.
 --- @example file.test.ts -> file
 local get_buf_name_without_extensions = function()
-  local path = vim.split(vim.api.nvim_buf_get_name(0), "/")
-  local filename = path[#path]
+  local filename = vim.fn.expand("%:t")
 
   -- return buf name now if no extensions
   if not string.find(filename, ".") then
