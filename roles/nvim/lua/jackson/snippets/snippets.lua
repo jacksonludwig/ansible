@@ -23,7 +23,7 @@ end
 
 -- TYPESCRIPT SNIPS --
 
-local typescript_log_snippet = s("log", fmt("console.log({})", { i(1) }))
+local typescript_log_snippet = s("log", fmt("console.log({});", { i(1) }))
 local typescript_import = s("i", fmt("import {} from '{}';", { i(1), i(2) }))
 local typescript_to_have_been_called_times = s("thbc", fmt("toHaveBeenCalledTimes({})", { i(1) }))
 local typescript_expect = s("e", fmt("expect({})", { i(1) }))
