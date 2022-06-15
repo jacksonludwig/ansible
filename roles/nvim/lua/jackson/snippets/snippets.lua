@@ -23,10 +23,53 @@ end
 
 -- TYPESCRIPT SNIPS --
 
-local typescript_log_snippet = s("log", fmt("console.log({});", { i(1) }))
+local typescript_log_snippet = s("l", fmt("console.log({});", { i(1) }))
 local typescript_import = s("i", fmt("import {} from '{}';", { i(1), i(2) }))
 local typescript_to_have_been_called_times = s("thbc", fmt("toHaveBeenCalledTimes({})", { i(1) }))
 local typescript_expect = s("e", fmt("expect({})", { i(1) }))
+
+local typescript_use_ref = s(
+  "ur",
+  fmt(
+    [[
+const {}Ref = useRef{}({});
+  ]],
+    {
+      i(1),
+      i(2),
+      i(3),
+    }
+  )
+)
+
+local typescript_use_state = s(
+  "us",
+  fmt(
+    [[
+const [{}, set{}] = useState{}({});
+]],
+    {
+      i(1),
+      f(function(state_name)
+        return (state_name[1][1]:gsub("^%l", string.upper))
+      end, { 1 }),
+      i(2),
+      i(3),
+    }
+  )
+)
+
+local typescript_use_effect = s(
+  "ue",
+  fmt(
+    [[
+useEffect(() => {{
+  {}
+}}{});
+]],
+    { i(1), i(2) }
+  )
+)
 
 local typescript_describe = s(
   "de",
@@ -78,6 +121,9 @@ ls.add_snippets("typescript", {
   typescript_describe,
   typescript_before_each,
   typescript_const,
+  typescript_use_effect,
+  typescript_use_state,
+  typescript_use_ref,
 })
 
 ls.filetype_extend("typescriptreact", { "typescript" })
