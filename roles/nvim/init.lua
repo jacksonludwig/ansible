@@ -254,9 +254,18 @@ require("packer").startup(function(use)
         "j-hui/fidget.nvim",
         config = function()
           require("fidget").setup({
+            text = {
+              spinner = "dots"
+            },
             window = {
               relative = "editor",
               blend = 0,
+            },
+            fmt = {
+              task = function(_, _, _)
+                -- don't show status message at all
+                return nil
+              end,
             },
           })
         end,
