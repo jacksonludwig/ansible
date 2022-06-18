@@ -28,7 +28,7 @@ local typescript_import = s("i", fmt("import {} from '{}';", { i(1), i(2) }))
 local typescript_to_have_been_called_times = s("thbc", fmt("toHaveBeenCalledTimes({})", { i(1) }))
 local typescript_expect = s("e", fmt("expect({})", { i(1) }))
 
-local typescript_use_ref = s(
+local typescriptreact_use_ref = s(
   "ur",
   fmt(
     [[
@@ -42,7 +42,7 @@ const {}Ref = useRef{}({});
   )
 )
 
-local typescript_use_state = s(
+local typescriptreact_use_state = s(
   "us",
   fmt(
     [[
@@ -59,7 +59,7 @@ const [{}, set{}] = useState{}({});
   )
 )
 
-local typescript_use_effect = s(
+local typescriptreact_use_effect = s(
   "ue",
   fmt(
     [[
@@ -121,9 +121,12 @@ ls.add_snippets("typescript", {
   typescript_describe,
   typescript_before_each,
   typescript_const,
-  typescript_use_effect,
-  typescript_use_state,
-  typescript_use_ref,
+})
+
+ls.add_snippets("typescriptreact", {
+  typescriptreact_use_effect,
+  typescriptreact_use_state,
+  typescriptreact_use_ref,
 })
 
 ls.filetype_extend("typescriptreact", { "typescript" })
