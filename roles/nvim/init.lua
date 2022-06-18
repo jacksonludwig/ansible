@@ -1,7 +1,6 @@
 -- packer bootstrap
 local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-local packer_bootstrap = nil
 if fn.empty(fn.glob(install_path)) > 0 then
   packer_bootstrap = fn.system({
     "git",
@@ -255,7 +254,7 @@ require("packer").startup(function(use)
         config = function()
           require("fidget").setup({
             text = {
-              spinner = "dots_ellipsis"
+              spinner = "dots_ellipsis",
             },
             timer = {
               spinner_rate = 300,
@@ -469,7 +468,7 @@ require("packer").startup(function(use)
     end,
   })
 
-  if packer_bootstrap ~= nil then
+  if packer_bootstrap then
     require("packer").sync()
   end
 end)
