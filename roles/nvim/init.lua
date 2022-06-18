@@ -255,7 +255,10 @@ require("packer").startup(function(use)
         config = function()
           require("fidget").setup({
             text = {
-              spinner = "dots"
+              spinner = "dots_ellipsis"
+            },
+            timer = {
+              spinner_rate = 300,
             },
             window = {
               relative = "editor",
