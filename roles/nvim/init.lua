@@ -25,6 +25,13 @@ require("packer").startup(function(use)
   })
 
   use({
+    "https://gitlab.com/yorickpeterse/nvim-pqf",
+    config = function()
+      require("pqf").setup()
+    end,
+  })
+
+  use({
     "antoinemadec/FixCursorHold.nvim",
     config = function()
       vim.g.cursorhold_updatetime = 100
