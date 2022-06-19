@@ -130,3 +130,27 @@ ls.add_snippets("typescriptreact", {
 })
 
 ls.filetype_extend("typescriptreact", { "typescript" })
+
+-- LUA SNIPS
+
+local lua_use = s(
+  "u",
+  fmt(
+    [[
+use ({{
+  "{}",
+  config = function()
+    {}
+  end,
+}})
+]],
+    {
+      i(1),
+      i(2),
+    }
+  )
+)
+
+ls.add_snippets("lua", {
+  lua_use,
+})
