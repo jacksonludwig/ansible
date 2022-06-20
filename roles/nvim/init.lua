@@ -53,6 +53,13 @@ require("packer").startup(function(use)
   })
 
   use({
+    "windwp/nvim-ts-autotag",
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
+  })
+
+  use({
     "kyazdani42/nvim-tree.lua",
     config = function()
       require("nvim-tree").setup({
