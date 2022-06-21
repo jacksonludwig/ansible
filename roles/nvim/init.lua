@@ -31,6 +31,21 @@ require("packer").startup(function(use)
     end,
   })
 
+  -- use({
+  --   "jghauser/kitty-runner.nvim",
+  --   config = function()
+  --     require("kitty-runner").setup({
+  --       use_keymaps = false,
+  --     })
+  --     vim.keymap.set("n", "<leader>kor", "<cmd>KittyOpenRunner<CR>", {})
+  --     vim.keymap.set("n", "<leader>krc", "<cmd>KittyRunCommand<CR>", {})
+  --     vim.keymap.set("n", "<leader>krr", "<cmd>KittyReRunCommand<CR>", {})
+  --     vim.keymap.set("n", "<leader>kcr", "<cmd>KittyClearRunner<CR>", {})
+  --     vim.keymap.set({ "n", "v" }, "<leader>ksl", "<cmd>KittySendLines<CR>", {})
+  --     vim.keymap.set("n", "<leader>kkr", "<cmd>KittyKillRunner<CR>", {})
+  --   end,
+  -- })
+  --
   use({
     "antoinemadec/FixCursorHold.nvim",
     config = function()
@@ -49,13 +64,6 @@ require("packer").startup(function(use)
     "dkarter/bullets.vim",
     config = function()
       vim.g.bullets_enabled_file_types = { "markdown", "text", "gitcommit", "scratch" }
-    end,
-  })
-
-  use({
-    "windwp/nvim-ts-autotag",
-    config = function()
-      require("nvim-ts-autotag").setup()
     end,
   })
 
