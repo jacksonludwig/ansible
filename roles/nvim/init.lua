@@ -45,7 +45,7 @@ require("packer").startup(function(use)
   --     vim.keymap.set("n", "<leader>kkr", "<cmd>KittyKillRunner<CR>", {})
   --   end,
   -- })
-  --
+
   use({
     "antoinemadec/FixCursorHold.nvim",
     config = function()
@@ -276,10 +276,7 @@ require("packer").startup(function(use)
         config = function()
           require("fidget").setup({
             text = {
-              spinner = "dots_ellipsis",
-            },
-            timer = {
-              spinner_rate = 300,
+              spinner = "dots",
             },
             window = {
               relative = "editor",
