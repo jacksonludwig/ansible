@@ -133,42 +133,42 @@ require("packer").startup(function(use)
     end,
   })
 
-  -- use({
-  --   "marko-cerovac/material.nvim",
-  --   config = function()
-  --     vim.g.material_style = "darker"
-  --     require("material").setup({
-  --       disable = {
-  --         colored_cursor = true,
-  --       },
-  --       contrast = {
-  --         floating_windows = true,
-  --       },
-  --       lualine_style = "stealth",
-  --       high_visibility = {
-  --         darker = true,
-  --       },
-  --       async_loading = false,
-  --       custom_highlights = {
-  --         TelescopeNormal = { guibg = "bg" },
-  --         TelescopePrompt = { guibg = "bg" },
-  --         TelescopePromptBorder = { guibg = "bg" },
-  --         TelescopePreviewBorder = { guibg = "bg" },
-  --         TelescopeResultsBorder = { guibg = "bg" },
-  --         TelescopePromptPreview = { guibg = "bg" },
-  --         TelescopeBorder = { guibg = "bg" },
-  --       },
-  --     })
-  --     vim.cmd("colorscheme material")
-  --   end,
-  -- })
-
-  use ({
-    "p00f/alabaster_dark.nvim",
+  use({
+    "marko-cerovac/material.nvim",
     config = function()
-      vim.cmd("colorscheme alabaster_dark")
+      vim.g.material_style = "darker"
+      require("material").setup({
+        disable = {
+          colored_cursor = true,
+        },
+        contrast = {
+          floating_windows = true,
+        },
+        lualine_style = "stealth",
+        high_visibility = {
+          darker = true,
+        },
+        async_loading = false,
+        custom_highlights = {
+          TelescopeNormal = { guibg = "bg" },
+          TelescopePrompt = { guibg = "bg" },
+          TelescopePromptBorder = { guibg = "bg" },
+          TelescopePreviewBorder = { guibg = "bg" },
+          TelescopeResultsBorder = { guibg = "bg" },
+          TelescopePromptPreview = { guibg = "bg" },
+          TelescopeBorder = { guibg = "bg" },
+        },
+      })
+      vim.cmd("colorscheme material")
     end,
   })
+
+  -- use ({
+  --   "p00f/alabaster_dark.nvim",
+  --   config = function()
+  --     vim.cmd("colorscheme alabaster")
+  --   end,
+  -- })
 
   use({
     "nvim-telescope/telescope.nvim",
