@@ -254,7 +254,7 @@ require("packer").startup(function(use)
         },
         rainbow = {
           enable = true,
-          extended_mode = true,
+          -- extended_mode = true,
         },
       })
     end,
