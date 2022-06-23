@@ -46,12 +46,12 @@ require("packer").startup(function(use)
   --   end,
   -- })
 
-  use({
-    "antoinemadec/FixCursorHold.nvim",
-    config = function()
-      vim.g.cursorhold_updatetime = 100
-    end,
-  })
+  -- use({
+  --   "antoinemadec/FixCursorHold.nvim",
+  --   config = function()
+  --     vim.g.cursorhold_updatetime = 100
+  --   end,
+  -- })
 
   use({
     "ggandor/lightspeed.nvim",
@@ -220,7 +220,6 @@ require("packer").startup(function(use)
 
   use({
     "nvim-treesitter/nvim-treesitter",
-    -- requires = { "nvim-treesitter/playground" },
     run = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
@@ -267,35 +266,36 @@ require("packer").startup(function(use)
   })
 
   use({
+    "j-hui/fidget.nvim",
+    config = function()
+      require("fidget").setup({
+        text = {
+          spinner = "dots",
+        },
+        window = {
+          relative = "editor",
+          blend = 0,
+        },
+        fmt = {
+          task = function(_, _, _)
+            -- don't show status message at all
+            return nil
+          end,
+        },
+      })
+    end,
+  })
+
+  use({
     "neovim/nvim-lspconfig",
     requires = {
       "jose-elias-alvarez/null-ls.nvim",
       "jose-elias-alvarez/typescript.nvim",
-      {
-        "j-hui/fidget.nvim",
-        config = function()
-          require("fidget").setup({
-            text = {
-              spinner = "dots",
-            },
-            window = {
-              relative = "editor",
-              blend = 0,
-            },
-            fmt = {
-              task = function(_, _, _)
-                -- don't show status message at all
-                return nil
-              end,
-            },
-          })
-        end,
-      },
     },
     config = function()
       local lsp_conf = require("lspconfig")
 
-      local common_on_attach = function(_, bufnr)
+      local function common_on_attach(_, bufnr)
         vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
         local opts = { buffer = bufnr }
