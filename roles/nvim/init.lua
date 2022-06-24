@@ -133,40 +133,47 @@ require("packer").startup(function(use)
     end,
   })
 
+  -- use({
+  --   "marko-cerovac/material.nvim",
+  --   config = function()
+  --     vim.g.material_style = "darker"
+  --     require("material").setup({
+  --       disable = {
+  --         colored_cursor = true,
+  --       },
+  --       contrast = {
+  --         floating_windows = true,
+  --       },
+  --       lualine_style = "stealth",
+  --       high_visibility = {
+  --         darker = true,
+  --       },
+  --       async_loading = false,
+  --       custom_highlights = {
+  --         TelescopeNormal = { guibg = "bg" },
+  --         TelescopePrompt = { guibg = "bg" },
+  --         TelescopePromptBorder = { guibg = "bg" },
+  --         TelescopePreviewBorder = { guibg = "bg" },
+  --         TelescopeResultsBorder = { guibg = "bg" },
+  --         TelescopePromptPreview = { guibg = "bg" },
+  --         TelescopeBorder = { guibg = "bg" },
+  --       },
+  --     })
+  --     vim.cmd("colorscheme material")
+  --   end,
+  -- })
+
   use({
-    "marko-cerovac/material.nvim",
+    "jacksonludwig/alabaster_dark.nvim",
     config = function()
-      vim.g.material_style = "darker"
-      require("material").setup({
-        disable = {
-          colored_cursor = true,
-        },
-        contrast = {
-          floating_windows = true,
-        },
-        lualine_style = "stealth",
-        high_visibility = {
-          darker = true,
-        },
-        async_loading = false,
-        custom_highlights = {
-          TelescopeNormal = { guibg = "bg" },
-          TelescopePrompt = { guibg = "bg" },
-          TelescopePromptBorder = { guibg = "bg" },
-          TelescopePreviewBorder = { guibg = "bg" },
-          TelescopeResultsBorder = { guibg = "bg" },
-          TelescopePromptPreview = { guibg = "bg" },
-          TelescopeBorder = { guibg = "bg" },
-        },
-      })
-      vim.cmd("colorscheme material")
+      vim.cmd("colorscheme alabaster_dark")
     end,
   })
 
-  -- use ({
-  --   "p00f/alabaster_dark.nvim",
+  -- use({
+  --   "VonHeikemen/little-wonder",
   --   config = function()
-  --     vim.cmd("colorscheme alabaster")
+  --     vim.cmd("colorscheme lw-rubber")
   --   end,
   -- })
 
@@ -227,7 +234,7 @@ require("packer").startup(function(use)
 
   use({
     "nvim-treesitter/nvim-treesitter",
-    requires = { "p00f/nvim-ts-rainbow" },
+    requires = { "nvim-treesitter/playground" },
     run = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
@@ -250,11 +257,11 @@ require("packer").startup(function(use)
         },
         highlight = {
           enable = true,
+          -- additional_vim_regex_highlighting = { "typescript", "tsx" },
           -- disable = { "javascript", "typescript", "tsx" },
         },
-        rainbow = {
+        playground = {
           enable = true,
-          extended_mode = false,
         },
       })
     end,
