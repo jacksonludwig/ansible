@@ -170,13 +170,6 @@ require("packer").startup(function(use)
     end,
   })
 
-  -- use({
-  --   "VonHeikemen/little-wonder",
-  --   config = function()
-  --     vim.cmd("colorscheme lw-rubber")
-  --   end,
-  -- })
-
   use({
     "nvim-telescope/telescope.nvim",
     requires = {
@@ -477,14 +470,21 @@ require("packer").startup(function(use)
   })
 
   use({
+    "windwp/nvim-autopairs",
+    config = function()
+      require("nvim-autopairs").setup({})
+    end,
+  })
+
+  use({
     "hrsh7th/nvim-cmp",
     requires = { "hrsh7th/cmp-buffer", "hrsh7th/cmp-nvim-lsp", "saadparwaiz1/cmp_luasnip" },
     config = function()
       local cmp = require("cmp")
       cmp.setup({
-        completion = {
-          autocomplete = false,
-        },
+        -- completion = {
+        --   autocomplete = false,
+        -- },
         snippet = {
           expand = function(args)
             require("luasnip").lsp_expand(args.body)
