@@ -22,6 +22,7 @@ require("packer").startup(function(use)
     "tpope/vim-repeat",
     "tpope/vim-abolish",
     "tpope/vim-surround",
+    "tpope/vim-fugitive"
   })
 
   use({
@@ -30,28 +31,6 @@ require("packer").startup(function(use)
       require("pqf").setup()
     end,
   })
-
-  -- use({
-  --   "jghauser/kitty-runner.nvim",
-  --   config = function()
-  --     require("kitty-runner").setup({
-  --       use_keymaps = false,
-  --     })
-  --     vim.keymap.set("n", "<leader>kor", "<cmd>KittyOpenRunner<CR>", {})
-  --     vim.keymap.set("n", "<leader>krc", "<cmd>KittyRunCommand<CR>", {})
-  --     vim.keymap.set("n", "<leader>krr", "<cmd>KittyReRunCommand<CR>", {})
-  --     vim.keymap.set("n", "<leader>kcr", "<cmd>KittyClearRunner<CR>", {})
-  --     vim.keymap.set({ "n", "v" }, "<leader>ksl", "<cmd>KittySendLines<CR>", {})
-  --     vim.keymap.set("n", "<leader>kkr", "<cmd>KittyKillRunner<CR>", {})
-  --   end,
-  -- })
-
-  -- use({
-  --   "antoinemadec/FixCursorHold.nvim",
-  --   config = function()
-  --     vim.g.cursorhold_updatetime = 100
-  --   end,
-  -- })
 
   use({
     "ggandor/lightspeed.nvim",
@@ -163,10 +142,37 @@ require("packer").startup(function(use)
   --   end,
   -- })
 
+  -- use({
+  --   "jacksonludwig/alabaster_dark.nvim",
+  --   config = function()
+  --     vim.cmd("colorscheme alabaster_dark")
+  --   end,
+  -- })
+
   use({
-    "jacksonludwig/alabaster_dark.nvim",
+    "catppuccin/nvim",
+    as = "catppuccin",
     config = function()
-      vim.cmd("colorscheme alabaster_dark")
+      local catppuccin = require("catppuccin")
+
+      catppuccin.setup({
+        styles = {
+          comments = "italic",
+          conditionals = "NONE",
+          loops = "NONE",
+          functions = "NONE",
+          keywords = "NONE",
+          strings = "NONE",
+          variables = "NONE",
+          numbers = "NONE",
+          booleans = "NONE",
+          properties = "NONE",
+          types = "NONE",
+          operators = "NONE",
+        },
+      })
+
+      vim.cmd("colorscheme catppuccin")
     end,
   })
 
