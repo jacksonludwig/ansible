@@ -40,6 +40,47 @@ require("packer").startup(function(use)
   })
 
   use({
+    "anuvyklack/hydra.nvim",
+    config = function()
+      local Hydra = require("hydra")
+
+      Hydra({
+        name = "Change / Resize Window",
+        mode = { "n" },
+        body = "<C-w>",
+        config = {
+          -- color = "pink",
+        },
+        heads = {
+          -- move between windows
+          { "<C-h>", "<C-w>h" },
+          { "<C-j>", "<C-w>j" },
+          { "<C-k>", "<C-w>k" },
+          { "<C-l>", "<C-w>l" },
+
+          -- resizing window
+          { "<left>", "<C-w>3<" },
+          { "<right>", "<C-w>3>" },
+          { "<up>", "<C-w>2+" },
+          { "<down>", "<C-w>2-" },
+
+          -- equalize window sizes
+          { "e", "<C-w>=" },
+
+          -- close active window
+          { "Q", ":q<cr>" },
+          { "<C-q>", ":q<cr>" },
+
+          -- exit this Hydra
+          { "q", nil, { exit = true, nowait = true } },
+          { ";", nil, { exit = true, nowait = true } },
+          { "<Esc>", nil, { exit = true, nowait = true } },
+        },
+      })
+    end,
+  })
+
+  use({
     "dkarter/bullets.vim",
     config = function()
       vim.g.bullets_enabled_file_types = { "markdown", "text", "gitcommit", "scratch" }
@@ -534,7 +575,7 @@ require("packer").startup(function(use)
           fields = { "kind", "abbr", "menu" },
           format = function(entry, vim_item)
             -- Kind icons
-            vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+            vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
             vim_item.menu = ({
               -- copilot = "[Copilot]",
               luasnip = "LuaSnip",
