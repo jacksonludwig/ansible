@@ -275,7 +275,6 @@ require("packer").startup(function(use)
           "typescript",
           "javascript",
           "tsx",
-          -- "jsdoc",
           "graphql",
           "regex",
           "css",
@@ -283,8 +282,6 @@ require("packer").startup(function(use)
         },
         highlight = {
           enable = true,
-          -- additional_vim_regex_highlighting = { "typescript", "tsx" },
-          -- disable = { "javascript", "typescript", "tsx" },
         },
         playground = {
           enable = true,
