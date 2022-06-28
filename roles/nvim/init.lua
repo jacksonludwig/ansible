@@ -52,12 +52,6 @@ require("packer").startup(function(use)
           -- color = "pink",
         },
         heads = {
-          -- move between windows
-          { "<C-h>", "<C-w>h" },
-          { "<C-j>", "<C-w>j" },
-          { "<C-k>", "<C-w>k" },
-          { "<C-l>", "<C-w>l" },
-
           -- resizing window
           { "<left>", "<C-w>3<" },
           { "<right>", "<C-w>3>" },
@@ -282,7 +276,7 @@ require("packer").startup(function(use)
           "javascript",
           "tsx",
           "jsdoc",
-          "markdown",
+          -- "markdown",
           "graphql",
           "regex",
           "css",
