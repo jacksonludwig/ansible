@@ -564,8 +564,7 @@ require("packer").startup(function(use)
         formatting = {
           fields = { "kind", "abbr", "menu" },
           format = function(entry, vim_item)
-            -- Kind icons
-            vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+            vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
             vim_item.menu = ({
               -- copilot = "[Copilot]",
               luasnip = "LuaSnip",
@@ -620,7 +619,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 vim.keymap.set("n", "<esc>", "<cmd>noh<CR>", {})
-vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", {})
 vim.keymap.set("n", "<leader>lo", "<cmd>copen<CR>", {})
 vim.keymap.set("n", "<leader>lc", "<cmd>cclose<CR>", {})
 vim.keymap.set("n", "<c-j>", "<cmd>cnext<CR>", {})
