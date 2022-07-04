@@ -645,3 +645,16 @@ vim.cmd([[
 
 -- TEMP BIND: run prettier on current file manually
 vim.keymap.set("n", "<leader>v", "<cmd>!prettier --write %<CR>", {})
+
+-- TESTING: "indent" when pressing 'i' like 'cc' when line is empty
+vim.cmd([[
+function! IndentWithI()
+  if len(getline('.')) == 0
+    return "\"_cc"
+  else
+    return "i"
+  endif
+endfunction
+
+nnoremap <expr> i IndentWithI()
+]])
