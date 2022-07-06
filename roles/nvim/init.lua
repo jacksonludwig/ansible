@@ -26,31 +26,6 @@ require("packer").startup(function(use)
   })
 
   use({
-    "nvim-neotest/neotest",
-    requires = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "antoinemadec/FixCursorHold.nvim",
-      "haydenmeade/neotest-jest",
-    },
-    config = function()
-      local neotest = require("neotest").setup({
-        adapters = {
-          require("neotest-jest")({
-            jestCommand = "npm run test --",
-          }),
-        },
-      })
-
-      vim.keymap.set("n", "<leader>tn", neotest.run.run, {})
-      vim.keymap.set("n", "<leader>tf", function()
-        neotest.run.run(vim.fn.expand("%"))
-      end, {})
-      vim.keymap.set("n", "<leader>ts", neotest.summary.toggle, {})
-    end,
-  })
-
-  use({
     "https://gitlab.com/yorickpeterse/nvim-pqf",
     config = function()
       require("pqf").setup()
