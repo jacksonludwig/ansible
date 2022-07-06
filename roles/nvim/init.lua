@@ -604,6 +604,10 @@ local term_group = vim.api.nvim_create_augroup("Terminal", {})
 
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
+    if not vim.startswith(vim.api.nvim_buf_get_name(0), "term://") then
+      return
+    end
+
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
     vim.opt_local.signcolumn = "no"
