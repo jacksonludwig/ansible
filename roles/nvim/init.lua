@@ -26,6 +26,31 @@ require("packer").startup(function(use)
   })
 
   use({
+    "nvim-neotest/neotest",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim",
+      "haydenmeade/neotest-jest",
+    },
+    config = function()
+      local neotest = require("neotest").setup({
+        adapters = {
+          require("neotest-jest")({
+            jestCommand = "npm run test --",
+          }),
+        },
+      })
+
+      vim.keymap.set("n", "<leader>tn", neotest.run.run, {})
+      vim.keymap.set("n", "<leader>tf", function()
+        neotest.run.run(vim.fn.expand("%"))
+      end, {})
+      vim.keymap.set("n", "<leader>ts", neotest.summary.toggle, {})
+    end,
+  })
+
+  use({
     "https://gitlab.com/yorickpeterse/nvim-pqf",
     config = function()
       require("pqf").setup()
@@ -322,7 +347,7 @@ require("packer").startup(function(use)
         vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
         vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-        vim.keymap.set('v', '<space>ca', vim.lsp.buf.range_code_action, opts)
+        vim.keymap.set("v", "<space>ca", vim.lsp.buf.range_code_action, opts)
         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
         vim.keymap.set("n", "<leader>d", function()
           vim.diagnostic.open_float(nil, { scope = "line" })
