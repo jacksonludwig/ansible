@@ -197,6 +197,8 @@ require("packer").startup(function(use)
           oldfiles = opts,
           grep_string = opts,
           live_grep = opts,
+          git_branches = opts,
+          git_files = opts,
         },
         extensions = {
           fzf = {
@@ -215,7 +217,9 @@ require("packer").startup(function(use)
 
       vim.keymap.set("n", "<leader><leader>", builtins.find_files, {})
       vim.keymap.set("n", "<leader>fr", builtins.oldfiles, {})
+      vim.keymap.set("n", "<leader>fg", builtins.git_files, {})
       vim.keymap.set("n", "<leader>bb", builtins.buffers, {})
+      vim.keymap.set("n", "<leader>br", builtins.git_branches, {})
       vim.keymap.set("n", "<leader>g", builtins.live_grep, {})
       vim.keymap.set("n", "<leader>sw", builtins.diagnostics, {})
       vim.keymap.set("n", "<leader>so", builtins.lsp_workspace_symbols, {})
