@@ -33,9 +33,36 @@ require("packer").startup(function(use)
   })
 
   use({
-    "ggandor/lightspeed.nvim",
+    "phaazon/hop.nvim",
+    branch = "v2",
     config = function()
-      vim.keymap.set("n", "s", "<Plug>Lightspeed_omni_s")
+      require("hop").setup()
+
+      vim.keymap.set("n", "s", "<cmd>HopWord<CR>")
+      vim.keymap.set(
+        "",
+        "f",
+        "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>",
+        {}
+      )
+      vim.keymap.set(
+        "",
+        "F",
+        "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>",
+        {}
+      )
+      vim.keymap.set(
+        "",
+        "t",
+        "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>",
+        {}
+      )
+      vim.keymap.set(
+        "",
+        "T",
+        "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>",
+        {}
+      )
     end,
   })
 
