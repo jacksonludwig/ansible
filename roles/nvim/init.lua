@@ -39,30 +39,6 @@ require("packer").startup(function(use)
       require("hop").setup()
 
       vim.keymap.set("n", "s", "<cmd>HopWord<CR>")
-      vim.keymap.set(
-        "",
-        "f",
-        "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>",
-        {}
-      )
-      vim.keymap.set(
-        "",
-        "F",
-        "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>",
-        {}
-      )
-      vim.keymap.set(
-        "",
-        "t",
-        "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>",
-        {}
-      )
-      vim.keymap.set(
-        "",
-        "T",
-        "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>",
-        {}
-      )
     end,
   })
 
@@ -245,6 +221,7 @@ require("packer").startup(function(use)
       vim.keymap.set("n", "<leader><leader>", builtins.find_files, {})
       vim.keymap.set("n", "<leader>fr", builtins.oldfiles, {})
       vim.keymap.set("n", "<leader>fg", builtins.git_files, {})
+      vim.keymap.set("n", "<leader>fb", builtins.current_buffer_fuzzy_find, {})
       vim.keymap.set("n", "<leader>bb", builtins.buffers, {})
       vim.keymap.set("n", "<leader>br", builtins.git_branches, {})
       vim.keymap.set("n", "<leader>g", builtins.live_grep, {})
