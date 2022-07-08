@@ -42,6 +42,19 @@ require("packer").startup(function(use)
     end,
   })
 
+  use ({
+    "David-Kunz/jester",
+    config = function()
+      require("jester").setup({
+        cmd = "npm run test -- $file"
+      })
+
+      vim.keymap.set("n", "<leader>tn", require("jester").run, {})
+      vim.keymap.set("n", "<leader>tf", require("jester").run_file, {})
+      vim.keymap.set("n", "<leader>tl", require("jester").run_last, {})
+    end,
+  })
+
   use({
     "anuvyklack/hydra.nvim",
     config = function()
