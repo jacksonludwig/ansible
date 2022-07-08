@@ -274,6 +274,9 @@ require("packer").startup(function(use)
         highlight = {
           enable = true,
         },
+        indent = {
+          enable = { "tsx" },
+        },
         playground = {
           enable = true,
         },
