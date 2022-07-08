@@ -42,11 +42,11 @@ require("packer").startup(function(use)
     end,
   })
 
-  use ({
+  use({
     "David-Kunz/jester",
     config = function()
       require("jester").setup({
-        cmd = "npm run test -- $file"
+        cmd = "npm run test -- $file",
       })
 
       vim.keymap.set("n", "<leader>tn", require("jester").run, {})
@@ -187,6 +187,7 @@ require("packer").startup(function(use)
       })
 
       vim.cmd("colorscheme catppuccin")
+      vim.cmd("hi NormalFloat guibg=bg")
     end,
   })
 
@@ -469,6 +470,24 @@ require("packer").startup(function(use)
         signs = true,
         update_in_insert = false,
       })
+
+      local borderchars = {
+        "┌",
+        "─",
+        "┐",
+        "│",
+        "┘",
+        "─",
+        "└",
+        "│",
+      }
+
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = borderchars })
+
+      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+        vim.lsp.handlers.signature_help,
+        { border = borderchars }
+      )
     end,
   })
 
@@ -548,6 +567,34 @@ require("packer").startup(function(use)
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-e>"] = cmp.mapping.abort(),
         }),
+        window = {
+          completion = {
+            border = {
+              "┌",
+              "─",
+              "┐",
+              "│",
+              "┘",
+              "─",
+              "└",
+              "│",
+            },
+            winhighlight = "Normal:CmpPmenu,FloatBorder:CmpPmenuBorder,CursorLine:PmenuSel,Search:None",
+          },
+          documentation = {
+            border = {
+              "┌",
+              "─",
+              "┐",
+              "│",
+              "┘",
+              "─",
+              "└",
+              "│",
+            },
+            winhighlight = "Normal:CmpPmenu,FloatBorder:CmpPmenuBorder,CursorLine:PmenuSel,Search:None",
+          },
+        },
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
