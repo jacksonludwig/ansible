@@ -25,6 +25,13 @@ require("packer").startup(function(use)
     "tpope/vim-fugitive",
   })
 
+  use ({
+    "luukvbaal/stabilize.nvim",
+    config = function()
+      require("stabilize").setup()
+    end,
+  })
+
   use({
     "https://gitlab.com/yorickpeterse/nvim-pqf",
     config = function()
