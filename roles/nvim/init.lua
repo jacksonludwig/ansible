@@ -21,7 +21,23 @@ require("packer").startup(function(use)
   use({
     "tpope/vim-repeat",
     "tpope/vim-abolish",
-    "tpope/vim-surround",
+    {
+      "tpope/vim-surround",
+      config = function()
+        -- remove visual mode S binding
+        vim.g.surround_no_mappings = 1
+        vim.cmd([[
+        nmap ds  <Plug>Dsurround
+        nmap cs  <Plug>Csurround
+        nmap ys  <Plug>Ysurround
+        nmap yS  <Plug>YSurround
+        nmap yss <Plug>Yssurround
+        nmap ySs <Plug>YSsurround
+        nmap ySS <Plug>YSsurround
+        xmap gS  <Plug>VgSurround
+      ]])
+      end,
+    },
     "tpope/vim-fugitive",
   })
 
@@ -40,12 +56,9 @@ require("packer").startup(function(use)
   })
 
   use({
-    "phaazon/hop.nvim",
-    branch = "v2",
+    "ggandor/lightspeed.nvim",
     config = function()
-      require("hop").setup()
-
-      vim.keymap.set("n", "s", "<cmd>HopWord<CR>")
+      -- vim.keymap.set("n", "s", "<Plug>Lightspeed_omni_s")
     end,
   })
 
@@ -71,9 +84,6 @@ require("packer").startup(function(use)
         name = "Change / Resize Window",
         mode = { "n" },
         body = "<C-w>",
-        config = {
-          -- color = "pink",
-        },
         heads = {
           -- resizing window
           { "<left>", "<C-w>3<" },
@@ -194,7 +204,6 @@ require("packer").startup(function(use)
       })
 
       vim.cmd("colorscheme catppuccin")
-      vim.cmd("hi NormalFloat guibg=bg")
     end,
   })
 
@@ -290,7 +299,7 @@ require("packer").startup(function(use)
         },
         autotag = {
           enable = true,
-        }
+        },
       })
     end,
   })
@@ -483,24 +492,6 @@ require("packer").startup(function(use)
         signs = true,
         update_in_insert = false,
       })
-
-      local borderchars = {
-        "┌",
-        "─",
-        "┐",
-        "│",
-        "┘",
-        "─",
-        "└",
-        "│",
-      }
-
-      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = borderchars })
-
-      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-        vim.lsp.handlers.signature_help,
-        { border = borderchars }
-      )
     end,
   })
 
@@ -580,34 +571,6 @@ require("packer").startup(function(use)
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-e>"] = cmp.mapping.abort(),
         }),
-        window = {
-          completion = {
-            border = {
-              "┌",
-              "─",
-              "┐",
-              "│",
-              "┘",
-              "─",
-              "└",
-              "│",
-            },
-            winhighlight = "Normal:CmpPmenu,FloatBorder:CmpPmenuBorder,CursorLine:PmenuSel,Search:None",
-          },
-          documentation = {
-            border = {
-              "┌",
-              "─",
-              "┐",
-              "│",
-              "┘",
-              "─",
-              "└",
-              "│",
-            },
-            winhighlight = "Normal:CmpPmenu,FloatBorder:CmpPmenuBorder,CursorLine:PmenuSel,Search:None",
-          },
-        },
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
@@ -650,8 +613,8 @@ opt.signcolumn = "yes"
 opt.tabstop = 2
 opt.shiftwidth = 2
 opt.expandtab = true
-opt.number = true
-opt.relativenumber = true
+-- opt.number = true
+-- opt.relativenumber = true
 opt.mouse = "a"
 opt.completeopt = { "menu", "menuone", "noselect" }
 opt.foldenable = false
@@ -674,6 +637,7 @@ vim.keymap.set("n", "<leader>lo", "<cmd>copen<CR>", {})
 vim.keymap.set("n", "<leader>lc", "<cmd>cclose<CR>", {})
 vim.keymap.set("n", "<c-j>", "<cmd>cnext<CR>", {})
 vim.keymap.set("n", "<c-k>", "<cmd>cprev<CR>", {})
+vim.keymap.set("n", "<leader>#", "<cmd>set nu!<CR>", {})
 
 -- autocmds
 local term_group = vim.api.nvim_create_augroup("Terminal", {})
