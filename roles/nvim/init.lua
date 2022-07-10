@@ -25,7 +25,7 @@ require("packer").startup(function(use)
     "tpope/vim-fugitive",
   })
 
-  use ({
+  use({
     "luukvbaal/stabilize.nvim",
     config = function()
       require("stabilize").setup()
@@ -260,7 +260,7 @@ require("packer").startup(function(use)
 
   use({
     "nvim-treesitter/nvim-treesitter",
-    requires = { "nvim-treesitter/playground" },
+    requires = { "nvim-treesitter/playground", "windwp/nvim-ts-autotag" },
     run = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
@@ -288,6 +288,9 @@ require("packer").startup(function(use)
         playground = {
           enable = true,
         },
+        autotag = {
+          enable = true,
+        }
       })
     end,
   })
