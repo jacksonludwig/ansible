@@ -65,9 +65,7 @@ require("packer").startup(function(use)
   use({
     "David-Kunz/jester",
     config = function()
-      require("jester").setup({
-        cmd = "npm run test -- $file",
-      })
+      require("jester").setup({})
 
       vim.keymap.set("n", "<leader>tn", require("jester").run, {})
       vim.keymap.set("n", "<leader>tf", require("jester").run_file, {})
@@ -657,14 +655,14 @@ vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",
 })
 
-local yank_highlight_group = vim.api.nvim_create_augroup("YankHighlight", {})
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
   end,
-  group = yank_highlight_group,
-  pattern = "*",
+  group = highlight_group,
+  pattern = '*',
 })
 
 local gitcommit_group = vim.api.nvim_create_augroup("Git", {})
