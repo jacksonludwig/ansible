@@ -181,12 +181,13 @@ require("packer").startup(function(use)
   use({
     "catppuccin/nvim",
     as = "catppuccin",
+    branch = "dev",
     config = function()
       local catppuccin = require("catppuccin")
 
       catppuccin.setup({
         styles = {
-          comments = "italic",
+          comments = { "italic" },
           conditionals = "NONE",
           loops = "NONE",
           functions = "NONE",
@@ -662,7 +663,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     vim.highlight.on_yank()
   end,
   group = highlight_group,
-  pattern = '*',
+  pattern = "*",
 })
 
 local gitcommit_group = vim.api.nvim_create_augroup("Git", {})
