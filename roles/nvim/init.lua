@@ -279,7 +279,7 @@ require("packer").startup(function(use)
           "python",
           "yaml",
           "bash",
-          "comment",
+          -- "comment", oops I broke treesitter
           "typescript",
           "javascript",
           "tsx",
