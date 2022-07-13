@@ -178,41 +178,41 @@ require("packer").startup(function(use)
     end,
   })
 
-  -- use ({
-  --   "bluz71/vim-moonfly-colors",
-  --   config = function()
-  --     vim.g.moonflyWinSeparator = 2
-  --     vim.cmd("colorscheme moonfly")
-  --   end,
-  -- })
-
-  use({
-    "catppuccin/nvim",
-    as = "catppuccin",
-    branch = "dev",
+  use ({
+    "bluz71/vim-moonfly-colors",
     config = function()
-      local catppuccin = require("catppuccin")
-
-      catppuccin.setup({
-        styles = {
-          comments = { "italic" },
-          conditionals = "NONE",
-          loops = "NONE",
-          functions = "NONE",
-          keywords = "NONE",
-          strings = "NONE",
-          variables = "NONE",
-          numbers = "NONE",
-          booleans = "NONE",
-          properties = "NONE",
-          types = "NONE",
-          operators = "NONE",
-        },
-      })
-
-      vim.cmd("colorscheme catppuccin")
+      vim.g.moonflyWinSeparator = 2
+      vim.cmd("colorscheme moonfly")
     end,
   })
+
+  -- use({
+  --   "catppuccin/nvim",
+  --   as = "catppuccin",
+  --   branch = "dev",
+  --   config = function()
+  --     local catppuccin = require("catppuccin")
+  --
+  --     catppuccin.setup({
+  --       styles = {
+  --         comments = { "italic" },
+  --         conditionals = "NONE",
+  --         loops = "NONE",
+  --         functions = "NONE",
+  --         keywords = "NONE",
+  --         strings = "NONE",
+  --         variables = "NONE",
+  --         numbers = "NONE",
+  --         booleans = "NONE",
+  --         properties = "NONE",
+  --         types = "NONE",
+  --         operators = "NONE",
+  --       },
+  --     })
+  --
+  --     vim.cmd("colorscheme catppuccin")
+  --   end,
+  -- })
 
   use({
     "nvim-telescope/telescope.nvim",
