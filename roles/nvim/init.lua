@@ -65,7 +65,9 @@ require("packer").startup(function(use)
   use({
     "David-Kunz/jester",
     config = function()
-      require("jester").setup({})
+      require("jester").setup({
+        cmd = "npm run test -- '$result' -- $file"
+      })
 
       vim.keymap.set("n", "<leader>tn", require("jester").run, {})
       vim.keymap.set("n", "<leader>tf", require("jester").run_file, {})
