@@ -138,6 +138,16 @@ require("packer").startup(function(use)
   use({
     "nvim-lualine/lualine.nvim",
     config = function()
+      vim.opt.cmdheight = 0
+      local function show_search_results()
+        if vim.v.hlsearch == 1 then
+          local searchcount = vim.fn.searchcount()
+          return "[" .. searchcount["current"] .. "/" .. searchcount["total"] .. "]"
+        else
+          return ""
+        end
+      end
+
       require("lualine").setup({
         options = {
           icons_enabled = false,
@@ -156,6 +166,7 @@ require("packer").startup(function(use)
             { "filename", path = 1, shorting_target = 20 },
           },
           lualine_x = {
+            { show_search_results },
             { "diagnostics", sources = { "nvim_diagnostic" }, colored = true },
             "filetype",
             "progress",
@@ -178,7 +189,7 @@ require("packer").startup(function(use)
     end,
   })
 
-  use ({
+  use({
     "bluz71/vim-moonfly-colors",
     config = function()
       vim.g.moonflyWinSeparator = 2
@@ -290,7 +301,7 @@ require("packer").startup(function(use)
           "typescript",
           "javascript",
           "tsx",
-          "graphql",
+          -- "graphql",
           "regex",
           "css",
           "html",
@@ -506,7 +517,17 @@ require("packer").startup(function(use)
     "L3MON4D3/LuaSnip",
     config = function()
       local luasnip = require("luasnip")
+      local types = require("luasnip.util.types")
       require("jackson.snippets.snippets")
+      luasnip.config.set_config({
+        ext_opts = {
+          [types.choiceNode] = {
+            active = {
+              virt_text = { { "<- Choice" } },
+            },
+          },
+        },
+      })
       vim.cmd([[
         inoremap <silent><expr> <C-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-j>' 
         inoremap <silent> <C-k> <cmd>lua require'luasnip'.jump(-1)<Cr>
