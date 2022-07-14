@@ -42,13 +42,6 @@ require("packer").startup(function(use)
   })
 
   use({
-    "luukvbaal/stabilize.nvim",
-    config = function()
-      require("stabilize").setup()
-    end,
-  })
-
-  use({
     "https://gitlab.com/yorickpeterse/nvim-pqf",
     config = function()
       require("pqf").setup()
@@ -140,16 +133,6 @@ require("packer").startup(function(use)
   use({
     "nvim-lualine/lualine.nvim",
     config = function()
-      vim.opt.cmdheight = 0
-      local function show_search_results()
-        if vim.v.hlsearch == 1 then
-          local searchcount = vim.fn.searchcount()
-          return "[" .. searchcount["current"] .. "/" .. searchcount["total"] .. "]"
-        else
-          return ""
-        end
-      end
-
       require("lualine").setup({
         options = {
           icons_enabled = false,
@@ -168,7 +151,6 @@ require("packer").startup(function(use)
             { "filename", path = 1, shorting_target = 20 },
           },
           lualine_x = {
-            { show_search_results },
             { "diagnostics", sources = { "nvim_diagnostic" }, colored = true },
             "filetype",
             "progress",
