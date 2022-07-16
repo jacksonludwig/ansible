@@ -532,9 +532,6 @@ require("packer").startup(function(use)
       local cmp = require("cmp")
 
       cmp.setup({
-        -- completion = {
-        --   autocomplete = false,
-        -- },
         snippet = {
           expand = function(args)
             require("luasnip").lsp_expand(args.body)
@@ -598,7 +595,7 @@ vim.keymap.set("n", "<leader>lo", "<cmd>copen<CR>", {})
 vim.keymap.set("n", "<leader>lc", "<cmd>cclose<CR>", {})
 vim.keymap.set("n", "<c-j>", "<cmd>cnext<CR>", {})
 vim.keymap.set("n", "<c-k>", "<cmd>cprev<CR>", {})
-vim.keymap.set("n", "<leader>#", "<cmd>set nu!<CR>", {})
+vim.keymap.set("n", "<leader>#", "<cmd>set rnu!<CR>", {})
 
 -- autocmds
 local term_group = vim.api.nvim_create_augroup("Terminal", {})
