@@ -21,24 +21,20 @@ require("packer").startup(function(use)
   use({
     "tpope/vim-repeat",
     "tpope/vim-abolish",
-    {
-      "tpope/vim-surround",
-      config = function()
-        -- remove visual mode S binding
-        vim.g.surround_no_mappings = 1
-        vim.cmd([[
-        nmap ds  <Plug>Dsurround
-        nmap cs  <Plug>Csurround
-        nmap ys  <Plug>Ysurround
-        nmap yS  <Plug>YSurround
-        nmap yss <Plug>Yssurround
-        nmap ySs <Plug>YSsurround
-        nmap ySS <Plug>YSsurround
-        xmap gS  <Plug>VgSurround
-      ]])
-      end,
-    },
     "tpope/vim-fugitive",
+  })
+
+  use({
+    "kylechui/nvim-surround",
+    config = function()
+      require("nvim-surround").setup({
+        delimiters = {
+          pairs = {
+            ["*"] = { "*", "*" },
+          },
+        },
+      })
+    end,
   })
 
   use({
@@ -56,7 +52,7 @@ require("packer").startup(function(use)
     "David-Kunz/jester",
     config = function()
       require("jester").setup({
-        cmd = "npm run test -- $file"
+        cmd = "npm run test -- $file",
       })
 
       vim.keymap.set("n", "<leader>tf", require("jester").run_file, {})
