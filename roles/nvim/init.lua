@@ -45,7 +45,10 @@ require("packer").startup(function(use)
   })
 
   use({
-    "ggandor/lightspeed.nvim",
+    "ggandor/leap.nvim",
+    config = function()
+      require("leap").set_default_keymaps()
+    end
   })
 
   use({
@@ -89,13 +92,6 @@ require("packer").startup(function(use)
           { "<Esc>", nil, { exit = true, nowait = true } },
         },
       })
-    end,
-  })
-
-  use({
-    "dkarter/bullets.vim",
-    config = function()
-      vim.g.bullets_enabled_file_types = { "markdown", "text", "gitcommit", "scratch" }
     end,
   })
 
@@ -173,34 +169,6 @@ require("packer").startup(function(use)
     end,
   })
 
-  -- use({
-  --   "catppuccin/nvim",
-  --   as = "catppuccin",
-  --   branch = "dev",
-  --   config = function()
-  --     local catppuccin = require("catppuccin")
-  --
-  --     catppuccin.setup({
-  --       styles = {
-  --         comments = { "italic" },
-  --         conditionals = "NONE",
-  --         loops = "NONE",
-  --         functions = "NONE",
-  --         keywords = "NONE",
-  --         strings = "NONE",
-  --         variables = "NONE",
-  --         numbers = "NONE",
-  --         booleans = "NONE",
-  --         properties = "NONE",
-  --         types = "NONE",
-  --         operators = "NONE",
-  --       },
-  --     })
-  --
-  --     vim.cmd("colorscheme catppuccin")
-  --   end,
-  -- })
-
   use({
     "nvim-telescope/telescope.nvim",
     requires = {
@@ -247,16 +215,16 @@ require("packer").startup(function(use)
 
       vim.keymap.set("n", "<leader><leader>", builtins.find_files, {})
       vim.keymap.set("n", "<leader>fr", builtins.oldfiles, {})
-      vim.keymap.set("n", "<leader>fg", builtins.git_files, {})
-      vim.keymap.set("n", "<leader>fb", builtins.current_buffer_fuzzy_find, {})
+      vim.keymap.set("n", "<leader>fv", builtins.git_files, {})
       vim.keymap.set("n", "<leader>bb", builtins.buffers, {})
-      vim.keymap.set("n", "<leader>br", builtins.git_branches, {})
-      vim.keymap.set("n", "<leader>g", builtins.live_grep, {})
+      vim.keymap.set("n", "<leader>gg", builtins.live_grep, {})
+      vim.keymap.set("n", "<leader>gb", builtins.current_buffer_fuzzy_find, {})
       vim.keymap.set("n", "<leader>sw", builtins.diagnostics, {})
       vim.keymap.set("n", "<leader>so", builtins.lsp_workspace_symbols, {})
 
-      vim.keymap.set("n", "<leader>bc", extensions.git_worktree.create_git_worktree, {})
-      vim.keymap.set("n", "<leader>bw", extensions.git_worktree.git_worktrees, {})
+      vim.keymap.set("n", "<leader>vc", extensions.git_worktree.create_git_worktree, {})
+      vim.keymap.set("n", "<leader>vl", extensions.git_worktree.git_worktrees, {})
+      vim.keymap.set("n", "<leader>vb", builtins.git_branches, {})
     end,
   })
 
@@ -361,8 +329,8 @@ require("packer").startup(function(use)
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
         vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-        vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
-        vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
+        vim.keymap.set("n", "<leader>Wa", vim.lsp.buf.add_workspace_folder, opts)
+        vim.keymap.set("n", "<leader>Wr", vim.lsp.buf.remove_workspace_folder, opts)
         vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
         vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
@@ -656,4 +624,4 @@ vim.cmd([[
 ]])
 
 -- TEMP BIND: run prettier on current file manually
-vim.keymap.set("n", "<leader>v", "<cmd>!prettier --write %<CR>", {})
+vim.keymap.set("n", "<leader>x", "<cmd>!prettier --write %<CR>", {})
