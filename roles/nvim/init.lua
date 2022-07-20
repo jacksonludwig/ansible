@@ -175,7 +175,6 @@ require("packer").startup(function(use)
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
       "nvim-telescope/telescope-ui-select.nvim",
-      "ThePrimeagen/git-worktree.nvim",
     },
     config = function()
       local telescope = require("telescope")
@@ -208,10 +207,8 @@ require("packer").startup(function(use)
 
       telescope.load_extension("fzf")
       telescope.load_extension("ui-select")
-      telescope.load_extension("git_worktree")
 
       local builtins = require("telescope.builtin")
-      local extensions = require("telescope").extensions
 
       vim.keymap.set("n", "<leader><leader>", builtins.find_files, {})
       vim.keymap.set("n", "<leader>fr", builtins.oldfiles, {})
@@ -222,8 +219,6 @@ require("packer").startup(function(use)
       vim.keymap.set("n", "<leader>sw", builtins.diagnostics, {})
       vim.keymap.set("n", "<leader>so", builtins.lsp_workspace_symbols, {})
 
-      vim.keymap.set("n", "<leader>vc", extensions.git_worktree.create_git_worktree, {})
-      vim.keymap.set("n", "<leader>vl", extensions.git_worktree.git_worktrees, {})
       vim.keymap.set("n", "<leader>vb", builtins.git_branches, {})
     end,
   })
