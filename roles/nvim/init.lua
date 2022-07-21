@@ -21,7 +21,12 @@ require("packer").startup(function(use)
   use({
     "tpope/vim-repeat",
     "tpope/vim-abolish",
-    "tpope/vim-fugitive",
+    {
+      "tpope/vim-fugitive",
+      config = function()
+        vim.keymap.set("n", "<leader>vp", ":G -c push.default=current push")
+      end,
+    },
   })
 
   use({
@@ -48,7 +53,7 @@ require("packer").startup(function(use)
     "ggandor/leap.nvim",
     config = function()
       require("leap").set_default_keymaps()
-    end
+    end,
   })
 
   use({
