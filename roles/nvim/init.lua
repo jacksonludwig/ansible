@@ -21,12 +21,7 @@ require("packer").startup(function(use)
   use({
     "tpope/vim-repeat",
     "tpope/vim-abolish",
-    {
-      "tpope/vim-fugitive",
-      config = function()
-        vim.keymap.set("n", "<leader>vp", ":G -c push.default=current push")
-      end,
-    },
+    "tpope/vim-fugitive",
   })
 
   use({
@@ -53,18 +48,6 @@ require("packer").startup(function(use)
     "ggandor/leap.nvim",
     config = function()
       require("leap").set_default_keymaps()
-    end,
-  })
-
-  use({
-    "David-Kunz/jester",
-    config = function()
-      require("jester").setup({
-        cmd = "npm run test -- $file",
-      })
-
-      vim.keymap.set("n", "<leader>tf", require("jester").run_file, {})
-      vim.keymap.set("n", "<leader>tl", require("jester").run_last, {})
     end,
   })
 
@@ -467,23 +450,15 @@ require("packer").startup(function(use)
     "L3MON4D3/LuaSnip",
     config = function()
       local luasnip = require("luasnip")
-      local types = require("luasnip.util.types")
       require("jackson.snippets.snippets")
-      luasnip.config.set_config({
-        ext_opts = {
-          [types.choiceNode] = {
-            active = {
-              virt_text = { { "<- Choice" } },
-            },
-          },
-        },
-      })
+
       vim.cmd([[
         inoremap <silent><expr> <C-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-j>' 
         inoremap <silent> <C-k> <cmd>lua require'luasnip'.jump(-1)<Cr>
         snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(1)<Cr>
         snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(-1)<Cr>
       ]])
+
       vim.keymap.set({ "i", "s" }, "<C-l>", function()
         if luasnip.choice_active() then
           luasnip.change_choice(1)
@@ -545,7 +520,6 @@ opt.signcolumn = "number"
 opt.tabstop = 2
 opt.shiftwidth = 2
 opt.expandtab = true
--- opt.number = true
 opt.relativenumber = true
 opt.mouse = "a"
 opt.completeopt = { "menu", "menuone", "noselect" }
