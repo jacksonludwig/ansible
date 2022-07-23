@@ -45,6 +45,9 @@
 (require 'yasnippet)
 (yas-global-mode)
 
+(straight-use-package 'flycheck)
+(require 'flycheck)
+
 ;;; Completion modifications
 (straight-use-package 'general)
 (require 'general)
@@ -68,7 +71,9 @@
   "SPC c a" 'lsp-execute-code-action
   "K" 'lsp-describe-thing-at-point
   "SPC z" 'lsp-eslint-apply-all-fixes ;; TODO: only bind this in ts(x) modes
-  "gr" 'xref-find-references)
+  "gr" 'xref-find-references
+  "]d" 'flycheck-next-error
+  "[d" 'flycheck-previous-error)
 
 ;;; LSP
 (straight-use-package 'which-key)
