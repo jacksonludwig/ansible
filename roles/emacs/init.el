@@ -15,6 +15,8 @@
 ;;; Options
 (setq-default indent-tabs-mode nil)
 (setq use-short-answers t)
+(setq read-process-output-max (* 1024 1024))
+(setq gc-cons-threshold 100000000)
 (add-hook 'after-init-hook #'recentf-mode)
 (customize-set-variable 'kill-do-not-save-duplicates t)
 (savehist-mode 1)
@@ -117,9 +119,10 @@
 (customize-set-variable 'evil-want-keybinding nil)
 (customize-set-variable 'evil-respect-visual-line-mode t)
 (customize-set-variable 'evil-undo-system 'undo-redo)
-(custom-set-variables '(evil-want-C-u-scroll t)
-                      '(evil-split-window-below t)
-                      '(evil-vsplit-window-right t))
+(custom-set-variables
+ '(evil-split-window-below t)
+ '(evil-vsplit-window-right t)
+ '(evil-want-C-u-scroll t))
 
 (require 'evil)
 (evil-mode 1)
@@ -209,7 +212,6 @@
                (display-buffer-reuse-window display-buffer-below-selected)
                (reusable-frames . visible)
                (window-height . 0.33)))
-(setq read-process-output-max (* 1024 1024))
 
 (setq lsp-eslint-server-command `("vscode-eslint-language-server" "--stdio"))
 
@@ -230,6 +232,11 @@
 (diminish 'evil-collection-unimpaired-mode)
 (diminish 'tree-sitter-mode)
 (diminish 'lsp-mode)
+
+;;; Theme
+(straight-use-package 'doom-themes)
+(require 'doom-themes)
+(load-theme 'modus-vivendi)
 
 ;;; Bindings
 (straight-use-package 'general)
@@ -261,4 +268,9 @@
   "]d" 'flycheck-next-error
   "[d" 'flycheck-previous-error)
 
-(load-theme 'modus-vivendi)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:font "JetBrains Mono 12")))))
