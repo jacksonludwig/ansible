@@ -2,7 +2,6 @@
 (require 'crafted-completion)  ; selection framework based on `vertico`
 (require 'crafted-editing)     ; Whitspace trimming, auto parens etc.
 (require 'crafted-evil)        ; An `evil-mode` configuration
-(require 'crafted-org)         ; org-appear, clickable hyperlinks etc.
 
 ;;; Options
 (add-hook 'emacs-startup-hook
@@ -14,6 +13,13 @@
 (progn
   (disable-theme 'deeper-blue)
   (load-theme 'doom-zenburn t))
+
+(setq backup-directory-alist
+        `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+        `((".*" ,temporary-file-directory t)))
+
+(add-hook 'prog-mode-hook (lambda () (setq display-line-numbers 'relative)))
 
 ;;; Undo history
 (straight-use-package 'undohist)
@@ -54,7 +60,15 @@
 (setq flycheck-check-syntax-automatically '(save))
 (require 'flycheck)
 
+;;; Evil modifications
+(custom-set-variables '(evil-want-C-u-scroll t)
+                      '(evil-split-window-below t)
+                      '(evil-vsplit-window-right t))
+
 ;;; Completion modifications
+(straight-use-package 'affe)
+(require 'affe)
+
 (straight-use-package 'general)
 (require 'general)
 (general-def
@@ -69,7 +83,10 @@
  "<return>" 'newline)
 (general-def
   :states 'normal
-  "SPC f r" 'consult-recent-file)
+  "<escape>" 'evil-ex-nohighlight
+  "SPC f r" 'consult-recent-file
+  "SPC SPC" 'affe-find
+  "SPC g g" 'affe-grep)
 (general-def
   :states 'normal
   :predicate 'lsp-mode
@@ -86,6 +103,7 @@
 (require 'which-key)
 (which-key-mode)
 
+;;; Corfu completion options (remove if using company)
 (setq lsp-completion-provider :none)
 (defun corfu-lsp-setup ()
   (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
