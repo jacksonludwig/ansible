@@ -46,6 +46,7 @@
 (yas-global-mode)
 
 (straight-use-package 'flycheck)
+(setq flycheck-check-syntax-automatically '(save))
 (require 'flycheck)
 
 ;;; Completion modifications
@@ -93,6 +94,7 @@
 (setq lsp-headerline-breadcrumb-enable nil)
 (setq lsp-enable-symbol-highlighting nil)
 (setq lsp-signature-doc-lines 1)
+(setq lsp-eldoc-enable-hover nil)
 (setq lsp-on-type-formatting nil)
 (setq lsp-enable-indentation nil)
 (add-to-list 'display-buffer-alist
