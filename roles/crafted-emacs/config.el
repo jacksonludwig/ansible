@@ -15,6 +15,11 @@
   (disable-theme 'deeper-blue)
   (load-theme 'doom-zenburn t))
 
+;;; Undo history
+(straight-use-package 'undohist)
+(require 'undohist)
+(undohist-initialize)
+
 ;;; Treesitter
 (straight-use-package 'tree-sitter)
 (straight-use-package 'tree-sitter-langs)
