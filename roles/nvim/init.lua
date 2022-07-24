@@ -284,8 +284,8 @@ require("packer").startup(function(use)
       vim.keymap.set("n", "<leader>bb", builtins.buffers, {})
       vim.keymap.set("n", "<leader>gg", builtins.live_grep, {})
       vim.keymap.set("n", "<leader>gb", builtins.current_buffer_fuzzy_find, {})
-      vim.keymap.set("n", "<leader>sw", builtins.diagnostics, {})
-      vim.keymap.set("n", "<leader>so", builtins.lsp_workspace_symbols, {})
+      vim.keymap.set("n", "<leader>Sw", builtins.diagnostics, {})
+      vim.keymap.set("n", "<leader>So", builtins.lsp_workspace_symbols, {})
 
       vim.keymap.set("n", "<leader>vb", builtins.git_branches, {})
     end,
@@ -300,7 +300,7 @@ require("packer").startup(function(use)
 
   use({
     "nvim-treesitter/nvim-treesitter",
-    requires = { "nvim-treesitter/playground", "windwp/nvim-ts-autotag" },
+    requires = { "windwp/nvim-ts-autotag", "nvim-treesitter/nvim-treesitter-textobjects" },
     run = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
@@ -324,13 +324,22 @@ require("packer").startup(function(use)
         },
         indent = {
           enable = true,
-          disable = { "typescript" },
-        },
-        playground = {
-          enable = true,
         },
         autotag = {
           enable = true,
+        },
+        textobjects = {
+          swap = {
+            enable = true,
+            swap_next = {
+              ["<leader>snf"] = "@function.outer",
+              ["<leader>snp"] = "@parameter.inner",
+            },
+            swap_previous = {
+              ["<leader>spf"] = "@function.outer",
+              ["<leader>spp"] = "@parameter.inner",
+            },
+          },
         },
       })
     end,
@@ -604,7 +613,7 @@ opt.shiftwidth = 2
 opt.expandtab = true
 opt.relativenumber = true
 opt.mouse = "a"
-opt.completeopt = { "menu", "menuone", "noselect" }
+opt.completeopt = { "menuone", "noselect" }
 opt.foldenable = false
 opt.ignorecase = true
 opt.smartcase = true
