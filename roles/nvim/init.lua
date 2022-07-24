@@ -243,7 +243,8 @@ require("packer").startup(function(use)
           enable = true,
         },
         indent = {
-          enable = { "tsx" },
+          enable = true,
+          disable = { "typescript" },
         },
         playground = {
           enable = true,
