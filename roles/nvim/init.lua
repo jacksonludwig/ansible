@@ -25,6 +25,86 @@ require("packer").startup(function(use)
   })
 
   use({
+    "kassio/neoterm",
+    requires = "MunifTanjim/nui.nvim",
+    config = function()
+      vim.g.neoterm_size = tostring(0.3 * vim.o.columns)
+      vim.g.neoterm_default_mod = "botright vertical"
+
+      local stored_task_command = nil
+      local Input = require("nui.input")
+      local event = require("nui.utils.autocmd").event
+
+      local trigger_set_command_input = function(callback_fn)
+        local input_component = Input({
+          position = "50%",
+          size = {
+            width = 50,
+          },
+          border = {
+            style = "single",
+            text = {
+              top = "Commmand to run:",
+              top_align = "center",
+            },
+          },
+          win_options = {
+            winhighlight = "Normal:Normal,FloatBorder:Normal",
+          },
+        }, {
+          prompt = "> ",
+          default_value = "",
+          on_submit = function(value)
+            stored_task_command = value
+            callback_fn()
+          end,
+        })
+
+        input_component:mount()
+        input_component:on(event.BufLeave, function()
+          input_component:unmount()
+        end)
+      end
+
+      vim.api.nvim_create_user_command("SetTaskCommand", function()
+        trigger_set_command_input(function()
+          -- Don't need to do anything here beyond set it
+        end)
+      end, {})
+
+      vim.api.nvim_create_user_command("TaskThenExit", function(input)
+        local cmd = input.args
+        vim.api.nvim_command(":Tnew")
+        vim.api.nvim_command(":T " .. cmd .. " && exit")
+      end, { bang = true, nargs = "*" })
+
+      vim.api.nvim_create_user_command("TaskPersist", function(input)
+        local execute = function(cmd)
+          vim.api.nvim_command(":1Tclear")
+          vim.api.nvim_command(":1T " .. cmd)
+        end
+
+        local one_off_command = input.args
+
+        if one_off_command and string.len(one_off_command) > 0 then
+          execute(one_off_command)
+        elseif stored_task_command == nil then
+          trigger_set_command_input(function()
+            execute(stored_task_command)
+          end)
+        else
+          execute(stored_task_command)
+        end
+      end, { nargs = "*" })
+
+      vim.keymap.set("n", "<leader>tr", ":TaskPersist<CR>", {})
+      vim.keymap.set("n", "<leader>tc", ":TaskPersist ", {})
+      vim.keymap.set("n", "<leader>ts", ":SetTaskCommand<CR>", {})
+      vim.keymap.set("n", "<leader>tt", ":1Ttoggle<CR><ESC>", {})
+    end,
+  })
+
+  use({
     "kylechui/nvim-surround",
     config = function()
       require("nvim-surround").setup({
@@ -403,7 +483,7 @@ require("packer").startup(function(use)
         capabilities = common_capabilities,
       })
 
-      local basic_servers = { "pyright", "jsonls", "bashls" }
+      local basic_servers = { "jsonls" }
       for _, server in ipairs(basic_servers) do
         lsp_conf[server].setup({
           on_attach = common_on_attach,
@@ -450,6 +530,7 @@ require("packer").startup(function(use)
     "L3MON4D3/LuaSnip",
     config = function()
       local luasnip = require("luasnip")
+
       require("jackson.snippets.snippets")
 
       vim.cmd([[
@@ -557,11 +638,11 @@ vim.api.nvim_create_autocmd("TermOpen", {
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
     vim.opt_local.signcolumn = "no"
-    vim.cmd("startinsert")
   end,
   group = term_group,
   pattern = "*",
 })
+vim.cmd("autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif")
 
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 
@@ -587,7 +668,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
   group = gitcommit_group,
 })
 
--- TESTING: run macro over selected range of lines
+-- CMD: run macro over selected range of lines
 vim.cmd([[
   xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
@@ -596,6 +677,3 @@ vim.cmd([[
     execute ":'<,'>normal @".nr2char(getchar())
   endfunction
 ]])
-
--- TEMP BIND: run prettier on current file manually
-vim.keymap.set("n", "<leader>x", "<cmd>!prettier --write %<CR>", {})

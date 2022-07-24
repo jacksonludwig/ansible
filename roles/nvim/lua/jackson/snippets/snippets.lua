@@ -29,8 +29,20 @@ local typescript_import = s("i", fmt("import {} from '{}';", { i(1), i(2) }))
 local typescript_to_have_been_called_times = s("ct", fmt("expect({}).toHaveBeenCalledTimes({});", { i(1), i(2) }))
 local typescript_to_have_been_called_with = s("cw", fmt("expect({}).toHaveBeenCalledWith({});", { i(1), i(2) }))
 local typescript_expect = s("e", fmt("expect({})", { i(1) }))
-local typescript_mock_res = s("res", fmt("jest.fn().mockResolvedValueOnce({});", { i(1) }))
-local typescript_mock_rej = s("rej", fmt("jest.fn().mockRejectedValueOnce({});", { i(1) }))
+local typescript_mock_res = s(
+  "res",
+  fmt("{}.fn().mockResolvedValueOnce({});", {
+    c(1, { t("vi"), t("jest") }),
+    i(2),
+  })
+)
+local typescript_mock_rej = s(
+  "rej",
+  fmt("{}.fn().mockRejectedValueOnce({});", {
+    c(1, { t("vi"), t("jest") }),
+    i(2),
+  })
+)
 
 local typescriptreact_use_ref = s(
   "ur",
