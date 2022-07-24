@@ -28,7 +28,7 @@ require("packer").startup(function(use)
     "kassio/neoterm",
     requires = "MunifTanjim/nui.nvim",
     config = function()
-      vim.g.neoterm_size = tostring(0.3 * vim.o.columns)
+      -- vim.g.neoterm_size = tostring(0.4 * vim.o.columns)
       vim.g.neoterm_default_mod = "botright vertical"
 
       local stored_task_command = nil
@@ -101,6 +101,13 @@ require("packer").startup(function(use)
       vim.keymap.set("n", "<leader>tc", ":TaskPersist ", {})
       vim.keymap.set("n", "<leader>ts", ":SetTaskCommand<CR>", {})
       vim.keymap.set("n", "<leader>tt", ":1Ttoggle<CR><ESC>", {})
+    end,
+  })
+
+  use({
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      require('indent_blankline').setup({})
     end,
   })
 
