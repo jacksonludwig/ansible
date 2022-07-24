@@ -174,7 +174,6 @@
 (yas-global-mode)
 
 (straight-use-package 'flycheck)
-(setq flycheck-check-syntax-automatically '(save))
 (require 'flycheck)
 
 ;;; Basic fuzzy search
