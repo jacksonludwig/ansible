@@ -1,0 +1,10 @@
+eln-cache/
+straight/
+url/
+var/
+transient/
+undohist/
+DS_STORE
+recentf
+history
+.lsp-session-v1
