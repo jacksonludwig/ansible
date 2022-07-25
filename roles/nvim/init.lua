@@ -25,89 +25,9 @@ require("packer").startup(function(use)
   })
 
   use({
-    "kassio/neoterm",
-    requires = "MunifTanjim/nui.nvim",
-    config = function()
-      -- vim.g.neoterm_size = tostring(0.4 * vim.o.columns)
-      vim.g.neoterm_default_mod = "botright vertical"
-
-      local stored_task_command = nil
-      local Input = require("nui.input")
-      local event = require("nui.utils.autocmd").event
-
-      local trigger_set_command_input = function(callback_fn)
-        local input_component = Input({
-          position = "50%",
-          size = {
-            width = 50,
-          },
-          border = {
-            style = "single",
-            text = {
-              top = "Commmand to run:",
-              top_align = "center",
-            },
-          },
-          win_options = {
-            winhighlight = "Normal:Normal,FloatBorder:Normal",
-          },
-        }, {
-          prompt = "> ",
-          default_value = "",
-          on_submit = function(value)
-            stored_task_command = value
-            callback_fn()
-          end,
-        })
-
-        input_component:mount()
-        input_component:on(event.BufLeave, function()
-          input_component:unmount()
-        end)
-      end
-
-      vim.api.nvim_create_user_command("SetTaskCommand", function()
-        trigger_set_command_input(function()
-          -- Don't need to do anything here beyond set it
-        end)
-      end, {})
-
-      vim.api.nvim_create_user_command("TaskThenExit", function(input)
-        local cmd = input.args
-        vim.api.nvim_command(":Tnew")
-        vim.api.nvim_command(":T " .. cmd .. " && exit")
-      end, { bang = true, nargs = "*" })
-
-      vim.api.nvim_create_user_command("TaskPersist", function(input)
-        local execute = function(cmd)
-          vim.api.nvim_command(":1Tclear")
-          vim.api.nvim_command(":1T " .. cmd)
-        end
-
-        local one_off_command = input.args
-
-        if one_off_command and string.len(one_off_command) > 0 then
-          execute(one_off_command)
-        elseif stored_task_command == nil then
-          trigger_set_command_input(function()
-            execute(stored_task_command)
-          end)
-        else
-          execute(stored_task_command)
-        end
-      end, { nargs = "*" })
-
-      vim.keymap.set("n", "<leader>tr", ":TaskPersist<CR>", {})
-      vim.keymap.set("n", "<leader>tc", ":TaskPersist ", {})
-      vim.keymap.set("n", "<leader>ts", ":SetTaskCommand<CR>", {})
-      vim.keymap.set("n", "<leader>tt", ":1Ttoggle<CR><ESC>", {})
-    end,
-  })
-
-  use({
     "lukas-reineke/indent-blankline.nvim",
     config = function()
-      require('indent_blankline').setup({})
+      require("indent_blankline").setup({})
     end,
   })
 
@@ -261,15 +181,7 @@ require("packer").startup(function(use)
       }
 
       telescope.setup({
-        pickers = {
-          find_files = opts,
-          buffers = opts,
-          oldfiles = opts,
-          grep_string = opts,
-          live_grep = opts,
-          git_branches = opts,
-          git_files = opts,
-        },
+        defaults = opts,
         extensions = {
           fzf = {
             override_generic_sorter = true,
@@ -439,22 +351,15 @@ require("packer").startup(function(use)
         end, { buffer = bufnr })
       end
 
-      local null_ls_conf = require("null-ls")
+      local null_ls = require("null-ls")
 
-      null_ls_conf.setup({
+      null_ls.setup({
         sources = {
-          null_ls_conf.builtins.formatting.prettier.with({
+          null_ls.builtins.formatting.prettier.with({
             filetypes = { "yaml", "json", "html", "css" },
           }),
-          null_ls_conf.builtins.formatting.stylua.with({
+          null_ls.builtins.formatting.stylua.with({
             filetypes = { "lua" },
-          }),
-          null_ls_conf.builtins.formatting.black.with({
-            filetypes = { "python" },
-          }),
-          null_ls_conf.builtins.formatting.shfmt.with({
-            filetypes = { "sh" },
-            args = { "-i", "2" },
           }),
         },
         on_attach = function(client, bufnr)
@@ -655,6 +560,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
     vim.opt_local.signcolumn = "no"
+    vim.cmd.startinsert()
   end,
   group = term_group,
   pattern = "*",
@@ -682,6 +588,17 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
   end,
   group = gitcommit_group,
+})
+
+local qf_group = vim.api.nvim_create_augroup("QF", {})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "qf",
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+  end,
+  group = qf_group,
 })
 
 -- CMD: run macro over selected range of lines
