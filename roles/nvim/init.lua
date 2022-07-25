@@ -240,7 +240,7 @@ require("packer").startup(function(use)
     "bluz71/vim-moonfly-colors",
     config = function()
       vim.g.moonflyWinSeparator = 2
-      vim.cmd("colorscheme moonfly")
+      vim.cmd.colorscheme("moonfly")
     end,
   })
 
@@ -659,7 +659,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
   group = term_group,
   pattern = "*",
 })
-vim.cmd("autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif")
 
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 
