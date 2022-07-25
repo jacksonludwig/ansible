@@ -524,7 +524,6 @@ opt.tabstop = 2
 opt.shiftwidth = 2
 opt.expandtab = true
 opt.relativenumber = true
-opt.mouse = "a"
 opt.completeopt = { "menuone", "noselect" }
 opt.foldenable = false
 opt.ignorecase = true
