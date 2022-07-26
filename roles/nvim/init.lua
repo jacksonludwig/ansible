@@ -52,6 +52,18 @@ require("packer").startup(function(use)
   })
 
   use({
+    "numToStr/Fterm.nvim",
+    config = function()
+      local fterm = require("FTerm")
+
+      vim.keymap.set({"n", "t"}, "<A-t>", fterm.toggle)
+      vim.keymap.set({"n", "t"}, "<A-o>", fterm.open)
+      vim.keymap.set({"n", "t"}, "<A-c>", fterm.close)
+      vim.keymap.set({"n", "t"}, "<A-e>", fterm.exit)
+    end,
+  })
+
+  use({
     "ggandor/leap.nvim",
     config = function()
       require("leap").set_default_keymaps()
@@ -473,7 +485,9 @@ require("packer").startup(function(use)
   use({
     "windwp/nvim-autopairs",
     config = function()
-      require("nvim-autopairs").setup({})
+      require("nvim-autopairs").setup({
+        disable_in_macro = true,
+      })
     end,
   })
 
@@ -599,13 +613,3 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
   group = qf_group,
 })
-
--- CMD: run macro over selected range of lines
-vim.cmd([[
-  xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
-
-  function! ExecuteMacroOverVisualRange()
-    echo "@".getcmdline()
-    execute ":'<,'>normal @".nr2char(getchar())
-  endfunction
-]])
