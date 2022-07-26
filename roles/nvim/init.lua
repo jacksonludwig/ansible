@@ -562,8 +562,6 @@ vim.keymap.set("n", "<c-k>", "<cmd>cprev<CR>", {})
 vim.keymap.set("n", "<leader>#", "<cmd>set rnu!<CR>", {})
 
 -- autocmds
-local term_group = vim.api.nvim_create_augroup("Terminal", {})
-
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
     if not vim.startswith(vim.api.nvim_buf_get_name(0), "term://") then
@@ -575,21 +573,17 @@ vim.api.nvim_create_autocmd("TermOpen", {
     vim.opt_local.signcolumn = "no"
     vim.cmd.startinsert()
   end,
-  group = term_group,
+  group = vim.api.nvim_create_augroup("Terminal", { clear = true }),
   pattern = "*",
 })
-
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
   end,
-  group = highlight_group,
+  group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
   pattern = "*",
 })
-
-local gitcommit_group = vim.api.nvim_create_augroup("Git", {})
 
 vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "COMMIT_EDITMSG",
@@ -600,10 +594,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
       vim.cmd("startinsert!")
     end
   end,
-  group = gitcommit_group,
+  group = vim.api.nvim_create_augroup("Git", { clear = true }),
 })
-
-local qf_group = vim.api.nvim_create_augroup("QF", {})
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "qf",
@@ -611,5 +603,5 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
   end,
-  group = qf_group,
+  group = vim.api.nvim_create_augroup("QF", { clear = true }),
 })
