@@ -542,6 +542,7 @@ opt.completeopt = { "menuone", "noselect" }
 opt.foldenable = false
 opt.ignorecase = true
 opt.smartcase = true
+opt.smartindent = true
 opt.shortmess:append("c")
 opt.guicursor = ""
 
