@@ -1,0 +1,9 @@
+[editor.lsp]
+display-messages = true
+
+[editor]
+scrolloff = 1
+line-number = "relative"
+
+[editor.file-picker]
+hidden = false
