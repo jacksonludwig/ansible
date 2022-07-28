@@ -143,31 +143,6 @@
 (require 'undohist)
 (undohist-initialize)
 
-;;; Treesitter
-(straight-use-package 'tree-sitter)
-(straight-use-package 'tree-sitter-langs)
-(require 'tree-sitter)
-(require 'tree-sitter-langs)
-(global-tree-sitter-mode)
-(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
-
-;;; Typescript
-(straight-use-package 'typescript-mode)
-(require 'typescript-mode)
-(define-derived-mode typescriptreact-mode typescript-mode
-"TS(X)")
-
-;; use derived mode for tsx files
-(add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescriptreact-mode))
-(add-to-list 'tree-sitter-major-mode-language-alist '(typescriptreact-mode . tsx))
-
-(straight-use-package '(tsi :type git :host github :repo "orzechowskid/tsi.el"))
-(require 'tsi-typescript)
-(require 'tsi-css)
-(require 'tsi-json)
-
-(add-hook 'typescript-mode-hook (lambda() (tsi-typescript-mode)))
-
 ;;; Yas
 (straight-use-package 'yasnippet)
 (require 'yasnippet)
@@ -216,8 +191,31 @@
 (setq lsp-eslint-server-command `("vscode-eslint-language-server" "--stdio"))
 
 (require 'lsp-mode)
-(add-hook 'typescriptreact-mode-hook #'lsp)
 (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
+
+;;; Treesitter
+(straight-use-package 'tree-sitter)
+(straight-use-package 'tree-sitter-langs)
+(require 'tree-sitter)
+(require 'tree-sitter-langs)
+(global-tree-sitter-mode)
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+
+;;; Typescript
+(straight-use-package '(tsi :type git :host github :repo "orzechowskid/tsi.el"))
+;; (require 'tsi-typescript)
+;; (require 'tsi-css)
+;; (require 'tsi-json)
+
+(straight-use-package 'origami)
+;; (require 'origami)
+
+(straight-use-package 'coverlay)
+;; (require 'coverlay)
+
+(straight-use-package '(tsx-mode :type git :host github :repo "orzechowskid/tsx-mode.el"))
+(require 'tsx-mode)
+(add-to-list 'auto-mode-alist '("\\.tsx?\\'" . tsx-mode))
 
 ;;; Magit
 (straight-use-package 'magit)
