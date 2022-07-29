@@ -1,9 +1,9 @@
-[editor.lsp]
-auto-signature-help = false
-
 [editor]
 scrolloff = 1
 line-number = "relative"
+
+[editor.lsp]
+auto-signature-help = false
 
 [editor.file-picker]
 hidden = false
