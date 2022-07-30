@@ -117,6 +117,7 @@
 (straight-use-package 'evil)
 (straight-use-package 'evil-collection)
 
+(customize-set-variable 'evil-disable-insert-state-bindings t)
 (customize-set-variable 'evil-want-integration t)
 (customize-set-variable 'evil-want-keybinding nil)
 (customize-set-variable 'evil-respect-visual-line-mode t)
