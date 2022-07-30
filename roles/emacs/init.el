@@ -24,7 +24,7 @@
 (add-hook 'emacs-startup-hook
           (lambda ()
             (custom-set-faces
-             `(default ((t (:font "JetBrains Mono 12")))))))
+             `(default ((t (:font "JetBrains Mono 13")))))))
 
 (setq backup-directory-alist
         `((".*" . ,temporary-file-directory)))
@@ -36,6 +36,7 @@
 (show-paren-mode 1)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
+(menu-bar-mode -1)
 
 ;;; Completion
 (straight-use-package 'cape)
@@ -119,10 +120,9 @@
 (customize-set-variable 'evil-want-keybinding nil)
 (customize-set-variable 'evil-respect-visual-line-mode t)
 (customize-set-variable 'evil-undo-system 'undo-redo)
-(custom-set-variables
- '(evil-split-window-below t)
- '(evil-vsplit-window-right t)
- '(evil-want-C-u-scroll t))
+(customize-set-variable 'evil-split-window-below t)
+(customize-set-variable 'evil-vsplit-window-right t)
+(customize-set-variable 'evil-want-C-u-scroll t)
 
 (require 'evil)
 (evil-mode 1)
@@ -161,6 +161,37 @@
 (require 'which-key)
 (which-key-mode)
 
+;;; Treesitter
+(straight-use-package 'tree-sitter)
+(straight-use-package 'tree-sitter-langs)
+(require 'tree-sitter)
+(require 'tree-sitter-langs)
+(global-tree-sitter-mode)
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+
+;;; JSON
+(straight-use-package 'json-mode)
+(require 'json-mode)
+
+;;; Typescript
+(straight-use-package 'typescript-mode)
+(require 'typescript-mode)
+(define-derived-mode typescriptreact-mode typescript-mode
+  "typescript {tsx}")
+(add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescriptreact-mode))
+(add-to-list 'tree-sitter-major-mode-language-alist '(typescriptreact-mode . tsx))
+
+(straight-use-package '(tsi :type git :host github :repo "orzechowskid/tsi.el"))
+(require 'tsi-typescript)
+(require 'tsi-css)
+(require 'tsi-json)
+(add-hook 'typescript-mode-hook (lambda() (tsi-typescript-mode 1)))
+(add-hook 'json-mode-hook (lambda() (tsi-json-mode 1)))
+(add-hook 'css-mode-hook (lambda() (tsi-css-mode 1)))
+
+;; (straight-use-package '(tsx-mode :type git :host github :repo "orzechowskid/tsx-mode.el"))
+;; (require 'tsx-mode)
+
 ;;; LSP
 
 ;;; Corfu/Cape completion options (remove if using company)
@@ -192,30 +223,7 @@
 
 (require 'lsp-mode)
 (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
-
-;;; Treesitter
-(straight-use-package 'tree-sitter)
-(straight-use-package 'tree-sitter-langs)
-(require 'tree-sitter)
-(require 'tree-sitter-langs)
-(global-tree-sitter-mode)
-(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
-
-;;; Typescript
-(straight-use-package '(tsi :type git :host github :repo "orzechowskid/tsi.el"))
-;; (require 'tsi-typescript)
-;; (require 'tsi-css)
-;; (require 'tsi-json)
-
-(straight-use-package 'origami)
-;; (require 'origami)
-
-(straight-use-package 'coverlay)
-;; (require 'coverlay)
-
-(straight-use-package '(tsx-mode :type git :host github :repo "orzechowskid/tsx-mode.el"))
-(require 'tsx-mode)
-(add-to-list 'auto-mode-alist '("\\.tsx?\\'" . tsx-mode))
+(add-hook 'typescriptreact-mode-hook 'lsp)
 
 ;;; Magit
 (straight-use-package 'magit)
@@ -234,7 +242,7 @@
 ;;; Theme
 (straight-use-package 'doom-themes)
 (require 'doom-themes)
-(load-theme 'modus-vivendi)
+(load-theme 'doom-xcode t)
 
 ;;; Bindings
 (straight-use-package 'general)
@@ -258,17 +266,11 @@
 (general-def
   :states 'normal
   :predicate 'lsp-mode
-  "SPC l" 'lsp-command-map
+  "SPC l" lsp-command-map
   "SPC c a" 'lsp-execute-code-action
+  "SPC r n" 'lsp-rename
   "K" 'lsp-describe-thing-at-point
   "SPC z" 'lsp-eslint-apply-all-fixes ;; TODO: only bind this in ts(x) modes
   "gr" 'xref-find-references
   "]d" 'flycheck-next-error
   "[d" 'flycheck-previous-error)
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:font "JetBrains Mono 12")))))
