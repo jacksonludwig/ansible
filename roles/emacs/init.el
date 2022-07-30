@@ -101,11 +101,6 @@
 (require 'evil-collection)
 (evil-collection-init)
 
-;;; Undo history
-(straight-use-package 'undohist)
-(require 'undohist)
-(undohist-initialize)
-
 ;;; Yas
 (straight-use-package 'yasnippet)
 (require 'yasnippet)
@@ -199,6 +194,8 @@
 (diminish 'evil-collection-unimpaired-mode)
 (diminish 'tree-sitter-mode)
 (diminish 'lsp-mode)
+(diminish 'company-mode)
+(diminish 'company-box-mode)
 
 ;;; Theme
 (straight-use-package 'doom-themes)
@@ -208,20 +205,8 @@
 ;;; Bindings
 (straight-use-package 'general)
 (require 'general)
-;; (general-def
-;;  :keymaps 'completion-in-region-mode
-;;  :definer 'minor-mode
-;;  :states 'insert
-;;  :predicate 'corfu-mode
-;;  "C-n" 'corfu-next
-;;  "C-p" 'corfu-previous
-;;  "C-y" 'corfu-complete
-;;  "C-e" 'corfu-quit
-;;  "<return>" 'newline)
 (general-def
   :keymaps 'company-active-map
-  ;; :definer 'minor-mode
-  ;; :predicate 'company-mode
   "C-y" 'company-complete-selection
   "C-e" 'company-abort
   "<return>" 'newline)
