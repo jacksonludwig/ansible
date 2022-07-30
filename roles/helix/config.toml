@@ -1,5 +1,4 @@
 [editor]
-scrolloff = 1
 line-number = "relative"
 
 [editor.lsp]
