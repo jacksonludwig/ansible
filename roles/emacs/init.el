@@ -39,10 +39,7 @@
 (menu-bar-mode -1)
 
 ;;; Completion
-(straight-use-package 'cape)
 (straight-use-package 'consult)
-(straight-use-package 'corfu-doc)
-(straight-use-package 'corfu)
 (straight-use-package 'embark)
 (straight-use-package 'embark-consult)
 (straight-use-package 'marginalia)
@@ -77,40 +74,6 @@
 (setq prefix-help-command #'embark-prefix-help-command)
 (with-eval-after-load 'embark-consult
   (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
-
-;; Corfu
-(customize-set-variable 'corfu-cycle t) ; Allows cycling through candidates
-(customize-set-variable 'corfu-auto t)  ; Enable auto completion
-(customize-set-variable 'corfu-auto-prefix 2) ; Complete with less prefix keys
-(customize-set-variable 'corfu-auto-delay 0.25) ; Small delay for completion
-(customize-set-variable 'corfu-echo-documentation 0.25) ; Echo docs for current completion option
-
-(global-corfu-mode 1)
-
-(add-hook 'corfu-mode-hook #'corfu-doc-mode)
-(define-key corfu-map (kbd "M-p") #'corfu-doc-scroll-down)
-(define-key corfu-map (kbd "M-n") #'corfu-doc-scroll-up)
-(define-key corfu-map (kbd "M-d") #'corfu-doc-toggle)
-
-;; Cape
-(require 'cape)
-
-;; Add useful defaults completion sources from cape
-(add-to-list 'completion-at-point-functions #'cape-file)
-(add-to-list 'completion-at-point-functions #'cape-dabbrev)
-
-;; Silence the pcomplete capf, no errors or messages!
-;; Important for corfu
-(advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
-
-;; Ensure that pcomplete does not write to the buffer
-;; and behaves as a pure `completion-at-point-function'.
-(advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify)
-(add-hook 'eshell-mode-hook
-          (lambda () (setq-local corfu-quit-at-boundary t
-                            corfu-quit-no-match t
-                            corfu-auto nil)
-            (corfu-mode)))
 
 ;;; Evil
 (straight-use-package 'evil)
@@ -189,19 +152,17 @@
 (add-hook 'json-mode-hook (lambda() (tsi-json-mode 1)))
 (add-hook 'css-mode-hook (lambda() (tsi-css-mode 1)))
 
+;;; Company
+(straight-use-package 'company)
+(require 'company)
+(straight-use-package 'company-box)
+(require 'company-box)
+(add-hook 'company-mode-hook 'company-box-mode)
+
 ;; (straight-use-package '(tsx-mode :type git :host github :repo "orzechowskid/tsx-mode.el"))
 ;; (require 'tsx-mode)
 
 ;;; LSP
-
-;;; Corfu/Cape completion options (remove if using company)
-(setq lsp-completion-provider :none)
-(defun corfu-lsp-setup ()
-  (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-        '(orderless)))
-(add-hook 'lsp-completion-mode-hook #'corfu-lsp-setup)
-(advice-add #'lsp-completion-at-point :around #'cape-wrap-noninterruptible)
-
 (straight-use-package 'lsp-mode)
 (setq lsp-use-plists t)
 (setq lsp-headerline-breadcrumb-enable nil)
@@ -247,16 +208,23 @@
 ;;; Bindings
 (straight-use-package 'general)
 (require 'general)
+;; (general-def
+;;  :keymaps 'completion-in-region-mode
+;;  :definer 'minor-mode
+;;  :states 'insert
+;;  :predicate 'corfu-mode
+;;  "C-n" 'corfu-next
+;;  "C-p" 'corfu-previous
+;;  "C-y" 'corfu-complete
+;;  "C-e" 'corfu-quit
+;;  "<return>" 'newline)
 (general-def
- :keymaps 'completion-in-region-mode
- :definer 'minor-mode
- :states 'insert
- :predicate 'corfu-mode
- "C-n" 'corfu-next
- "C-p" 'corfu-previous
- "C-y" 'corfu-complete
- "C-e" 'corfu-quit
- "<return>" 'newline)
+  :keymaps 'company-active-map
+  ;; :definer 'minor-mode
+  ;; :predicate 'company-mode
+  "C-y" 'company-complete-selection
+  "C-e" 'company-abort
+  "<return>" 'newline)
 (general-def
   :states 'normal
   "<escape>" 'evil-ex-nohighlight
