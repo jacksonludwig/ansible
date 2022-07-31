@@ -39,10 +39,7 @@
 (menu-bar-mode -1)
 
 ;;; Completion
-;; (straight-use-package 'cape)
 (straight-use-package 'consult)
-;; (straight-use-package 'corfu-doc)
-;; (straight-use-package 'corfu)
 (straight-use-package 'embark)
 (straight-use-package 'embark-consult)
 (straight-use-package 'marginalia)
@@ -77,41 +74,6 @@
 (setq prefix-help-command #'embark-prefix-help-command)
 (with-eval-after-load 'embark-consult
   (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
-
-;; Corfu
-;; (customize-set-variable 'corfu-cycle t) ; Allows cycling through candidates
-;; (customize-set-variable 'corfu-auto t)  ; Enable auto completion
-;; (customize-set-variable 'corfu-auto-prefix 2) ; Complete with less prefix keys
-;; (customize-set-variable 'corfu-auto-delay 0.25) ; Small delay for completion
-;; (customize-set-variable 'corfu-echo-documentation 0.25) ; Echo docs for current completion option
-;; (customize-set-variable 'corfu-doc-auto nil)
-
-;; (global-corfu-mode 1)
-
-;; (add-hook 'corfu-mode-hook #'corfu-doc-mode)
-;; (define-key corfu-map (kbd "M-p") #'corfu-doc-scroll-down)
-;; (define-key corfu-map (kbd "M-n") #'corfu-doc-scroll-up)
-;; (define-key corfu-map (kbd "M-d") #'corfu-doc-toggle)
-
-;; Cape
-;; (require 'cape)
-
-;; Add useful defaults completion sources from cape
-;; (add-to-list 'completion-at-point-functions #'cape-file)
-;; (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-
-;; Silence the pcomplete capf, no errors or messages!
-;; Important for corfu
-;; (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
-
-;; Ensure that pcomplete does not rite to the buffer
-;; and behaves as a pure `completion-at-point-function'.
-;; (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify)
-;; (add-hook 'eshell-mode-hook
-;;           (lambda () (setq-local corfu-quit-at-boundary t
-;;                             corfu-quit-no-match t
-;;                             corfu-auto nil)
-;;             (corfu-mode)))
 
 ;;; Evil
 (straight-use-package 'evil)
@@ -151,6 +113,7 @@
 (yas-global-mode)
 
 (straight-use-package 'flycheck)
+(customize-set-variable 'flycheck-checker-error-threshold 800)
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
 (require 'flycheck)
 
@@ -196,13 +159,6 @@
 
 ;;; LSP 
 (straight-use-package 'lsp-mode)
-
-;;; Corfu/Cape completion options (remove if using company)
-;; (setq lsp-completion-provider :none)
-;; (defun corfu-lsp-setup ()
-;;   (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-;;         '(orderless)))
-;; (advice-add #'lsp-completion-at-point :around #'cape-wrap-noninterruptible)
 
 ;;; Company
 (straight-use-package 'company)
@@ -260,16 +216,6 @@
 ;;; Bindings
 (straight-use-package 'general)
 (require 'general)
-;; (general-def
-;;  :keymaps 'completion-in-region-mode
-;;  :definer 'minor-mode
-;;  :states 'insert
-;;  :predicate 'corfu-mode
-;;  "C-n" 'corfu-next
-;;  "C-p" 'corfu-previous
-;;  "C-y" 'corfu-complete
-;;  "C-e" 'corfu-quit
-;;  "<return>" 'newline)
 (general-def
   :keymaps 'company-active-map
   "C-y" 'company-complete-selection
@@ -292,3 +238,13 @@
   "gr" 'xref-find-references
   "]d" 'flycheck-next-error
   "[d" 'flycheck-previous-error)
+
+(straight-use-package 'doom-modeline)
+(require 'doom-modeline)
+(doom-modeline-def-modeline 'line
+  '(matches buffer-info remote-host buffer-position parrot selection-info)
+  '(misc-info minor-modes input-method major-mode process vcs checker))
+(defun setup-custom-doom-modeline()
+  (doom-modeline-set-modeline 'line 'default))
+(add-hook 'doom-modeline-mode-hook 'setup-custom-doom-modeline)
+(doom-modeline-mode 1)
