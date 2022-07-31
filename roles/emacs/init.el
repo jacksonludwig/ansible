@@ -247,6 +247,9 @@
 (diminish 'evil-collection-unimpaired-mode)
 (diminish 'tree-sitter-mode)
 (diminish 'lsp-mode)
+(diminish 'company-mode)
+(diminish 'company-box-mode)
+(diminish 'evil-commentary-mode)
 
 ;;; Theme
 (straight-use-package 'doom-themes)
