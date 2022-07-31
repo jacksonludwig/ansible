@@ -208,6 +208,7 @@
 (straight-use-package 'company)
 (require 'company)
 (straight-use-package 'company-box)
+(customize-set-variable 'company-box-doc-enable nil)
 (require 'company-box)
 (add-hook 'company-mode-hook 'company-box-mode)
 
