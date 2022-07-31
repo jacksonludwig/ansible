@@ -116,6 +116,7 @@
 ;;; Evil
 (straight-use-package 'evil)
 (straight-use-package 'evil-collection)
+(straight-use-package 'evil-surround)
 
 (customize-set-variable 'evil-want-integration t)
 (customize-set-variable 'evil-want-keybinding nil)
@@ -127,6 +128,8 @@
 
 (require 'evil)
 (evil-mode 1)
+(require 'evil-surround)
+(global-evil-surround-mode 1)
 
 (global-set-key (kbd "C-M-u") 'universal-argument)
 
