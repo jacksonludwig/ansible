@@ -40,8 +40,6 @@
 
 ;;; Completion
 (straight-use-package 'consult)
-(straight-use-package 'embark)
-(straight-use-package 'embark-consult)
 (straight-use-package 'marginalia)
 (straight-use-package 'orderless)
 (straight-use-package 'vertico)
@@ -63,17 +61,6 @@
 (require 'orderless)
 (customize-set-variable 'completion-styles '(orderless))
 (customize-set-variable 'completion-category-overrides '((file (styles . (partial-completion)))))
-
-;; Embark
-(require 'embark)
-(require 'embark-consult)
-(global-set-key [remap describe-bindings] #'embark-bindings)
-(global-set-key (kbd "C-.") 'embark-act)
-
-;; Use Embark to show bindings in a key prefix with `C-h`
-(setq prefix-help-command #'embark-prefix-help-command)
-(with-eval-after-load 'embark-consult
-  (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
 
 ;;; Evil
 (straight-use-package 'evil)
@@ -131,8 +118,8 @@
 (straight-use-package 'tree-sitter-langs)
 (require 'tree-sitter)
 (require 'tree-sitter-langs)
-(global-tree-sitter-mode)
-(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+;; (global-tree-sitter-mode)
+;; (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
 
 ;;; JSON
 (straight-use-package 'json-mode)
@@ -176,6 +163,7 @@
 (setq lsp-eldoc-enable-hover nil)
 (setq lsp-on-type-formatting nil)
 (setq lsp-enable-indentation nil)
+(setq lsp-diagnostic-clean-after-change t)
 (add-to-list 'display-buffer-alist
              '((lambda (buffer _) (with-current-buffer buffer
                                     (seq-some (lambda (mode)
@@ -190,7 +178,6 @@
 (require 'lsp-mode)
 (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
 (add-hook 'typescriptreact-mode-hook 'lsp)
-;; (add-hook 'lsp-completion-mode-hook #'corfu-lsp-setup)
 
 ;;; Magit
 (straight-use-package 'magit)
@@ -240,12 +227,12 @@
   "]d" 'flycheck-next-error
   "[d" 'flycheck-previous-error)
 
-(straight-use-package 'doom-modeline)
-(require 'doom-modeline)
-(doom-modeline-def-modeline 'line
-  '(matches buffer-info remote-host buffer-position parrot selection-info)
-  '(misc-info minor-modes input-method major-mode process vcs checker))
-(defun setup-custom-doom-modeline()
-  (doom-modeline-set-modeline 'line 'default))
-(add-hook 'doom-modeline-mode-hook 'setup-custom-doom-modeline)
-(doom-modeline-mode 1)
+;; (straight-use-package 'doom-modeline)
+;; (require 'doom-modeline)
+;; (doom-modeline-def-modeline 'line
+;;   '(matches buffer-info remote-host buffer-position parrot selection-info)
+;;   '(misc-info minor-modes input-method major-mode process vcs checker))
+;; (defun setup-custom-doom-modeline()
+;;   (doom-modeline-set-modeline 'line 'default))
+;; (add-hook 'doom-modeline-mode-hook 'setup-custom-doom-modeline)
+;; (doom-modeline-mode 1)
