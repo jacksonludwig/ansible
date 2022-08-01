@@ -140,6 +140,7 @@
 
 ;;; Typescript
 (straight-use-package 'typescript-mode)
+(customize-set-variable 'typescript-indent-level 2)
 (require 'typescript-mode)
 (define-derived-mode typescriptreact-mode typescript-mode
   "tsx?")
