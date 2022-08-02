@@ -76,6 +76,9 @@
 (customize-set-variable 'evil-vsplit-window-right t)
 (customize-set-variable 'evil-want-C-u-scroll t)
 
+;; workaround for treesitter(?) bug
+(customize-set-variable 'evil-ex-search-case 'sensitive)
+
 (require 'evil)
 (evil-mode 1)
 (require 'evil-surround)
