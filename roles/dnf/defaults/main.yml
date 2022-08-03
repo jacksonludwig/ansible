@@ -22,3 +22,4 @@ packages:
   - jetbrains-mono-fonts
   - ShellCheck
   - shfmt
+  - git-delta
