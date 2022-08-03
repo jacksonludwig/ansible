@@ -25,15 +25,6 @@ require("packer").startup(function(use)
   })
 
   use({
-    "lukas-reineke/indent-blankline.nvim",
-    config = function()
-      require("indent_blankline").setup({
-        show_trailing_blankline_indent = false,
-      })
-    end,
-  })
-
-  use({
     "kylechui/nvim-surround",
     config = function()
       require("nvim-surround").setup({
@@ -233,7 +224,7 @@ require("packer").startup(function(use)
 
   use({
     "nvim-treesitter/nvim-treesitter",
-    requires = { "windwp/nvim-ts-autotag", "nvim-treesitter/nvim-treesitter-textobjects" },
+    requires = { "windwp/nvim-ts-autotag" },
     run = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
@@ -260,19 +251,6 @@ require("packer").startup(function(use)
         },
         autotag = {
           enable = true,
-        },
-        textobjects = {
-          swap = {
-            enable = true,
-            swap_next = {
-              ["<leader>snf"] = "@function.outer",
-              ["<leader>snp"] = "@parameter.inner",
-            },
-            swap_previous = {
-              ["<leader>spf"] = "@function.outer",
-              ["<leader>spp"] = "@parameter.inner",
-            },
-          },
         },
       })
     end,
@@ -508,8 +486,8 @@ require("packer").startup(function(use)
         mapping = cmp.mapping.preset.insert({
           ["<C-y>"] = cmp.mapping.confirm({ select = true }),
           ["<C-Space>"] = cmp.mapping.complete(),
-          -- ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<A-n>"] = cmp.mapping.scroll_docs(-4),
+          ["<A-p>"] = cmp.mapping.scroll_docs(4),
           ["<C-e>"] = cmp.mapping.abort(),
         }),
         sources = cmp.config.sources({
