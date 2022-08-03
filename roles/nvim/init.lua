@@ -49,10 +49,10 @@ require("packer").startup(function(use)
     config = function()
       local fterm = require("FTerm")
 
-      vim.keymap.set({"n", "t"}, "<A-t>", fterm.toggle)
-      vim.keymap.set({"n", "t"}, "<A-o>", fterm.open)
-      vim.keymap.set({"n", "t"}, "<A-c>", fterm.close)
-      vim.keymap.set({"n", "t"}, "<A-e>", fterm.exit)
+      vim.keymap.set({ "n", "t" }, "<A-t>", fterm.toggle)
+      vim.keymap.set({ "n", "t" }, "<A-o>", fterm.open)
+      vim.keymap.set({ "n", "t" }, "<A-c>", fterm.close)
+      vim.keymap.set({ "n", "t" }, "<A-e>", fterm.exit)
     end,
   })
 
@@ -420,13 +420,13 @@ require("packer").startup(function(use)
               path = runtime_path,
             },
             diagnostics = {
-              globals = { "vim", "love" },
+              globals = { "vim" },
             },
             workspace = {
-              library = vim.api.nvim_get_runtime_file("", true),
-            },
-            telemetry = {
-              enable = false,
+              library = {
+                vim.fn.expand('$VIMRUNTIME/lua'),
+                vim.fn.stdpath('config') .. '/lua'
+              },
             },
           },
         },
