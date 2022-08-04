@@ -131,7 +131,7 @@
 (setq lsp-headerline-breadcrumb-enable nil)
 (setq lsp-enable-symbol-highlighting nil)
 ;; (setq lsp-signature-doc-lines 1)
-;; (setq lsp-eldoc-enable-hover nil)
+(setq lsp-eldoc-enable-hover nil)
 (setq lsp-on-type-formatting nil)
 (setq lsp-enable-indentation nil)
 (add-to-list 'display-buffer-alist
