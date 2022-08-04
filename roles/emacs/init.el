@@ -161,6 +161,10 @@
 (diminish 'company-mode)
 (diminish 'company-box-mode)
 
+;;; Ace window
+(straight-use-package 'ace-window)
+(require 'ace-window)
+
 ;;; Theme
 (straight-use-package 'doom-themes)
 (require 'doom-themes)
@@ -173,6 +177,7 @@
   "C-c f r" 'consult-recent-file
   "C-c f f" 'affe-find
   "C-c g g" 'affe-grep
+  "M-o" 'ace-window
   "M-g M-g" 'consult-goto-line)
 (general-def
   :keymaps 'company-active-map
