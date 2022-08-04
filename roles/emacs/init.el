@@ -118,10 +118,10 @@
 ;;; Company
 (straight-use-package 'company)
 (require 'company)
-(straight-use-package 'company-box)
-(customize-set-variable 'company-box-doc-enable nil)
-(require 'company-box)
-(add-hook 'company-mode-hook 'company-box-mode)
+;; (straight-use-package 'company-box)
+;; (customize-set-variable 'company-box-doc-enable nil)
+;; (require 'company-box)
+;; (add-hook 'company-mode-hook 'company-box-mode)
 
 (setq lsp-use-plists t)
 (setq lsp-headerline-breadcrumb-enable nil)
@@ -172,7 +172,8 @@
 (general-def
   "C-c f r" 'consult-recent-file
   "C-c f f" 'affe-find
-  "C-c g g" 'affe-grep  "C-y")
+  "C-c g g" 'affe-grep
+  "M-g M-g" 'consult-goto-line)
 (general-def
   :keymaps 'company-active-map
   "C-y" 'company-complete-selection
@@ -188,12 +189,3 @@
   "C-c [ d" 'flycheck-previous-error
   "C-c l g r" 'xref-find-references
   "C-c l g d" 'xref-find-definitions)
-
-(defun goto-line-with-feedback ()
-    "Show line numbers temporarily when prompting for the line number to go to."
-    (interactive)
-    (unwind-protect
-        (progn
-          (display-line-numbers-mode)
-          (goto-line (read-number "Goto line: ")))
-      (display-line-numbers-mode 0)))
