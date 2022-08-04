@@ -68,7 +68,7 @@
 
 (straight-use-package 'flycheck)
 (customize-set-variable 'flycheck-checker-error-threshold 800)
-(setq flycheck-check-syntax-automatically '(mode-enabled save))
+;; (setq flycheck-check-syntax-automatically '(mode-enabled save))
 (require 'flycheck)
 
 ;;; Basic fuzzy search
@@ -130,7 +130,7 @@
 ;; (setq lsp-eldoc-enable-hover nil)
 (setq lsp-on-type-formatting nil)
 (setq lsp-enable-indentation nil)
-;; (setq lsp-diagnostic-clean-after-change t)
+(setq lsp-diagnostic-clean-after-change t)
 (add-to-list 'display-buffer-alist
              '((lambda (buffer _) (with-current-buffer buffer
                                     (seq-some (lambda (mode)
