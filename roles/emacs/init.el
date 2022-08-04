@@ -31,7 +31,6 @@
 (setq auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t)))
 
-(add-hook 'prog-mode-hook (lambda () (setq display-line-numbers 'relative)))
 (electric-pair-mode 1)
 (show-paren-mode 1)
 (scroll-bar-mode -1)
@@ -59,43 +58,8 @@
 
 ;; Orderless
 (require 'orderless)
-(customize-set-variable 'completion-styles '(orderless))
-(customize-set-variable 'completion-category-overrides '((file (styles . (partial-completion)))))
-
-;;; Evil
-(straight-use-package 'evil)
-(straight-use-package 'evil-collection)
-(straight-use-package 'evil-surround)
-(straight-use-package 'evil-commentary)
-
-(customize-set-variable 'evil-want-integration t)
-(customize-set-variable 'evil-want-keybinding nil)
-(customize-set-variable 'evil-respect-visual-line-mode t)
-(customize-set-variable 'evil-undo-system 'undo-redo)
-(customize-set-variable 'evil-split-window-below t)
-(customize-set-variable 'evil-vsplit-window-right t)
-(customize-set-variable 'evil-want-C-u-scroll t)
-
-;; workaround for treesitter(?) bug
-(customize-set-variable 'evil-ex-search-case 'sensitive)
-
-(require 'evil)
-(evil-mode 1)
-(require 'evil-surround)
-(global-evil-surround-mode 1)
-(require 'evil-commentary)
-(evil-commentary-mode)
-
-(global-set-key (kbd "C-M-u") 'universal-argument)
-
-;; start some modes in emacs state
-(dolist (mode '(custom-mode
-                eshell-mode
-                term-mode))
-  (add-to-list 'evil-emacs-state-modes mode))
-
-(require 'evil-collection)
-(evil-collection-init)
+(customize-set-variable 'completion-styles '(orderless basic))
+(customize-set-variable 'completion-category-overrides '((file (styles . (basic partial-completion)))))
 
 ;;; Yas
 (straight-use-package 'yasnippet)
@@ -162,11 +126,11 @@
 (setq lsp-use-plists t)
 (setq lsp-headerline-breadcrumb-enable nil)
 (setq lsp-enable-symbol-highlighting nil)
-(setq lsp-signature-doc-lines 1)
-(setq lsp-eldoc-enable-hover nil)
+;; (setq lsp-signature-doc-lines 1)
+;; (setq lsp-eldoc-enable-hover nil)
 (setq lsp-on-type-formatting nil)
 (setq lsp-enable-indentation nil)
-(setq lsp-diagnostic-clean-after-change t)
+;; (setq lsp-diagnostic-clean-after-change t)
 (add-to-list 'display-buffer-alist
              '((lambda (buffer _) (with-current-buffer buffer
                                     (seq-some (lambda (mode)
@@ -176,7 +140,7 @@
                (reusable-frames . visible)
                (window-height . 0.33)))
 
-(setq lsp-eslint-server-command `("vscode-eslint-language-server" "--stdio"))
+(customize-set-variable 'lsp-eslint-server-command `("vscode-eslint-language-server" "--stdio"))
 
 (require 'lsp-mode)
 (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
@@ -192,12 +156,10 @@
 (diminish 'yas-minor-mode)
 (diminish 'which-key-mode)
 (diminish 'eldoc-mode)
-(diminish 'evil-collection-unimpaired-mode)
 (diminish 'tree-sitter-mode)
 (diminish 'lsp-mode)
 (diminish 'company-mode)
 (diminish 'company-box-mode)
-(diminish 'evil-commentary-mode)
 
 ;;; Theme
 (straight-use-package 'doom-themes)
@@ -208,34 +170,30 @@
 (straight-use-package 'general)
 (require 'general)
 (general-def
+  "C-c f r" 'consult-recent-file
+  "C-c f f" 'affe-find
+  "C-c g g" 'affe-grep  "C-y")
+(general-def
   :keymaps 'company-active-map
   "C-y" 'company-complete-selection
   "C-e" 'company-abort
   "<return>" 'newline)
 (general-def
-  :states 'normal
-  "<escape>" 'evil-ex-nohighlight
-  "SPC f r" 'consult-recent-file
-  "SPC SPC" 'affe-find
-  "SPC g g" 'affe-grep)
-(general-def
-  :states 'normal
   :predicate 'lsp-mode
-  "SPC l" lsp-command-map
-  "SPC c a" 'lsp-execute-code-action
-  "SPC r n" 'lsp-rename
-  "K" 'lsp-describe-thing-at-point
-  "SPC z" 'lsp-eslint-apply-all-fixes ;; TODO: only bind this in ts(x) modes
-  "gr" 'xref-find-references
-  "]d" 'flycheck-next-error
-  "[d" 'flycheck-previous-error)
+  "C-c l r n" 'lsp-rename
+  "C-c l c a" 'lsp-execute-code-action
+  "C-c l k" 'lsp-describe-thing-at-point
+  "C-c l z" 'lsp-eslint-apply-all-fixes
+  "C-c ] d" 'flycheck-next-error
+  "C-c [ d" 'flycheck-previous-error
+  "C-c l g r" 'xref-find-references
+  "C-c l g d" 'xref-find-definitions)
 
-;; (straight-use-package 'doom-modeline)
-;; (require 'doom-modeline)
-;; (doom-modeline-def-modeline 'line
-;;   '(matches buffer-info remote-host buffer-position parrot selection-info)
-;;   '(misc-info minor-modes input-method major-mode process vcs checker))
-;; (defun setup-custom-doom-modeline()
-;;   (doom-modeline-set-modeline 'line 'default))
-;; (add-hook 'doom-modeline-mode-hook 'setup-custom-doom-modeline)
-;; (doom-modeline-mode 1)
+(defun goto-line-with-feedback ()
+    "Show line numbers temporarily when prompting for the line number to go to."
+    (interactive)
+    (unwind-protect
+        (progn
+          (display-line-numbers-mode)
+          (goto-line (read-number "Goto line: ")))
+      (display-line-numbers-mode 0)))
