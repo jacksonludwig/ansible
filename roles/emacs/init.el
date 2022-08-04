@@ -109,6 +109,10 @@
 (add-hook 'json-mode-hook (lambda() (tsi-json-mode 1)))
 (add-hook 'css-mode-hook (lambda() (tsi-css-mode 1)))
 
+(straight-use-package 'prettier)
+(require 'prettier)
+(add-hook 'typescript-mode-hook (lambda() (prettier-mode 1)))
+
 ;; (straight-use-package '(tsx-mode :type git :host github :repo "orzechowskid/tsx-mode.el"))
 ;; (require 'tsx-mode)
 
@@ -130,7 +134,6 @@
 ;; (setq lsp-eldoc-enable-hover nil)
 (setq lsp-on-type-formatting nil)
 (setq lsp-enable-indentation nil)
-(setq lsp-diagnostic-clean-after-change t)
 (add-to-list 'display-buffer-alist
              '((lambda (buffer _) (with-current-buffer buffer
                                     (seq-some (lambda (mode)
@@ -189,7 +192,6 @@
   "C-c l r n" 'lsp-rename
   "C-c l c a" 'lsp-execute-code-action
   "C-c l k" 'lsp-describe-thing-at-point
-  "C-c l z" 'lsp-eslint-apply-all-fixes
   "C-c ] d" 'flycheck-next-error
   "C-c [ d" 'flycheck-previous-error
   "C-c l g r" 'xref-find-references
