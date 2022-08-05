@@ -127,13 +127,14 @@
 ;; (require 'company-box)
 ;; (add-hook 'company-mode-hook 'company-box-mode)
 
-(setq lsp-use-plists t)
-(setq lsp-headerline-breadcrumb-enable nil)
-(setq lsp-enable-symbol-highlighting nil)
-;; (setq lsp-signature-doc-lines 1)
-(setq lsp-eldoc-enable-hover nil)
-(setq lsp-on-type-formatting nil)
-(setq lsp-enable-indentation nil)
+(customize-set-variable 'lsp-use-plists t)
+(customize-set-variable 'lsp-headerline-breadcrumb-enable nil)
+(customize-set-variable 'lsp-enable-symbol-highlighting nil)
+;; (customize-set-variable 'lsp-signature-doc-lines 1)
+(customize-set-variable 'lsp-eldoc-enable-hover nil)
+(customize-set-variable 'lsp-on-type-formatting nil)
+(customize-set-variable 'lsp-enable-indentation nil)
+(customize-set-variable 'lsp-modeline-code-actions-enable nil)
 (add-to-list 'display-buffer-alist
              '((lambda (buffer _) (with-current-buffer buffer
                                     (seq-some (lambda (mode)
