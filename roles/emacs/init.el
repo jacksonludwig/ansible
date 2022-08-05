@@ -71,6 +71,12 @@
 ;; (setq flycheck-check-syntax-automatically '(mode-enabled save))
 (require 'flycheck)
 
+(straight-use-package 'lsp-ui)
+(customize-set-variable 'lsp-ui-show-diagnostics t)
+(customize-set-variable 'lsp-ui-show-hover nil)
+(customize-set-variable 'lsp-ui-show-code-actions nil)
+(require 'lsp-ui)
+
 ;;; Basic fuzzy search
 (straight-use-package 'affe)
 (require 'affe)
