@@ -110,6 +110,8 @@
 (add-hook 'css-mode-hook (lambda() (tsi-css-mode 1)))
 
 (straight-use-package 'prettier)
+(customize-set-variable 'prettier-mode-sync-config-flag nil)
+(customize-set-variable 'prettier-pre-warm 'full)
 (require 'prettier)
 (add-hook 'typescript-mode-hook (lambda() (prettier-mode 1)))
 
