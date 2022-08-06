@@ -28,9 +28,11 @@ require("packer").startup(function(use)
     "kylechui/nvim-surround",
     config = function()
       require("nvim-surround").setup({
-        delimiters = {
-          pairs = {
-            ["*"] = { "*", "*" },
+        surrounds = {
+          ["*"] = {
+            add = function()
+              return { { "*" }, { "*" } }
+            end,
           },
         },
       })
@@ -257,6 +259,14 @@ require("packer").startup(function(use)
   })
 
   use({
+    "danymat/neogen",
+    requires = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      require("neogen").setup({})
+    end,
+  })
+
+  use({
     "numToStr/Comment.nvim",
     requires = { "nvim-treesitter/nvim-treesitter" },
     config = function()
@@ -424,8 +434,8 @@ require("packer").startup(function(use)
             },
             workspace = {
               library = {
-                vim.fn.expand('$VIMRUNTIME/lua'),
-                vim.fn.stdpath('config') .. '/lua'
+                vim.fn.expand("$VIMRUNTIME/lua"),
+                vim.fn.stdpath("config") .. "/lua",
               },
             },
           },
