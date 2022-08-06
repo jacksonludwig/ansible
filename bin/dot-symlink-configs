@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+
+ln -s ~/ansible/roles/nvim ~/.config/
+ln -s ~/ansible/roles/emacs ~/.config/
+ln -s ~/ansible/roles/lazygit ~/.config/
+ln -s ~/ansible/roles/kitty ~/.config/
+ln -s ~/ansible/roles/helix ~/.config/
