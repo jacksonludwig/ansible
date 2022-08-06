@@ -27,15 +27,7 @@ require("packer").startup(function(use)
   use({
     "kylechui/nvim-surround",
     config = function()
-      require("nvim-surround").setup({
-        surrounds = {
-          ["*"] = {
-            add = function()
-              return { { "*" }, { "*" } }
-            end,
-          },
-        },
-      })
+      require("nvim-surround").setup({})
     end,
   })
 
