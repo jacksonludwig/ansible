@@ -236,6 +236,7 @@ require("packer").startup(function(use)
           "regex",
           "css",
           "html",
+          "go",
         },
         highlight = {
           enable = true,
@@ -383,7 +384,7 @@ require("packer").startup(function(use)
         },
       })
 
-      lsp_conf.clangd.setup({
+      lsp_conf.gopls.setup({
         on_attach = function(client, bufnr)
           common_on_attach(client, bufnr)
           bind_lsp_format(client, bufnr)
