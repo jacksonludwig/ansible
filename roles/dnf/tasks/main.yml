@@ -51,7 +51,6 @@
     community.general.copr:
       name: atim/lazygit
       state: enabled
-      chroot: fedora-35-x86_64
 
   - name: Install lazygit package
     become: yes
@@ -94,7 +93,6 @@
       community.general.copr:
         name: peterwu/iosevka 
         state: enabled
-        chroot: fedora-35-x86_64
 
     - name: Install Iosevka package
       become: yes
@@ -103,15 +101,6 @@
       dnf:
         name: iosevka-fixed-fonts
         state: present
-
-- name: Install C Criterion library package
-  become: yes
-  become_user: root
-  become_method: sudo
-  dnf:
-    name: 'https://github.com/samber/criterion-rpm-package/releases/download/2.3.3/libcriterion-devel-2.3.3-2.el7.x86_64.rpm'
-    state: present
-    disable_gpg_check: True
 
 - name: Install default dnf packages
   become: yes
