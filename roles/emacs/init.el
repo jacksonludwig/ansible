@@ -72,6 +72,13 @@
 (straight-use-package 'evil-surround)
 (straight-use-package 'evil-commentary)
 
+(customize-set-variable 'evil-normal-state-cursor nil)
+(customize-set-variable 'evil-insert-state-cursor nil)
+(customize-set-variable 'evil-visual-state-cursor nil)
+(customize-set-variable 'evil-motion-state-cursor nil)
+(customize-set-variable 'evil-replace-state-cursor nil)
+(customize-set-variable 'evil-operator-state-cursor nil)
+
 (customize-set-variable 'evil-want-integration t)
 (customize-set-variable 'evil-want-keybinding nil)
 (customize-set-variable 'evil-respect-visual-line-mode t)
@@ -161,6 +168,7 @@
 (customize-set-variable 'prettier-pre-warm 'full)
 (require 'prettier)
 (add-hook 'typescript-mode-hook (lambda() (prettier-mode 1)))
+(add-hook 'json-mode-hook (lambda() (prettier-mode 1)))
 
 ;; (straight-use-package '(tsx-mode :type git :host github :repo "orzechowskid/tsx-mode.el"))
 ;; (require 'tsx-mode)
