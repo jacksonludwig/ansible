@@ -231,6 +231,7 @@ require("packer").startup(function(use)
           -- "comment", oops I broke treesitter
           "typescript",
           "javascript",
+          "jsdoc",
           "tsx",
           "regex",
           "css",
