@@ -3,3 +3,9 @@
       src: "{{ dotfiles_home }}/bin/dot-bootstrap"
       dest: "{{ lookup('env', 'HOME') }}/.local/bin/dot-bootstrap"
       state: link
+
+  - name: Symlink symlink script
+    file:
+      src: "{{ dotfiles_home }}/bin/dot-symlink-configs"
+      dest: "{{ lookup('env', 'HOME') }}/.local/bin/dot-symlink-configs"
+      state: link
