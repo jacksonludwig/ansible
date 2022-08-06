@@ -26,38 +26,38 @@
 
 - name: Set up nvim configuration
   block:
-  - name: Create nvim config dir if needed
-    file:
-      path: "{{ lookup('env', 'HOME') }}/.config/nvim"
-      state: directory
-
-  - name: Create nvim lua dir if needed
-    file:
-      path: "{{ lookup('env', 'HOME') }}/.config/nvim/lua"
-      state: directory
-
-  - name: Create nvim ftplugin dir if needed
-    file:
-      path: "{{ lookup('env', 'HOME') }}/.config/nvim/ftplugin"
-      state: directory
-
-  - name: Symlink init.lua
-    file:
-      src: "{{ dotfiles_home }}/roles/nvim/init.lua"
-      dest: "{{ lookup('env', 'HOME') }}/.config/nvim/init.lua"
-      state: link
-
-  - name: Symlink markdown ftplugin
-    file:
-      src: "{{ dotfiles_home }}/roles/nvim/ftplugin/markdown.vim"
-      dest: "{{ lookup('env', 'HOME') }}/.config/nvim/ftplugin/markdown.vim"
-      state: link
-
-  - name: Symlink help ftplugin
-    file:
-      src: "{{ dotfiles_home }}/roles/nvim/ftplugin/help.vim"
-      dest: "{{ lookup('env', 'HOME') }}/.config/nvim/ftplugin/help.vim"
-      state: link
+  # - name: Create nvim config dir if needed
+  #   file:
+  #     path: "{{ lookup('env', 'HOME') }}/.config/nvim"
+  #     state: directory
+  #
+  # - name: Create nvim lua dir if needed
+  #   file:
+  #     path: "{{ lookup('env', 'HOME') }}/.config/nvim/lua"
+  #     state: directory
+  #
+  # - name: Create nvim ftplugin dir if needed
+  #   file:
+  #     path: "{{ lookup('env', 'HOME') }}/.config/nvim/ftplugin"
+  #     state: directory
+  #
+  # - name: Symlink init.lua
+  #   file:
+  #     src: "{{ dotfiles_home }}/roles/nvim/init.lua"
+  #     dest: "{{ lookup('env', 'HOME') }}/.config/nvim/init.lua"
+  #     state: link
+  #
+  # - name: Symlink markdown ftplugin
+  #   file:
+  #     src: "{{ dotfiles_home }}/roles/nvim/ftplugin/markdown.vim"
+  #     dest: "{{ lookup('env', 'HOME') }}/.config/nvim/ftplugin/markdown.vim"
+  #     state: link
+  #
+  # - name: Symlink help ftplugin
+  #   file:
+  #     src: "{{ dotfiles_home }}/roles/nvim/ftplugin/help.vim"
+  #     dest: "{{ lookup('env', 'HOME') }}/.config/nvim/ftplugin/help.vim"
+  #     state: link
 
 - name: Set editor to nvim
   lineinfile:
