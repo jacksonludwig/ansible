@@ -21,6 +21,7 @@
 (customize-set-variable 'kill-do-not-save-duplicates t)
 (savehist-mode 1)
 
+(add-hook 'prog-mode-hook (lambda() (setq display-line-numbers 'relative)))
 (add-hook 'emacs-startup-hook
           (lambda ()
             (custom-set-faces
@@ -60,6 +61,46 @@
 (require 'orderless)
 (customize-set-variable 'completion-styles '(orderless basic))
 (customize-set-variable 'completion-category-overrides '((file (styles . (basic partial-completion)))))
+
+;;; vterm
+(straight-use-package 'vterm)
+(require 'vterm)
+
+;;; Evil
+(straight-use-package 'evil)
+(straight-use-package 'evil-collection)
+(straight-use-package 'evil-surround)
+(straight-use-package 'evil-commentary)
+
+(customize-set-variable 'evil-want-integration t)
+(customize-set-variable 'evil-want-keybinding nil)
+(customize-set-variable 'evil-respect-visual-line-mode t)
+(customize-set-variable 'evil-undo-system 'undo-redo)
+(customize-set-variable 'evil-split-window-below t)
+(customize-set-variable 'evil-vsplit-window-right t)
+(customize-set-variable 'evil-want-C-u-scroll t)
+
+;; workaround for treesitter(?) bug
+(customize-set-variable 'evil-ex-search-case 'sensitive)
+
+(require 'evil)
+(evil-mode 1)
+(require 'evil-surround)
+(global-evil-surround-mode 1)
+(require 'evil-commentary)
+(evil-commentary-mode)
+
+(global-set-key (kbd "C-M-u") 'universal-argument)
+
+;; start some modes in emacs state
+(dolist (mode '(custom-mode
+                eshell-mode
+                vterm-mode
+                term-mode))
+  (add-to-list 'evil-emacs-state-modes mode))
+
+(require 'evil-collection)
+(evil-collection-init)
 
 ;;; Yas
 (straight-use-package 'yasnippet)
@@ -138,7 +179,7 @@
 (customize-set-variable 'lsp-use-plists t)
 (customize-set-variable 'lsp-headerline-breadcrumb-enable nil)
 (customize-set-variable 'lsp-enable-symbol-highlighting nil)
-;; (customize-set-variable 'lsp-signature-doc-lines 1)
+(customize-set-variable 'lsp-signature-doc-lines 5)
 (customize-set-variable 'lsp-eldoc-enable-hover nil)
 (customize-set-variable 'lsp-on-type-formatting nil)
 (customize-set-variable 'lsp-enable-indentation nil)
@@ -172,10 +213,8 @@
 (diminish 'lsp-mode)
 (diminish 'company-mode)
 (diminish 'company-box-mode)
-
-;;; Ace window
-(straight-use-package 'ace-window)
-(require 'ace-window)
+(diminish 'evil-commentary-mode)
+(diminish 'evil-collection-unimpaired-mode)
 
 ;;; Theme
 (straight-use-package 'doom-themes)
@@ -186,22 +225,21 @@
 (straight-use-package 'general)
 (require 'general)
 (general-def
-  "C-c f r" 'consult-recent-file
-  "C-c f f" 'affe-find
-  "C-c g g" 'affe-grep
-  "M-o" 'ace-window
-  "M-g M-g" 'consult-goto-line)
+  :states 'normal
+  "SPC f r" 'consult-recent-file
+  "SPC SPC" 'affe-find
+  "SPC g g" 'affe-grep)
 (general-def
   :keymaps 'company-active-map
   "C-y" 'company-complete-selection
   "C-e" 'company-abort
   "<return>" 'newline)
 (general-def
+  :states 'normal
   :predicate 'lsp-mode
-  "C-c l r n" 'lsp-rename
-  "C-c l c a" 'lsp-execute-code-action
-  "C-c l k" 'lsp-describe-thing-at-point
-  "C-c ] d" 'flycheck-next-error
-  "C-c [ d" 'flycheck-previous-error
-  "C-c l g r" 'xref-find-references
-  "C-c l g d" 'xref-find-definitions)
+  "SPC r n" 'lsp-rename
+  "SPC c a" 'lsp-execute-code-action
+  "K" 'lsp-describe-thing-at-point
+  "] d" 'flycheck-next-error
+  "[ d" 'flycheck-previous-error
+  "g r" 'xref-find-references)
