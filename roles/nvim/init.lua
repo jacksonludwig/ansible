@@ -240,7 +240,6 @@ require("packer").startup(function(use)
           "typescript",
           "javascript",
           "tsx",
-          -- "graphql",
           "regex",
           "css",
           "html",
@@ -255,14 +254,6 @@ require("packer").startup(function(use)
           enable = true,
         },
       })
-    end,
-  })
-
-  use({
-    "danymat/neogen",
-    requires = { "nvim-treesitter/nvim-treesitter" },
-    config = function()
-      require("neogen").setup({})
     end,
   })
 
