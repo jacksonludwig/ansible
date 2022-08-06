@@ -128,6 +128,18 @@ beforeEach(() => {{
 
 local typescript_const = s("c", fmt("{}const {} = {};", { c(1, { t(""), t("export ") }), i(2), i(3) }))
 
+local typescript_doc_comment = s(
+  "d",
+  fmt(
+    [[
+/**
+ * {}
+ */
+]],
+    { i(1) }
+  )
+)
+
 ls.add_snippets("typescript", {
   typescript_log_snippet,
   typescript_to_have_been_called_times,
@@ -140,6 +152,7 @@ ls.add_snippets("typescript", {
   typescript_to_have_been_called_with,
   typescript_mock_res,
   typescript_mock_rej,
+  typescript_doc_comment,
 })
 
 ls.add_snippets("typescriptreact", {
