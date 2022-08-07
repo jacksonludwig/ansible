@@ -228,10 +228,10 @@ require("packer").startup(function(use)
           "python",
           "yaml",
           "bash",
-          -- "comment", oops I broke treesitter
+          -- "comment"
           "typescript",
           "javascript",
-          "jsdoc",
+          -- "jsdoc",
           "tsx",
           "regex",
           "css",
@@ -430,7 +430,6 @@ require("packer").startup(function(use)
       vim.diagnostic.config({
         virtual_text = false,
         signs = true,
-        update_in_insert = false,
       })
     end,
   })
