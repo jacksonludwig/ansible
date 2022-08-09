@@ -44,9 +44,6 @@ require("packer").startup(function(use)
       local fterm = require("FTerm")
 
       vim.keymap.set({ "n", "t" }, "<A-t>", fterm.toggle)
-      vim.keymap.set({ "n", "t" }, "<A-o>", fterm.open)
-      vim.keymap.set({ "n", "t" }, "<A-c>", fterm.close)
-      vim.keymap.set({ "n", "t" }, "<A-e>", fterm.exit)
     end,
   })
 
@@ -480,9 +477,9 @@ require("packer").startup(function(use)
         mapping = cmp.mapping.preset.insert({
           ["<C-y>"] = cmp.mapping.confirm({ select = true }),
           ["<C-Space>"] = cmp.mapping.complete(),
-          ["<A-n>"] = cmp.mapping.scroll_docs(-4),
-          ["<A-p>"] = cmp.mapping.scroll_docs(4),
-          ["<C-e>"] = cmp.mapping.abort(),
+          ["<A-p>"] = cmp.mapping.scroll_docs(-4),
+          ["<A-n>"] = cmp.mapping.scroll_docs(4),
+          ["<A-e>"] = cmp.mapping.abort(),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
@@ -535,6 +532,10 @@ vim.keymap.set("n", "<leader>lc", "<cmd>cclose<CR>", {})
 vim.keymap.set("n", "<c-j>", "<cmd>cnext<CR>", {})
 vim.keymap.set("n", "<c-k>", "<cmd>cprev<CR>", {})
 vim.keymap.set("n", "<leader>#", "<cmd>set rnu!<CR>", {})
+
+-- goto to beginning/end of line in insert mode
+vim.keymap.set("i", "<C-e>", "<C-o>A", {})
+vim.keymap.set("i", "<C-a>", "<C-o>I", {})
 
 -- autocmds
 vim.api.nvim_create_autocmd("TermOpen", {
