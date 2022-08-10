@@ -521,6 +521,19 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
 
+-- Util functions
+local function move_to_end_of_line()
+  local curr = vim.api.nvim_win_get_cursor(0)
+
+  vim.api.nvim_win_set_cursor(0, { curr[1], vim.fn.col("$") - 1 })
+end
+
+local function move_to_beginning_of_line()
+  local curr = vim.api.nvim_win_get_cursor(0)
+
+  vim.api.nvim_win_set_cursor(0, { curr[1], 0 })
+end
+
 -- mappings
 vim.keymap.set({ "n", "v" }, "<space>", "<Nop>", {})
 vim.g.mapleader = " "
@@ -533,9 +546,8 @@ vim.keymap.set("n", "<c-j>", "<cmd>cnext<CR>", {})
 vim.keymap.set("n", "<c-k>", "<cmd>cprev<CR>", {})
 vim.keymap.set("n", "<leader>#", "<cmd>set rnu!<CR>", {})
 
--- goto to beginning/end of line in insert mode
-vim.keymap.set("i", "<C-e>", "<C-o>A", {})
-vim.keymap.set("i", "<C-a>", "<C-o>I", {})
+vim.keymap.set("i", "<C-e>", move_to_end_of_line, {})
+vim.keymap.set("i", "<C-a>", move_to_beginning_of_line, {})
 
 -- autocmds
 vim.api.nvim_create_autocmd("TermOpen", {
