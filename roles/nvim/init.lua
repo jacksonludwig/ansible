@@ -474,13 +474,15 @@ require("packer").startup(function(use)
             require("luasnip").lsp_expand(args.body)
           end,
         },
-        mapping = cmp.mapping.preset.insert({
-          ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<A-p>"] = cmp.mapping.scroll_docs(-4),
-          ["<A-n>"] = cmp.mapping.scroll_docs(4),
-          ["<A-e>"] = cmp.mapping.abort(),
-        }),
+        mapping = {
+          ["<C-y>"] = cmp.mapping({ i = cmp.mapping.confirm({ select = true }) }),
+          ["<C-n>"] = cmp.mapping({ i = cmp.mapping.select_next_item() }),
+          ["<C-p>"] = cmp.mapping({ i = cmp.mapping.select_prev_item() }),
+          ["<C-Space>"] = cmp.mapping({ i = cmp.mapping.complete() }),
+          ["<A-p>"] = cmp.mapping({ i = cmp.mapping.scroll_docs(-4) }),
+          ["<A-n>"] = cmp.mapping({ i = cmp.mapping.scroll_docs(4) }),
+          ["<A-e>"] = cmp.mapping({ i = cmp.mapping.abort() }),
+        },
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
@@ -523,15 +525,17 @@ vim.g.loaded_node_provider = 0
 
 -- Util functions
 local function move_to_end_of_line()
-  local curr = vim.api.nvim_win_get_cursor(0)
+  local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
 
-  vim.api.nvim_win_set_cursor(0, { curr[1], vim.fn.col("$") - 1 })
+  vim.api.nvim_win_set_cursor(0, { row, vim.fn.col("$") - 1 })
 end
 
 local function move_to_beginning_of_line()
-  local curr = vim.api.nvim_win_get_cursor(0)
+  local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
 
-  vim.api.nvim_win_set_cursor(0, { curr[1], 0 })
+  local first_non_whitespace_col = vim.fn.match(vim.fn.getline(tostring(row)), [[\S]])
+
+  vim.api.nvim_win_set_cursor(0, { row, first_non_whitespace_col >= 0 and first_non_whitespace_col or 0 })
 end
 
 -- mappings
