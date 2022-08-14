@@ -152,8 +152,16 @@ require("packer").startup(function(use)
     end,
   })
 
+  -- use({
+  --   "mcchrish/zenbones.nvim",
+  --   requires = "rktjmp/lush.nvim",
+  --   config = function()
+  --     vim.cmd.colorscheme("rosebones")
+  --   end,
+  -- })
+
   use({
-    "bluz71/vim-moonfly-colors",
+    "jacksonludwig/vim-moonfly-colors",
     config = function()
       vim.g.moonflyWinSeparator = 2
       vim.cmd.colorscheme("moonfly")
