@@ -152,29 +152,29 @@ require("packer").startup(function(use)
     end,
   })
 
-  use({
-    "catppuccin/nvim",
-    config = function()
-      vim.g.catppuccin_flavour = "mocha"
-
-      require("catppuccin").setup({
-        styles = {
-          conditionals = {},
-          functions = { "bold" },
-        },
-      })
-
-      vim.cmd.colorscheme('catppuccin')
-    end,
-  })
-
   -- use({
-  --   "jacksonludwig/vim-moonfly-colors",
+  --   "catppuccin/nvim",
   --   config = function()
-  --     vim.g.moonflyWinSeparator = 2
-  --     vim.cmd.colorscheme("moonfly")
+  --     vim.g.catppuccin_flavour = "mocha"
+  --
+  --     require("catppuccin").setup({
+  --       styles = {
+  --         conditionals = {},
+  --         functions = { "bold" },
+  --       },
+  --     })
+  --
+  --     vim.cmd.colorscheme('catppuccin')
   --   end,
   -- })
+
+  use({
+    "jacksonludwig/vim-moonfly-colors",
+    config = function()
+      vim.g.moonflyWinSeparator = 2
+      vim.cmd.colorscheme("moonfly")
+    end,
+  })
 
   use({
     "nvim-telescope/telescope.nvim",
