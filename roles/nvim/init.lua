@@ -152,22 +152,6 @@ require("packer").startup(function(use)
     end,
   })
 
-  -- use({
-  --   "catppuccin/nvim",
-  --   config = function()
-  --     vim.g.catppuccin_flavour = "mocha"
-  --
-  --     require("catppuccin").setup({
-  --       styles = {
-  --         conditionals = {},
-  --         functions = { "bold" },
-  --       },
-  --     })
-  --
-  --     vim.cmd.colorscheme('catppuccin')
-  --   end,
-  -- })
-
   use({
     "jacksonludwig/vim-moonfly-colors",
     config = function()
