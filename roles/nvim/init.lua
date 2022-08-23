@@ -600,7 +600,6 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- random gui stuff
 if vim.fn.exists("g:neovide") == 1 then
-  vim.opt.guifont = 'JetBrains Mono:h13'
   vim.g.neovide_cursor_animation_length = 0
 
   vim.g.gui_font_default_size = 13
