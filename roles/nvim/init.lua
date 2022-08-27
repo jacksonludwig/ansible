@@ -218,8 +218,9 @@ require('packer').startup(function(use)
       vim.keymap.set('n', '<leader>So', function()
         builtins.lsp_workspace_symbols(theme)
       end, {})
-
-      vim.keymap.set('n', '<leader>vb', builtins.git_branches, {})
+      vim.keymap.set('n', '<leader>vb', function()
+        builtins.git_branches(theme)
+      end, {})
     end,
   }
 
