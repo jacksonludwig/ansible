@@ -535,7 +535,6 @@ opt.ignorecase = true
 opt.smartcase = true
 opt.smartindent = true
 opt.shortmess:append 'c'
-opt.guicursor = ''
 
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
